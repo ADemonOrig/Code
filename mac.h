@@ -2047,25 +2047,40 @@
 #undef _imax
 #undef _intmax
 #undef _int_max
+#undef _smax
+#undef _simax
+#undef _sintmax
+#undef _sint_max
 #undef _umax
+#undef _uimax
 #undef _uintmax
 #undef _uint_max
 
 #ifdef _i64
+#define _smax _i64
+#define _simax _i64
+#define _sintmax _i64
+#define _sint_max _i64
 #define _imax _i64
 #define _intmax _i64
 #define _int_max _i64
 #else
+#define _smax _i32
+#define _simax _i32
+#define _sintmax _i32
+#define _sint_max _i32
 #define _imax _i32
 #define _intmax _i32
 #define _int_max _i32
 #endif
 
 #ifdef _u64
+#define _umax _u64
 #define _uimax _u64
 #define _uintmax _u64
 #define _uint_max _u64
 #else
+#define _umax _u32
 #define _uimax _u32
 #define _uintmax _u32
 #define _uint_max _u32
