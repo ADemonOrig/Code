@@ -1798,13 +1798,13 @@
 #undef _u32
 #undef _s32
 
-#define _i8 signed char
+#define _i8 char
 #define _u8 unsigned char
 #define _s8 signed char
-#define _i16 signed short int
+#define _i16 short int
 #define _u16 unsigned short int
 #define _s16 signed short int
-#define _i32 signed int
+#define _i32 int
 #define _u32 unsigned int
 #define _s32 signed int
 
@@ -1814,17 +1814,17 @@
 
 #if defined(_MSC_VER) && !defined(__clang__)
 #if defined(_M_X64) || defined(_M_AMD64) || defined(_M_ARM64)
-#define _i64 signed __int64
+#define _i64 __int64
 #define _u64 unsigned __int64
 #define _s64 signed __int64
 #endif
 #else
 #if defined(__SIZEOF_LONG__) && (__SIZEOF_LONG__ == 8)
-#define _i64 signed long
+#define _i64 long
 #define _u64 unsigned long
 #define _s64 signed long
 #elif defined(__SIZEOF_LONG_LONG__) && (__SIZEOF_LONG_LONG__ == 8)
-#define _i64 signed long long
+#define _i64 long long
 #define _u64 unsigned long long
 #define _s64 signed long long
 #elif defined(__INT64_TYPE__)
@@ -1836,15 +1836,15 @@
 || defined(_sparc64) || defined(_itanium64) || defined(_alpha64) \
 || defined(_e2k64) || defined(_s39064) || defined(_loongarch64)
 #if defined(__SIZEOF_LONG__) && (__SIZEOF_LONG__ == 8)
-#define _i64 signed long
+#define _i64 long
 #define _u64 unsigned long
 #define _s64 signed long
 #elif defined(_MSC_VER)
-#define _i64 signed __int64
+#define _i64 __int64
 #define _u64 unsigned __int64
 #define _s64 signed __int64
 #else
-#define _i64 signed long long
+#define _i64 long long
 #define _u64 unsigned long long
 #define _s64 signed long long
 #endif
@@ -1948,9 +1948,16 @@
 #undef _int
 #undef _uint
 #undef _sint
+#undef _long
+#undef _ulong
+#undef _slong
 #undef _longlong
 #undef _ulonglong
 #undef _slonglong
+
+#define _long long int
+#define _slong signed long int
+#define _ulong unsigned long int
 
 #if defined(_i8)
 #define _char _i8
@@ -1994,6 +2001,74 @@
 #define _dq _u64
 #define _qword _u64
 #define _ulonglong _u64
+#endif
+
+#undef _ui8
+#undef _ui16
+#undef _ui32
+#undef _ui64
+#undef _si8
+#undef _si16
+#undef _si32
+#undef _si64
+
+#if defined(_s8)
+#define _si8 _s8
+#endif
+
+#if defined(_s16)
+#define _si16 _s16
+#endif
+
+#if defined(_s32)
+#define _si32 _s32
+#endif
+
+#if defined(_s64)
+#define _si64 _s64
+#endif
+
+#if defined(_u8)
+#define _ui8 _u8
+#endif
+
+#if defined(_u16)
+#define _ui16 _u16
+#endif
+
+#if defined(_u32)
+#define _ui32 _u32
+#endif
+
+#if defined(_u64)
+#define _ui64 _u64
+#endif
+
+#undef _imax
+#undef _intmax
+#undef _int_max
+#undef _umax
+#undef _uintmax
+#undef _uint_max
+
+#ifdef _i64
+#define _imax _i64
+#define _intmax _i64
+#define _int_max _i64
+#else
+#define _imax _i32
+#define _intmax _i32
+#define _int_max _i32
+#endif
+
+#ifdef _u64
+#define _uimax _u64
+#define _uintmax _u64
+#define _uint_max _u64
+#else
+#define _uimax _u32
+#define _uintmax _u32
+#define _uint_max _u32
 #endif
 
 #endif
