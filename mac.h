@@ -64,6 +64,7 @@
 #endif
 #endif
 
+
 #undef _windows
 #undef _windows32
 #undef _windows64
@@ -100,7 +101,6 @@
 #if defined(_KERNEL_MODE)
 #define _windowsntkernel
 #endif
-
 #elif defined(__linux__) || defined(__linux) || defined(linux)
 #define _linux
 #if defined(__KERNEL__)
@@ -109,7 +109,6 @@
 #if defined(__ANDROID__) || defined(ANDROID)
 #define _android
 #endif
-
 #elif defined(__APPLE__) && defined(__MACH__)
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #define _ios
@@ -120,51 +119,40 @@
 #define _xnu
 #define _mach
 #endif
-
 #elif defined(__FreeBSD__)
 #define _freebsd
 #if defined(_KERNEL)
 #define _freebsdkernel
 #endif
-
 #elif defined(__OpenBSD__)
 #define _openbsd
-
 #elif defined(__NetBSD__)
 #define _netbsd
-
 #elif defined(__DragonFly__)
 #define _dragonflybsd
-
 #elif defined(__sun)
 #define _sunos
 #if defined(__SVR4) || defined(__svr4__)
 #define _solaris
 #endif
-
 #elif defined(__hpux) || defined(__hpux__)
 #define _hpux
-
 #elif defined(_AIX) || defined(__TOS_AIX__)
 #define _aix
-
 #elif defined(__QNX__) || defined(__QNXNTO__)
 #define _qnx
-
 #elif defined(__HAIKU__)
 #define _haiku
-
 #elif defined(__EMSCRIPTEN__)
 #define _emscripten
 #endif
-
 #if defined(unix) || defined(__unix) || defined(__unix__)
 #define _unix
 #endif
-
 #if defined(_POSIX_VERSION)
 #define _posix
 #endif
+
 
 #undef _gcc
 #undef _clang
@@ -242,7 +230,6 @@
 #define _armclang
 #define _clang
 #define _llvm
-
 #elif defined(__clang__)
 #define _clang
 #define _llvm
@@ -252,7 +239,6 @@
 #if defined(__CLANG_CL__) || (defined(_MSC_VER) && !defined(__GNUC__))
 #define _clangcl
 #endif
-
 #elif defined(_MSC_VER)
 #define _msvc
 #if defined(_M_AMD64) || defined(_M_X64)
@@ -260,12 +246,10 @@
 #else
 #define _windows32
 #endif
-
 #elif defined(__INTEL_COMPILER)
 #define _intelclassic
 #define _icc
 #define _intelc
-
 #elif defined(__INTEL_LLVM_COMPILER)
 #define _inteloneapi
 #define _inteldpcpp
@@ -273,167 +257,114 @@
 #define _icpx
 #define _dpcc
 #define _intelc
-
 #elif defined(__TINYC__)
 #define _tcc
-
 #elif defined(__BORLANDC__) || defined(__CODEGEARC__) || defined(__EMBARCADEROC__)
 #define _borland
-
 #elif defined(__OPENWATCOM__)
 #define _openwatcom
 #define _watcom
-
 #elif defined(__WATCOMC__)
 #define _watcom
-
 #elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
 #define _sunpro
-
 #elif defined(__IBMC__) || defined(__IBMCPP__) || defined(__xlC__)
 #define _ibmxl
-
 #elif defined(DICE) || defined(_DCC)
 #define _dice
-
 #elif defined(__PGI) || defined(__PGIC__) || defined(__PGCC__)
 #define _portland
-
 #elif defined(__MWERKS__) || defined(__CWCC__)
 #define _codewarrior
-
 #elif defined(SDCC) || defined(__SDCC)
 #define _sdcc
-
 #elif defined(__COSMIC__)
 #define _cosmic
-
 #elif defined(__IAR_SYSTEMS_ICC__) || defined(__IAR_SYSTEMS_ICC) || defined(__ICCARM__) || defined(__ICCAVR32__) || defined(__ICCRX__) || defined(__ICCRL78__) || defined(__ICCMSP430__)
 #define _iar
-
 #elif defined(__KEIL__) || defined(__CA__) || defined(__C51__) || defined(__C166__) || defined(__C251__) || defined(__CARM__)
 #define _keil
-
 #elif defined(__ARMCC_VERSION) || defined(__ARMCOMPILER_VERSION) || defined(__CC_ARM)
 #define _armcc
-
 #elif defined(__ZOS__) || defined(__TOS_MVS__) || defined(__MVS__)
 #define _zoss
-
 #elif defined(__CPROC__)
 #define _cproc
-
 #elif defined(__CHIBICC__)
 #define _chibicc
-
 #elif defined(__LCCWIN32__) || defined(lccwin32)
 #define _lccwin32
-
 #elif defined(__LCC__) || defined(LCC)
 #define _lcc
-
 #elif defined(__PCC__) || defined(PCC)
 #define _pcc
-
 #elif defined(__ACK__)
 #define _ack
-
 #elif defined(__AZTEC_C__)
 #define _aztec
-
 #elif defined(__HIGHC__)
 #define _htsoft
-
 #elif defined(__MICROTEC__)
 #define _microtec
-
 #elif defined(__GHCC__) || defined(__GHS__) || defined(__GREEN_HILLS__)
 #define _greenhills
-
 #elif defined(__DIAB__) || defined(__DIABDATA__)
 #define _diab
-
 #elif defined(__TASKING__) || defined(__TASKING_C166__) || defined(__TASKING_C196__)
 #define _tasking
-
 #elif defined(__METAWARE__)
 #define _metaware
-
 #elif defined(__WIND_RIVER__) || defined(__VXWORKS__)
 #define _windriver
-
 #elif defined(__IMAGECRAFT__)
 #define _imagecraft
-
 #elif defined(__FUJITSU) || defined(SOFTUNE) || defined(__FCC__)
 #define _fxc
-
 #elif defined(__RENESAS__) || defined(__RX__) || defined(__RL78__) || defined(__H8__) || defined(__SH__)
 #define _renesas
-
 #elif defined(__SGI__) || defined(sgi)
 #define _sgi
-
 #elif defined(__COMO__) || defined(__COMO_VERSION__)
 #define _comeau
-
 #elif defined(__KAI__) || defined(__KCC)
 #define _kai
-
 #elif defined(__TENDRA__)
 #define _tendra
-
 #elif defined(__NWCC__)
 #define _nwcc
-
 #elif defined(__OPEN64__) || defined(__OPENCC__)
 #define _open64
-
 #elif defined(__PATHSCALE__) || defined(__PATHCC__)
 #define _pathscale
-
 #elif defined(__DMC__) || defined(__SC__)
 #define _digitalmars
-
 #elif defined(__NORCROFT__) || defined(__CC_NORCROFT)
 #define _norcroft
-
 #elif defined(__VBCC__)
 #define _vbcc
-
 #elif defined(__SMALLER_C__)
 #define _smallerc
-
 #elif defined(__8CC__)
 #define _8cc
-
 #elif defined(__9CC__)
 #define _9cc
-
 #elif defined(__ROCMCC__)
 #define _rocmcc
 #define _amdaocc
-
 #elif defined(__AMD__) || defined(__AOCC__)
 #define _amdaocc
-
 #elif defined(__NVCOMPILER) || defined(__NVC__)
 #define _nvidia
 #define _nvcpp
-
 #elif defined(__CUDACC__) || defined(__NVCC)
 #define _nvidia
 #define _nvcc
-
 #elif defined(__COMPCERT__)
 #define _compcert
-
 #elif defined(__EDG__) || defined(__EDG_VERSION__)
 #define _edg
-
 #elif defined(__ZAPCC__)
 #define _zapcc
-
 #elif defined(__GNUC__)
 #define _gcc
 #if defined(__MINGW32__) || defined(__MINGW64__)
@@ -443,6 +374,7 @@
 #endif
 #endif
 #endif
+
 
 #undef _64
 #undef _x64
@@ -467,7 +399,6 @@
 #define _64
 #define _x64
 #endif
-
 #if defined(__i386) || defined(__i386__) || defined(i386) || defined(_M_IX86) || defined(__X86__) || defined(_X86_) || defined(__THW_INTEL__) || defined(__I86__)
 #define _86
 #define _x86
@@ -476,7 +407,6 @@
 #define _32
 #define _x32
 #endif
-
 #if defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64) || defined(__ARM64__) \
 || defined(__mips64) || defined(__mips64__) || defined(_MIPS_ARCH_MIPS64) \
 || defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) \
@@ -495,14 +425,12 @@
 #define _64
 #define _x64
 #endif
-
 #if defined(__arm__) || defined(__arm) || defined(_M_ARM) || defined(__TARGET_ARCH_ARM) \
 || defined(__mips__) || defined(__mips) || defined(_MIPS_ARCH) || defined(mips) \
 || defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) \
 || (defined(__riscv) && (__riscv_xlen != 64)) \
 || defined(__sparc__) || defined(__sparc) || defined(sparc) \
-|| ((defined(__wasm__) || defined(__wasm) || defined(__EMSCRIPTEN__)) \
-&& !defined(__wasm64__) && !defined(_WASM64)) \
+|| ((defined(__wasm__) || defined(__wasm) || defined(__EMSCRIPTEN__)) && !defined(__wasm64__) && !defined(_WASM64)) \
 || defined(__loongarch__) \
 || defined(__m68k__) || defined(__m68k) || defined(M68000) \
 || defined(__sh__) || defined(__SH__) \
@@ -520,16 +448,15 @@
 #define _32
 #define _x32
 #endif
-
 #if defined(__MSP430__) || defined(__MSP430) || defined(__pdp11__) || defined(PDP11)
 #define _16
 #define _x16
 #endif
-
 #if defined(__AVR__) && !defined(__AVR32__)
 #define _8
 #define _x8
 #endif
+
 
 #undef _amd64
 #undef _amd32
@@ -575,36 +502,28 @@
 #define _amd64
 #define _intel64
 #endif
-
 #if defined(__i386) || defined(__i386__) || defined(i386) || defined(_M_IX86) || defined(__X86__) || defined(_X86_) || defined(__THW_INTEL__) || defined(__I86__)
 #define _amd32
 #define _intel32
 #endif
-
 #if defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64) || defined(__ARM64__)
 #define _arm64
 #endif
-
 #if defined(__arm__) || defined(__arm) || defined(_M_ARM) || defined(__TARGET_ARCH_ARM)
 #define _arm32
 #endif
-
 #if defined(__mips64) || defined(__mips64__) || defined(_MIPS_ARCH_MIPS64)
 #define _mips64
 #endif
-
 #if defined(__mips__) || defined(__mips) || defined(_MIPS_ARCH) || defined(mips)
 #define _mips32
 #endif
-
 #if defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__)
 #define _powerpc64
 #endif
-
 #if defined(__powerpc__) || defined(__ppc__) || defined(__PPC__)
 #define _powerpc32
 #endif
-
 #if defined(__riscv)
 #if __riscv_xlen == 64
 #define _riscv64
@@ -612,67 +531,52 @@
 #define _riscv32
 #endif
 #endif
-
 #if defined(__sparc_v9__) || defined(__sparcv9) || defined(__arch64__)
 #define _sparc64
 #endif
-
 #if defined(__sparc__) || defined(__sparc) || defined(sparc)
 #define _sparc32
 #endif
-
 #if defined(__ia64__) || defined(__IA64__) || defined(_M_IA64)
 #define _itanium64
 #endif
-
 #if defined(__wasm64__) || defined(_WASM64)
 #define _wasm64
 #elif defined(__wasm__) || defined(__wasm) || defined(__EMSCRIPTEN__)
 #define _wasm32
 #endif
-
 #if defined(__loongarch64) || defined(__loongarch64__)
 #define _loongarch64
 #endif
-
 #if defined(__loongarch__)
 #define _loongarch32
 #endif
-
 #if defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #define _alpha64
 #endif
-
 #if defined(__m68k__) || defined(__m68k) || defined(M68000)
 #define _m68k32
 #endif
-
 #if defined(__sh__) || defined(__SH__)
 #define _sh32
 #endif
-
 #if defined(__AVR32__)
 #define _avr32
 #elif defined(__AVR__)
 #define _avr8
 #endif
-
 #if defined(__MSP430__) || defined(__MSP430)
 #define _msp43016
 #endif
-
 #if defined(__XTENSA__) || defined(__xtensa__)
 #define _xtensa32
 #endif
-
 #if defined(__e2k__) || defined(__E2K__)
 #define _e2k64
 #endif
-
 #if defined(__vax__) || defined(__VAX)
 #define _vax32
 #endif
-
 #if defined(__hppa__) || defined(__hppa) || defined(_PA_RISC)
 #if defined(__LP64__) || defined(__hppa64__)
 #define _hppa64
@@ -680,42 +584,34 @@
 #define _hppa32
 #endif
 #endif
-
 #if defined(__s390x__)
 #define _s39064
 #endif
-
 #if defined(__s390__)
 #define _s39032
 #endif
-
 #if defined(__ARC64__)
 #define _arc64
 #endif
-
 #if defined(__arc__) || defined(__ARC__)
 #define _arc32
 #endif
-
 #if defined(__MICROBLAZE64__)
 #define _microblaze64
 #endif
-
 #if defined(__MICROBLAZE__) || defined(XILINX_MICROBLAZE)
 #define _microblaze32
 #endif
-
 #if defined(__nios2__) || defined(NIOS2) || defined(__NIOS2__)
 #define _nios232
 #endif
-
 #if defined(_TMS320C6X) || defined(__TMS320C6X__) || defined(_TMS320C5X) || defined(__TMS320C5X__) || defined(_TMS320C28X) || defined(__TMS320C28X__) || defined(_TMS320C55X) || defined(__TMS320C55X__)
 #define _tms32032
 #endif
-
 #if defined(__pdp11__) || defined(PDP11)
 #define _pdp1116
 #endif
+
 
 #undef _amd
 #undef _intel
@@ -746,102 +642,79 @@
 #if defined(_amd64) || defined(_amd32)
 #define _amd
 #endif
-
 #if defined(_intel64) || defined(_intel32)
 #define _intel
 #endif
-
 #if defined(_arm64) || defined(_arm32)
 #define _arm
 #endif
-
 #if defined(_mips64) || defined(_mips32)
 #define _mips
 #endif
-
 #if defined(_powerpc64) || defined(_powerpc32)
 #define _powerpc
 #endif
-
 #if defined(_riscv64) || defined(_riscv32)
 #define _riscv
 #endif
-
 #if defined(_sparc64) || defined(_sparc32)
 #define _sparc
 #endif
-
 #if defined(_itanium64)
 #define _itanium
 #endif
-
 #if defined(_wasm64) || defined(_wasm32)
 #define _wasm
 #endif
-
 #if defined(_loongarch64) || defined(_loongarch32)
 #define _loongarch
 #endif
-
 #if defined(_alpha64)
 #define _alpha
 #endif
-
 #if defined(_m68k32)
 #define _m68k
 #endif
-
 #if defined(_sh32)
 #define _sh
 #endif
-
 #if defined(_avr8) || defined(_avr32)
 #define _avr
 #endif
-
 #if defined(_msp43016)
 #define _msp430
 #endif
-
 #if defined(_xtensa32)
 #define _xtensa
 #endif
-
 #if defined(_e2k64)
 #define _e2k
 #endif
-
 #if defined(_vax32)
 #define _vax
 #endif
-
 #if defined(_hppa64) || defined(_hppa32)
 #define _hppa
 #endif
-
 #if defined(_s39064) || defined(_s39032)
 #define _s390
 #endif
-
 #if defined(_arc64) || defined(_arc32)
 #define _arc
 #endif
-
 #if defined(_microblaze64) || defined(_microblaze32)
 #define _microblaze
 #endif
-
 #if defined(_nios232)
 #define _nios2
 #endif
-
 #if defined(_tms32032)
 #define _tms320
 #endif
-
 #if defined(_pdp1116)
 #define _pdp11
 #endif
+
 
 #undef _sys_read
 #undef _sys_write
@@ -1589,6 +1462,7 @@
 #define _sys_lsm_list_modules 461
 #define _sys_mseal 462
 
+
 #undef _pi
 #undef _e
 #undef _phi
@@ -1671,13 +1545,11 @@
 #define _tau 6.28318530717958647693
 #define _deg_to_rad 0.01745329251994329577
 #define _rad_to_deg 57.29577951308232087680
-
 #define _sha1_h0 0x67452301
 #define _sha1_h1 0xEFCDAB89
 #define _sha1_h2 0x98BADCFE
 #define _sha1_h3 0x10325476
 #define _sha1_h4 0xC3D2E1F0
-
 #define _sha224_h0 0xc1059ed8
 #define _sha224_h1 0x367cd507
 #define _sha224_h2 0x3070dd17
@@ -1686,7 +1558,6 @@
 #define _sha224_h5 0x68581511
 #define _sha224_h6 0x64f98fa7
 #define _sha224_h7 0xbefa4fa4
-
 #define _sha256_h0 0x6a09e667
 #define _sha256_h1 0xbb67ae85
 #define _sha256_h2 0x3c6ef372
@@ -1695,7 +1566,6 @@
 #define _sha256_h5 0x9b05688c
 #define _sha256_h6 0x1f83d9ab
 #define _sha256_h7 0x5be0cd19
-
 #define _sha384_h0 0xcbbb9d5dc1059ed8ULL
 #define _sha384_h1 0x629a292a367cd507ULL
 #define _sha384_h2 0x9159015a3070dd17ULL
@@ -1704,7 +1574,6 @@
 #define _sha384_h5 0x8eb44a8768581511ULL
 #define _sha384_h6 0xdb0c2e0d64f98fa7ULL
 #define _sha384_h7 0x47b5481dbefa4fa4ULL
-
 #define _sha512_h0 0x6a09e667f3bcc908ULL
 #define _sha512_h1 0xbb67ae8584caa73bULL
 #define _sha512_h2 0x3c6ef372fe94f82bULL
@@ -1713,7 +1582,6 @@
 #define _sha512_h5 0x9b05688c2b3e6c1fULL
 #define _sha512_h6 0x1f83d9abfb41bd6bULL
 #define _sha512_h7 0x5be0cd19137e2179ULL
-
 #define _sha512_224_h0 0x8C3D37C819544DA2ULL
 #define _sha512_224_h1 0x73E1996689DCD4D6ULL
 #define _sha512_224_h2 0x1DFAB7AE32FF9C82ULL
@@ -1722,7 +1590,6 @@
 #define _sha512_224_h5 0x77E36F7304C48942ULL
 #define _sha512_224_h6 0x3F9D85A86A1D36C8ULL
 #define _sha512_224_h7 0x1112E6AD91D692A1ULL
-
 #define _sha512_256_h0 0x22312194FC2BF72CULL
 #define _sha512_256_h1 0x9F555FA3C84C64C2ULL
 #define _sha512_256_h2 0x2393B86B6F53B151ULL
@@ -1731,11 +1598,11 @@
 #define _sha512_256_h5 0xBE5E1E2553863992ULL
 #define _sha512_256_h6 0x2B0199FC2C85B8AAULL
 #define _sha512_256_h7 0x0EB72DDC81C52CA2ULL
-
 #define _md5_a 0x67452301
 #define _md5_b 0xefcdab89
 #define _md5_c 0x98badcfe
 #define _md5_d 0x10325476
+
 
 #undef _lcg32
 #undef _lcg64
@@ -1762,328 +1629,358 @@
 #define _lcg64_a 6364136223846793005ULL
 #define _lcg64_c 1442695040888963407ULL
 #define _lcg64_m 18446744073709551616ULL
-
 #define _lcg32_a 1664525
 #define _lcg32_c 1013904223
 #define _lcg32_m 4294967296
-
 #define _lcg _lcg64_a
 #define _lcg_a _lcg64_a
 #define _lcg_c _lcg64_c
 #define _lcg_m _lcg64_m
 #define _lcg64 _lcg64_a
 #define _lcg32 _lcg32_a
-
 #define _pcg64_mult_hi 4702624768794212184ULL
 #define _pcg64_mult_lo 81442107491837523525ULL
 #define _pcg64_inc_hi 1173975921715261132ULL
 #define _pcg64_inc_lo 68558934119004209487ULL
-
 #define _pcg32_mult 6364136223846793005ULL
 #define _pcg32_inc 1442695040888963407ULL
-
 #define _pcg _pcg32_mult
 #define _pcg_mult _pcg32_mult
 #define _pcg_inc _pcg32_inc
 #define _pcg64 _pcg32_mult
 #define _pcg32 _pcg32_mult
 
-#undef _i8
-#undef _u8
+
+#undef _si8
+#undef _ui8
 #undef _s8
-#undef _i16
-#undef _u16
+#undef _u8
+#undef _i8
+#undef _si16
+#undef _ui16
 #undef _s16
-#undef _i32
-#undef _u32
+#undef _u16
+#undef _i16
+#undef _si32
+#undef _ui32
 #undef _s32
+#undef _u32
+#undef _i32
 
+#define _si8 signed char
+#define _ui8 unsigned char
+#define _s8 _si8
+#define _u8 _ui8
 #define _i8 char
-#define _u8 unsigned char
-#define _s8 signed char
+#define _si16 signed short int
+#define _ui16 unsigned short int
+#define _s16 _si16
+#define _u16 _ui16
 #define _i16 short int
-#define _u16 unsigned short int
-#define _s16 signed short int
+#define _si32 signed int
+#define _ui32 unsigned int
+#define _s32 _si32
+#define _u32 _ui32
 #define _i32 int
-#define _u32 unsigned int
-#define _s32 signed int
 
-#undef _i64
-#undef _u64
+
+#undef _si64
+#undef _ui64
 #undef _s64
+#undef _u64
+#undef _i64
 
 #if defined(_MSC_VER) && !defined(__clang__)
 #if defined(_M_X64) || defined(_M_AMD64) || defined(_M_ARM64)
+#define _si64 signed __int64
+#define _ui64 unsigned __int64
+#define _s64 _si64
+#define _u64 _ui64
 #define _i64 __int64
-#define _u64 unsigned __int64
-#define _s64 signed __int64
 #endif
 #else
 #if defined(__SIZEOF_LONG__) && (__SIZEOF_LONG__ == 8)
-#define _i64 long
-#define _u64 unsigned long
-#define _s64 signed long
+#define _si64 signed long int
+#define _ui64 unsigned long int
+#define _s64 _si64
+#define _u64 _ui64
+#define _i64 long int
 #elif defined(__SIZEOF_LONG_LONG__) && (__SIZEOF_LONG_LONG__ == 8)
-#define _i64 long long
-#define _u64 unsigned long long
-#define _s64 signed long long
+#define _si64 signed long long int
+#define _ui64 unsigned long long int
+#define _s64 _si64
+#define _u64 _ui64
+#define _i64 long long int
 #elif defined(__INT64_TYPE__)
-#define _i64 signed __INT64_TYPE__
-#define _u64 unsigned __INT64_TYPE__
-#define _s64 signed __INT64_TYPE__
+#define _si64 signed __INT64_TYPE__
+#define _ui64 unsigned __INT64_TYPE__
+#define _s64 _si64
+#define _u64 _ui64
+#define _i64 __INT64_TYPE__
 #elif defined(_win64) || defined(_x8664) || defined(_amd64) || defined(_arm64) \
 || defined(_mips64) || defined(_powerpc64) || defined(_riscv64) \
 || defined(_sparc64) || defined(_itanium64) || defined(_alpha64) \
 || defined(_e2k64) || defined(_s39064) || defined(_loongarch64)
 #if defined(__SIZEOF_LONG__) && (__SIZEOF_LONG__ == 8)
-#define _i64 long
-#define _u64 unsigned long
-#define _s64 signed long
+#define _si64 signed long int
+#define _ui64 unsigned long int
+#define _s64 _si64
+#define _u64 _ui64
+#define _i64 long int
 #elif defined(_MSC_VER)
+#define _si64 signed __int64
+#define _ui64 unsigned __int64
+#define _s64 _si64
+#define _u64 _ui64
 #define _i64 __int64
-#define _u64 unsigned __int64
-#define _s64 signed __int64
 #else
-#define _i64 long long
-#define _u64 unsigned long long
-#define _s64 signed long long
+#define _si64 signed long long int
+#define _ui64 unsigned long long int
+#define _s64 _si64
+#define _u64 _ui64
+#define _i64 long long int
 #endif
 #endif
 #endif
 
-#undef _i8_max
-#undef _u8_max
+
+#undef _si8_max
+#undef _ui8_max
 #undef _s8_max
-#undef _i16_max
-#undef _u16_max
+#undef _u8_max
+#undef _i8_max
+#undef _si16_max
+#undef _ui16_max
 #undef _s16_max
-#undef _i32_max
-#undef _u32_max
+#undef _u16_max
+#undef _i16_max
+#undef _si32_max
+#undef _ui32_max
 #undef _s32_max
-#undef _i64_max
-#undef _u64_max
+#undef _u32_max
+#undef _i32_max
+#undef _si64_max
+#undef _ui64_max
 #undef _s64_max
+#undef _u64_max
+#undef _i64_max
 
-#define _i8_max 127
-#define _u8_max 255
-#define _s8_max 127
-
-#define _i16_max 32767
-#define _u16_max 65535U
-#define _s16_max 32767
-
-#define _i32_max 2147483647L
-#define _u32_max 4294967295UL
-#define _s32_max 2147483647L
-
-#if defined(_i64)
-#define _i64_max 9223372036854775807LL
-#define _u64_max 18446744073709551615ULL
-#define _s64_max 9223372036854775807LL
+#define _si8_max 0x7F
+#define _ui8_max 0xFF
+#define _s8_max _si8_max
+#define _u8_max _ui8_max
+#define _i8_max _si8_max
+#define _si16_max 0x7FFF
+#define _ui16_max 0xFFFF
+#define _s16_max _si16_max
+#define _u16_max _ui16_max
+#define _i16_max _si16_max
+#define _si32_max 0x7FFFFFFF
+#define _ui32_max 0xFFFFFFFF
+#define _s32_max _si32_max
+#define _u32_max _ui32_max
+#define _i32_max _si32_max
+#ifdef _ui64
+#define _si64_max 0x7FFFFFFFFFFFFFFF
+#define _ui64_max 0xFFFFFFFFFFFFFFFF
+#define _s64_max _si64_max
+#define _u64_max _ui64_max
+#define _i64_max _si64_max
 #endif
 
-#undef _int8
-#undef _int16
-#undef _int32
-#undef _int64
-#undef _uint8
-#undef _uint16
-#undef _uint32
-#undef _uint64
+
+#undef _char
+#undef _schar
+#undef _uchar
+#undef _short
+#undef _sshort
+#undef _ushort
+#undef _int
+#undef _sint
+#undef _uint
+#undef _long
+#undef _slong
+#undef _ulong
+#undef _longlong
+#undef _slonglong
+#undef _ulonglong
+
+#define _char char
+#define _schar signed char
+#define _uchar unsigned char
+#define _short short int
+#define _sshort signed short int
+#define _ushort unsigned short int
+#define _int int
+#define _sint signed int
+#define _uint unsigned int
+#define _long long int
+#define _slong signed long int
+#define _ulong unsigned long int
+#ifdef _ui64
+#define _longlong long long int
+#define _slonglong signed long long int
+#define _ulonglong unsigned long long int
+#endif
+
+
+#undef _si
+#undef _ui
+#undef _s
+#undef _u
+#undef _i
+
+#define _si _si32
+#define _ui _ui32
+#define _s _si
+#define _u _ui
+#define _i _i32
+
+
+#undef _l
+#undef _sl
+#undef _ul
+#undef _ll
+#undef _sll
+#undef _ull
+
+#define _l _long
+#define _ul _ulong
+#define _sl _slong
+#ifdef _ui64
+#define _ll _longlong
+#define _sll _slonglong
+#define _ull _ulonglong
+#endif
+
+
 #undef _sint8
+#undef _uint8
+#undef _int8
 #undef _sint16
+#undef _uint16
+#undef _int16
 #undef _sint32
+#undef _uint32
+#undef _int32
 #undef _sint64
+#undef _uint64
+#undef _int64
 
-#if defined(_i8)
+#define _sint8 _si8
+#define _uint8 _ui8
 #define _int8 _i8
-#define _sint8 _s8
-#endif
-
-#if defined(_i16)
+#define _sint16 _si16
+#define _uint16 _ui16
 #define _int16 _i16
-#define _sint16 _s16
-#endif
-
-#if defined(_i32)
+#define _sint32 _si32
+#define _uint32 _ui32
 #define _int32 _i32
-#define _sint32 _s32
-#endif
-
-#if defined(_i64)
+#ifdef _ui64
+#define _sint64 _si64
+#define _uint64 _ui64
 #define _int64 _i64
-#define _sint64 _s64
 #endif
 
-#if defined(_u8)
-#define _uint8 _u8
+
+#undef _sint8_max
+#undef _uint8_max
+#undef _int8_max
+#undef _sint16_max
+#undef _uint16_max
+#undef _int16_max
+#undef _sint32_max
+#undef _uint32_max
+#undef _int32_max
+#undef _sint64_max
+#undef _uint64_max
+#undef _int64_max
+
+#define _sint8_max _si8_max
+#define _uint8_max _ui8_max
+#define _int8_max _si8_max
+#define _sint16_max _si16_max
+#define _uint16_max _ui16_max
+#define _int16_max _si16_max
+#define _sint32_max _si32_max
+#define _uint32_max _ui32_max
+#define _int32_max _si32_max
+#ifdef _ui64
+#define _sint64_max _si64_max
+#define _uint64_max _ui64_max
+#define _int64_max _si64_max
 #endif
 
-#if defined(_u16)
-#define _uint16 _u16
-#endif
 
-#if defined(_u32)
-#define _uint32 _u32
-#endif
+#undef _sint_max
+#undef _uint_max
+#undef _int_max
 
-#if defined(_u64)
-#define _uint64 _u64
+#define _sint_max _si32_max
+#define _uint_max _ui32_max
+#define _int_max _si32_max
+
+
+#undef _simax
+#undef _uimax
+#undef _smax
+#undef _umax
+#undef _imax
+#undef _sintmax
+#undef _uintmax
+#undef _intmax
+
+#ifdef _ui64
+#define _simax _si64
+#define _uimax _ui64
+#define _imax _i64
+#else
+#define _simax _si32
+#define _uimax _ui32
+#define _imax _i32
 #endif
+#define _sintmax _simax
+#define _uintmax _uimax
+#define _intmax _imax
+
+
+#undef _byte
+#undef _word
+#undef _dword
+#undef _qword
+
+#define _byte _ui8
+#define _word _ui16
+#define _dword _ui32
+#define _qword _ui64
+
 
 #undef _db
 #undef _dw
 #undef _dd
 #undef _dq
-#undef _byte
-#undef _word
-#undef _dword
-#undef _qword
-#undef _char
-#undef _uchar
-#undef _schar
-#undef _short
-#undef _ushort
-#undef _sshort
-#undef _int
-#undef _uint
-#undef _sint
-#undef _long
-#undef _ulong
-#undef _slong
-#undef _longlong
-#undef _ulonglong
-#undef _slonglong
 
-#define _long long int
-#define _slong signed long int
-#define _ulong unsigned long int
+#define _db _byte
+#define _dw _word
+#define _dd _dword
+#define _dq _qword
 
-#if defined(_i8)
-#define _char _i8
-#define _schar _s8
-#endif
 
-#if defined(_u8)
-#define _db _u8
-#define _byte _u8
-#define _uchar _u8
-#endif
+#undef _b
+#undef _w
+#undef _d
+#undef _q
 
-#if defined(_i16)
-#define _short _i16
-#define _sshort _s16
-#endif
+#define _b _byte
+#define _w _word
+#define _d _dword
+#define _q _qword
 
-#if defined(_u16)
-#define _dw _u16
-#define _word _u16
-#define _ushort _u16
-#endif
 
-#if defined(_i32)
-#define _int _i32
-#define _sint _s32
-#endif
+#undef _true
+#undef _false
 
-#if defined(_u32)
-#define _dd _u32
-#define _dword _u32
-#define _uint _u32
-#endif
-
-#if defined(_i64)
-#define _longlong _i64
-#define _slonglong _s64
-#endif
-
-#if defined(_u64)
-#define _dq _u64
-#define _qword _u64
-#define _ulonglong _u64
-#endif
-
-#undef _ui8
-#undef _ui16
-#undef _ui32
-#undef _ui64
-#undef _si8
-#undef _si16
-#undef _si32
-#undef _si64
-
-#if defined(_s8)
-#define _si8 _s8
-#endif
-
-#if defined(_s16)
-#define _si16 _s16
-#endif
-
-#if defined(_s32)
-#define _si32 _s32
-#endif
-
-#if defined(_s64)
-#define _si64 _s64
-#endif
-
-#if defined(_u8)
-#define _ui8 _u8
-#endif
-
-#if defined(_u16)
-#define _ui16 _u16
-#endif
-
-#if defined(_u32)
-#define _ui32 _u32
-#endif
-
-#if defined(_u64)
-#define _ui64 _u64
-#endif
-
-#undef _imax
-#undef _intmax
-#undef _int_max
-#undef _smax
-#undef _simax
-#undef _sintmax
-#undef _sint_max
-#undef _umax
-#undef _uimax
-#undef _uintmax
-#undef _uint_max
-
-#ifdef _i64
-#define _smax _i64
-#define _simax _i64
-#define _sintmax _i64
-#define _sint_max _i64
-#define _imax _i64
-#define _intmax _i64
-#define _int_max _i64
-#else
-#define _smax _i32
-#define _simax _i32
-#define _sintmax _i32
-#define _sint_max _i32
-#define _imax _i32
-#define _intmax _i32
-#define _int_max _i32
-#endif
-
-#ifdef _u64
-#define _umax _u64
-#define _uimax _u64
-#define _uintmax _u64
-#define _uint_max _u64
-#else
-#define _umax _u32
-#define _uimax _u32
-#define _uintmax _u32
-#define _uint_max _u32
-#endif
+#define _true 1
+#define _false 0
 
 #endif
