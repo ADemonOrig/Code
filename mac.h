@@ -1604,53 +1604,6 @@
 #define _md5_d 0x10325476
 
 
-#undef _lcg32
-#undef _lcg64
-#undef _lcg32_a
-#undef _lcg32_c
-#undef _lcg32_m
-#undef _lcg64_a
-#undef _lcg64_c
-#undef _lcg64_m
-#undef _pcg32
-#undef _pcg64
-#undef _pcg32_mult
-#undef _pcg32_inc
-#undef _pcg64_mult
-#undef _pcg64_inc
-#undef _lcg
-#undef _lcg_a
-#undef _lcg_c
-#undef _lcg_m
-#undef _pcg
-#undef _pcg_mult
-#undef _pcg_inc
-
-#define _lcg64_a 6364136223846793005ULL
-#define _lcg64_c 1442695040888963407ULL
-#define _lcg64_m 18446744073709551616ULL
-#define _lcg32_a 1664525
-#define _lcg32_c 1013904223
-#define _lcg32_m 4294967296
-#define _lcg _lcg64_a
-#define _lcg_a _lcg64_a
-#define _lcg_c _lcg64_c
-#define _lcg_m _lcg64_m
-#define _lcg64 _lcg64_a
-#define _lcg32 _lcg32_a
-#define _pcg64_mult_hi 4702624768794212184ULL
-#define _pcg64_mult_lo 81442107491837523525ULL
-#define _pcg64_inc_hi 1173975921715261132ULL
-#define _pcg64_inc_lo 68558934119004209487ULL
-#define _pcg32_mult 6364136223846793005ULL
-#define _pcg32_inc 1442695040888963407ULL
-#define _pcg _pcg32_mult
-#define _pcg_mult _pcg32_mult
-#define _pcg_inc _pcg32_inc
-#define _pcg64 _pcg32_mult
-#define _pcg32 _pcg32_mult
-
-
 #undef _si8
 #undef _ui8
 #undef _s8
@@ -1682,6 +1635,19 @@
 #define _s32 _si32
 #define _u32 _ui32
 #define _i32 int
+
+
+#undef _si
+#undef _ui
+#undef _s
+#undef _u
+#undef _i
+
+#define _si _si32
+#define _ui _ui32
+#define _s _si
+#define _u _ui
+#define _i _i32
 
 
 #undef _si64
@@ -1744,6 +1710,70 @@
 #endif
 
 
+#undef _sint8
+#undef _uint8
+#undef _int8
+#undef _sint16
+#undef _uint16
+#undef _int16
+#undef _sint32
+#undef _uint32
+#undef _int32
+#undef _sint64
+#undef _uint64
+#undef _int64
+
+#define _sint8 _si8
+#define _uint8 _ui8
+#define _int8 _i8
+#define _sint16 _si16
+#define _uint16 _ui16
+#define _int16 _i16
+#define _sint32 _si32
+#define _uint32 _ui32
+#define _int32 _i32
+#ifdef _ui64
+#define _sint64 _si64
+#define _uint64 _ui64
+#define _int64 _i64
+#endif
+
+
+#undef _char
+#undef _schar
+#undef _uchar
+#undef _short
+#undef _sshort
+#undef _ushort
+#undef _int
+#undef _sint
+#undef _uint
+#undef _long
+#undef _slong
+#undef _ulong
+#undef _longlong
+#undef _slonglong
+#undef _ulonglong
+
+#define _char char
+#define _schar signed char
+#define _uchar unsigned char
+#define _short short int
+#define _sshort signed short int
+#define _ushort unsigned short int
+#define _int int
+#define _sint signed int
+#define _uint unsigned int
+#define _long long int
+#define _slong signed long int
+#define _ulong unsigned long int
+#ifdef _ui64
+#define _longlong long long int
+#define _slonglong signed long long int
+#define _ulonglong unsigned long long int
+#endif
+
+
 #undef _si8_max
 #undef _ui8_max
 #undef _s8_max
@@ -1789,100 +1819,6 @@
 #endif
 
 
-#undef _char
-#undef _schar
-#undef _uchar
-#undef _short
-#undef _sshort
-#undef _ushort
-#undef _int
-#undef _sint
-#undef _uint
-#undef _long
-#undef _slong
-#undef _ulong
-#undef _longlong
-#undef _slonglong
-#undef _ulonglong
-
-#define _char char
-#define _schar signed char
-#define _uchar unsigned char
-#define _short short int
-#define _sshort signed short int
-#define _ushort unsigned short int
-#define _int int
-#define _sint signed int
-#define _uint unsigned int
-#define _long long int
-#define _slong signed long int
-#define _ulong unsigned long int
-#ifdef _ui64
-#define _longlong long long int
-#define _slonglong signed long long int
-#define _ulonglong unsigned long long int
-#endif
-
-
-#undef _si
-#undef _ui
-#undef _s
-#undef _u
-#undef _i
-
-#define _si _si32
-#define _ui _ui32
-#define _s _si
-#define _u _ui
-#define _i _i32
-
-
-#undef _l
-#undef _sl
-#undef _ul
-#undef _ll
-#undef _sll
-#undef _ull
-
-#define _l _long
-#define _ul _ulong
-#define _sl _slong
-#ifdef _ui64
-#define _ll _longlong
-#define _sll _slonglong
-#define _ull _ulonglong
-#endif
-
-
-#undef _sint8
-#undef _uint8
-#undef _int8
-#undef _sint16
-#undef _uint16
-#undef _int16
-#undef _sint32
-#undef _uint32
-#undef _int32
-#undef _sint64
-#undef _uint64
-#undef _int64
-
-#define _sint8 _si8
-#define _uint8 _ui8
-#define _int8 _i8
-#define _sint16 _si16
-#define _uint16 _ui16
-#define _int16 _i16
-#define _sint32 _si32
-#define _uint32 _ui32
-#define _int32 _i32
-#ifdef _ui64
-#define _sint64 _si64
-#define _uint64 _ui64
-#define _int64 _i64
-#endif
-
-
 #undef _sint8_max
 #undef _uint8_max
 #undef _int8_max
@@ -1921,6 +1857,33 @@
 #define _int_max _si32_max
 
 
+#undef _simax_max
+#undef _uimax_max
+#undef _smax_max
+#undef _umax_max
+#undef _imax_max
+#undef _sintmax_max
+#undef _uintmax_max
+#undef _intmax_max
+
+#ifdef _ui64
+#define _simax_max _si64_max
+#define _uimax_max _ui64_max
+#define _smax_max _si64_max
+#define _umax_max _ui64_max
+#define _imax_max _i64_max
+#else
+#define _simax_max _si32_max
+#define _uimax_max _ui32_max
+#define _smax_max _si32_max
+#define _umax_max _ui32_max
+#define _imax_max _i32_max
+#endif
+#define _sintmax_max _simax_max
+#define _uintmax_max _uimax_max
+#define _intmax_max _imax_max
+
+
 #undef _simax
 #undef _uimax
 #undef _smax
@@ -1933,15 +1896,36 @@
 #ifdef _ui64
 #define _simax _si64
 #define _uimax _ui64
+#define _smax _si64
+#define _umax _ui64
 #define _imax _i64
 #else
 #define _simax _si32
 #define _uimax _ui32
+#define _smax _si32
+#define _umax _ui32
 #define _imax _i32
 #endif
 #define _sintmax _simax
 #define _uintmax _uimax
 #define _intmax _imax
+
+
+#undef _l
+#undef _sl
+#undef _ul
+#undef _ll
+#undef _sll
+#undef _ull
+
+#define _l _long
+#define _ul _ulong
+#define _sl _slong
+#ifdef _ui64
+#define _ll _longlong
+#define _sll _slonglong
+#define _ull _ulonglong
+#endif
 
 
 #undef _byte
@@ -1952,7 +1936,9 @@
 #define _byte _ui8
 #define _word _ui16
 #define _dword _ui32
+#ifdef _ui64
 #define _qword _ui64
+#endif
 
 
 #undef _db
@@ -1963,7 +1949,9 @@
 #define _db _byte
 #define _dw _word
 #define _dd _dword
+#ifdef _qword
 #define _dq _qword
+#endif
 
 
 #undef _b
@@ -1974,7 +1962,152 @@
 #define _b _byte
 #define _w _word
 #define _d _dword
+#ifdef _qword
 #define _q _qword
+#endif
+
+
+#undef _csi8
+#undef _cui8
+#undef _cs8
+#undef _cu8
+#undef _ci8
+#undef _csi16
+#undef _cui16
+#undef _cs16
+#undef _cu16
+#undef _ci16
+#undef _csi32
+#undef _cui32
+#undef _cs32
+#undef _cu32
+#undef _ci32
+#undef _csi64
+#undef _cui64
+#undef _cs64
+#undef _cu64
+#undef _ci64
+
+#define _csi8 const _si8
+#define _cui8 const _ui8
+#define _cs8 _csi8
+#define _cu8 _cui8
+#define _ci8 const _i8
+#define _csi16 const _si16
+#define _cui16 const _ui16
+#define _cs16 _csi16
+#define _cu16 _cui16
+#define _ci16 const _i16
+#define _csi32 const _si32
+#define _cui32 const _ui32
+#define _cs32 _csi32
+#define _cu32 _cui32
+#define _ci32 const _i32
+#ifdef _ui64
+#define _csi64 const _si64
+#define _cui64 const _ui64
+#define _cs64 _csi64
+#define _cu64 _cui64
+#define _ci64 const _i64
+#endif
+
+
+#undef _csi
+#undef _cui
+#undef _cs
+#undef _cu
+#undef _ci
+
+#define _csi const _si32
+#define _cui const _ui32
+#define _cs _csi
+#define _cu _cui
+#define _ci const _i32
+
+
+#undef _csint8
+#undef _cuint8
+#undef _cint8
+#undef _csint16
+#undef _cuint16
+#undef _cint16
+#undef _csint32
+#undef _cuint32
+#undef _cint32
+#undef _csint64
+#undef _cuint64
+#undef _cint64
+
+#define _csint8 _csi8
+#define _cuint8 _cui8
+#define _cint8 _ci8
+#define _csint16 _csi16
+#define _cuint16 _cui16
+#define _cint16 _ci16
+#define _csint32 _csi32
+#define _cuint32 _cui32
+#define _cint32 _ci32
+#ifdef _ui64
+#define _csint64 _csi64
+#define _cuint64 _cui64
+#define _cint64 _ci64
+#endif
+
+
+#undef _csint
+#undef _cuint
+#undef _cint
+
+#define _csint _csi32
+#define _cuint _cui32
+#define _cint _ci32
+
+
+#undef _csimax
+#undef _cuimax
+#undef _csmax
+#undef _cumax
+#undef _cimax
+#undef _csintmax
+#undef _cuintmax
+#undef _cintmax
+
+#ifdef _ui64
+#define _csimax _csi64
+#define _cuimax _cui64
+#define _csmax _csi64
+#define _cumax _cui64
+#define _cimax _ci64
+#else
+#define _csimax _csi32
+#define _cuimax _cui32
+#define _csmax _csi32
+#define _cumax _cui32
+#define _cimax _ci32
+#endif
+#define _csintmax _csimax
+#define _cuintmax _cuimax
+#define _cintmax _cimax
+
+
+#undef _const
+#undef _cnst
+#undef _con
+
+#define _const const
+#define _cnst const
+#define _con const
+
+
+#undef _void
+#undef _sstr
+#undef _ustr
+#undef _str
+
+#define _void void*
+#define _sstr signed char*
+#define _ustr unsigned char*
+#define _str char*
 
 
 #undef _true
@@ -1982,5 +2115,130 @@
 
 #define _true 1
 #define _false 0
+
+
+#undef _bool
+
+#ifdef _cpp
+#define _bool bool
+#else
+#undef true
+#undef false
+#define true 1
+#define false 0
+#ifdef _c99
+#define _bool _Bool
+#else
+#define _bool _u8
+#endif
+#endif
+
+
+#undef _malloc
+#undef _calloc
+#undef _realloc
+#undef _free
+
+#ifdef _cpp
+#include <cstdlib>
+#define _malloc(N) std::malloc(N)
+#define _calloc(N, S) std::calloc(N, S)
+#define _realloc(P, N) std::realloc(P, N)
+#define _free(P) std::free(P)
+#else
+#include <stdlib.h>
+#define _malloc(N) malloc(N)
+#define _calloc(N, S) calloc(N, S)
+#define _realloc(P, N) realloc(P, N)
+#define _free(P) free(P)
+#endif
+
+
+#undef _lcg32_a
+#undef _lcg32_c
+#undef _lcg32_m
+#undef _lcg32
+#undef _lcg64_a
+#undef _lcg64_c
+#undef _lcg64_m
+#undef _lcg64
+#undef _lcg_a
+#undef _lcg_c
+#undef _lcg_m
+#undef _lcg
+#undef _pcg32_mult
+#undef _pcg32_inc
+#undef _pcg32
+#undef _pcg64_mult_hi
+#undef _pcg64_mult_lo
+#undef _pcg64_inc_hi
+#undef _pcg64_inc_lo
+#undef _pcg64_mult
+#undef _pcg64_inc
+#undef _pcg64
+#undef _pcg_mult
+#undef _pcg_inc
+#undef _pcg
+
+#define _lcg32_a 1664525UL
+#define _lcg32_c 1013904223UL
+#define _lcg32_m 0x100000000ULL
+#define _lcg32 _lcg32_a
+#define _pcg32_mult 6364136223846793005ULL
+#define _pcg32_inc 1442695040888963407ULL
+#define _pcg32 _pcg32_mult
+#ifdef _ui64
+#define _lcg64_a 6364136223846793005ULL
+#define _lcg64_c 1442695040888963407ULL
+#define _lcg64_m 0
+#define _lcg64 _lcg64_a
+#define _lcg_a _lcg64_a
+#define _lcg_c _lcg64_c
+#define _lcg_m _lcg64_m
+#define _lcg _lcg64
+#define _pcg64_mult_hi 0x5851F42D4C957F2DULL
+#define _pcg64_mult_lo 0x14057B7EF767814FULL
+#define _pcg64_inc_hi 0x5851F42D4C957F2DULL
+#define _pcg64_inc_lo 0x14057B7EF767814FULL
+#define _pcg64_mult _pcg64_mult_hi
+#define _pcg64_inc _pcg64_inc_hi
+#define _pcg64 _pcg64_mult
+#define _pcg_mult _pcg64_mult
+#define _pcg_inc _pcg64_inc
+#define _pcg _pcg64
+#else
+#define _lcg_a _lcg32_a
+#define _lcg_c _lcg32_c
+#define _lcg_m _lcg32_m
+#define _lcg _lcg32
+#define _pcg_mult _pcg32_mult
+#define _pcg_inc _pcg32_inc
+#define _pcg _pcg32
+#endif
+
+
+#undef _random8
+#undef _random16
+#undef _random32
+#undef _random64
+#undef _brandom
+#undef _brrandom
+#undef _rrandom
+#undef _random
+
+_uimax _rand = 1;
+
+#define _random32 ((_i32)(_rand = ((_i32)(_rand)) * ((_i32)(_lcg32_a)) + ((_i32)(_lcg32_c))))
+#ifdef _ui64
+#define _random64 ((_i64)(_rand = ((_i64)(_rand)) * ((_i64)(_lcg64_a)) + ((_i64)(_lcg64_c))))
+#define _random _random64
+#else
+#define _random _random32
+#endif
+#define _random16 ((_i16)(_rand = ((_i16)(_rand)) * ((_i16)(_lcg32_a)) + ((_i16)(_lcg32_c))))
+#define _random8 ((_i8)(_rand = ((_i8)(_rand)) * ((_i8)(_lcg32_a)) + ((_i8)(_lcg32_c))))
+#define _brandom (((_i32)(_rand = ((_i32)(_rand)) * ((_i32)(_lcg32_a)) + ((_i32)(_lcg32_c)))), (((_i32)(((_i32)(_rand)) * ((_i32)(_lcg32_a)) + ((_i32)(_lcg32_c)))) >> (((_i32)(((_i32)(_rand)) * ((_i32)(_lcg32_a)) + ((_i32)(_lcg32_c)))) & 7) & 1))
+#define _brrandom(_START, _END) ((_random >> _START) & ((1 << _END) - 1))
+#define _rrandom(_START, _END) (((((_uimax)(_random)) % (_END + 1)) + _START) % (_END + 1))
 
 #endif
