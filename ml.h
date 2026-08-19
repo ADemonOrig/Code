@@ -1,5 +1,5 @@
-#ifndef _macro_library_h
-#define _macro_library_h
+#ifndef _library_macro_h
+#define _library_macro_h
 
 
 #undef _c
