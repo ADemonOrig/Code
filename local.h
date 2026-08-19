@@ -1164,4 +1164,41 @@
 #define _sha512_h7   0x5be0cd19137e2179ULL
 #endif
 
+
+// _umax _rand = 1;
+//
+// #undef _lcg_random
+// #undef _lcg_random64
+// #undef _lcg_random32
+// #undef _lcg_random16
+// #undef _lcg_random8
+//
+// #ifdef _u64
+// #define _lcg_random64 (_rand = _rand * )
+// #define _lcg_random _lcg_random64
+// #else
+// #define _lcg_random32 (_rand = _rand * )
+// #define _lcg_random _lcg_random32
+// #endif
+// #define _lcg_random32 (_rand = _rand * )
+// #define _lcg_random16 ((_i16)_random32)
+// #define _lcg_random8 ((_i8)_random32)
+//
+//
+// #undef _pcg_random
+// #undef _pcg_random64
+// #undef _pcg_random32
+// #undef _pcg_random16
+// #undef _pcg_random8
+//
+// #ifdef _u64
+// #define _pcg_random64 (_rand = _rand * )
+// #define _pcg_random _pcg_random64
+// #else
+// #define _pcg_random32 (_rand = _rand * )
+// #define _pcg_random _pcg_random32
+// #endif
+// #define _pcg_random16 ((_i16)_random32)
+// #define _pcg_random8 ((_i8)_random32)
+
 #endif
