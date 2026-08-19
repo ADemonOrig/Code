@@ -948,7 +948,7 @@
 #define _m_pi_2_sqrt2    2.221441469079183
 #define _m_sqrt2_over_2  0.707106781186548
 #define _m_sqrt3_over_2  0.866025403784439
-#define _m_ln2pi         1.837877066409345
+#define _m_ln2pi     1.837877066409345
 #define _m_ln_sqrt2pi    0.918938533204673
 #define _m_golden    1.618033988749895
 #define _m_catalan   0.915965594177219
@@ -964,21 +964,19 @@
 #undef _u32
 #undef _i64
 #undef _u64
+#undef i8
+#undef u8
+#undef i16
+#undef u16
+#undef i32
+#undef u32
+#undef i64
+#undef u64
 
-#if defined(__SIZEOF_CHAR__) && __SIZEOF_CHAR__ == 1
 #define _i8 signed char
 #define _u8 unsigned char
-#else
-#define _i8 signed char
-#define _u8 unsigned char
-#endif
-#if defined(__SIZEOF_SHORT__) && __SIZEOF_SHORT__ == 2
 #define _i16 signed short int
 #define _u16 unsigned short int
-#else
-#define _i16 signed short int
-#define _u16 unsigned short int
-#endif
 #if defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
 #define _i32 signed int
 #define _u32 unsigned int
@@ -986,8 +984,8 @@
 #define _i32 signed long int
 #define _u32 unsigned long int
 #else
-#define _i32 signed int
-#define _u32 unsigned int
+#define _i32 signed long int
+#define _u32 unsigned long int
 #endif
 #if defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ == 8
 #define _i64 signed long long int
@@ -1008,6 +1006,71 @@
 #define _i64 signed long long int
 #define _u64 unsigned long long int
 #endif
+#define i8 _i8
+#define u8 _u8
+#define i16 _i16
+#define u16 _u16
+#define i32 _i32
+#define u32 _u32
+#ifdef _u64
+#define i64 _i64
+#define u64 _u64
+#endif
+
+
+#undef _f16
+#undef _f32
+#undef _f64
+#undef _f80
+#undef _f128
+#undef f16
+#undef f32
+#undef f64
+#undef f80
+#undef f128
+
+#if defined(__FLT16_MIN__) || defined(__FLT16_MAX__)
+#define _f16 _Float16
+#endif
+#define _f32 float
+#define _f64 double
+#if defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 64
+#define _f80 long double
+#elif defined(__FLOAT80__)
+#define _f80 __float80
+#endif
+#if defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 113
+#define _f128 long double
+#elif defined(__FLOAT128__)
+#define _f128 __float128
+#endif
+#ifdef _f16
+#define f16 _f16
+#endif
+#define f32 _f32
+#define f64 _f64
+#ifdef _f80
+#define f80 _f80
+#endif
+#ifdef _f128
+#define f128 _f128
+#endif
+
+
+#undef _imax
+#undef _umax
+#undef imax
+#undef umax
+
+#ifdef _u64
+#define _imax _i64
+#define _umax _u64
+#else
+#define _imax _i32
+#define _umax _u32
+#endif
+#define imax _imax
+#define umax _umax
 
 
 #undef _i8_max
@@ -1025,30 +1088,80 @@
 #define _u16_max 65535
 #define _i32_max 2147483647
 #define _u32_max 4294967295
-#ifdef _i64
-#define _i64_max  9223371985315168255ULL
-#define _u64_max 18446744022169944063ULL
+#ifdef _u64
+#define _i64_max  9223372036854775807ULL
+#define _u64_max 18446744073709551615ULL
 #endif
 
 
-#undef i8
-#undef u8
-#undef i16
-#undef u16
-#undef i32
-#undef u32
-#undef i64
-#undef u64
+#undef _lcg32_a
+#undef _lcg32_c
+#undef _lcg64_a
+#undef _lcg64_c
+#undef _pcg32_mult
+#undef _pcg32_inc
+#undef _pcg64_mult
+#undef _pcg64_inc
+#undef _sha1_h0
+#undef _sha1_h1
+#undef _sha1_h2
+#undef _sha1_h3
+#undef _sha1_h4
+#undef _sha256_h0
+#undef _sha256_h1
+#undef _sha256_h2
+#undef _sha256_h3
+#undef _sha256_h4
+#undef _sha256_h5
+#undef _sha256_h6
+#undef _sha256_h7
+#undef _sha512_h0
+#undef _sha512_h1
+#undef _sha512_h2
+#undef _sha512_h3
+#undef _sha512_h4
+#undef _sha512_h5
+#undef _sha512_h6
+#undef _sha512_h7
+#undef _md5_a
+#undef _md5_b
+#undef _md5_c
+#undef _md5_d
 
-#define i8 _i8
-#define u8 _u8
-#define i16 _i16
-#define u16 _u16
-#define i32 _i32
-#define u32 _u32
-#ifdef _i64
-#define i64 _i64
-#define u64 _u64
+#define _md5_a       0x67452301U
+#define _md5_b       0xefcdab89U
+#define _md5_c       0x98badcfeU
+#define _md5_d       0x10325476U
+#define _sha1_h0     0x67452301U
+#define _sha1_h1     0xefcdab89U
+#define _sha1_h2     0x98badcfeU
+#define _sha1_h3     0x10325476U
+#define _sha1_h4     0xc3d2e1f0U
+#define _sha256_h0   0x6a09e667U
+#define _sha256_h1   0xbb67ae85U
+#define _sha256_h2   0x3c6ef372U
+#define _sha256_h3   0xa54ff53aU
+#define _sha256_h4   0x510e527fU
+#define _sha256_h5   0x9b05688cU
+#define _sha256_h6   0x1f83d9abU
+#define _sha256_h7   0x5be0cd19U
+#define _pcg32_mult  747796405U
+#define _pcg32_inc   2891336453U
+#define _lcg32_a     1103515245U
+#define _lcg32_c     12345U
+#if defined(_u64) && _u64_max >= 18446744073709551615ULL
+#define _lcg64_a     6364136223846793005ULL
+#define _lcg64_c     1442695040888963407ULL
+#define _pcg64_mult  6364136223846793005ULL
+#define _pcg64_inc   1442695040888963407ULL
+#define _sha512_h0   0x6a09e667f3bcc908ULL
+#define _sha512_h1   0xbb67ae8584caa73bULL
+#define _sha512_h2   0x3c6ef372fe94f82bULL
+#define _sha512_h3   0xa54ff53a5f1d36f1ULL
+#define _sha512_h4   0x510e527fade682d1ULL
+#define _sha512_h5   0x9b05688c2b3e6c1fULL
+#define _sha512_h6   0x1f83d9abfb41bd6bULL
+#define _sha512_h7   0x5be0cd19137e2179ULL
 #endif
 
 #endif
