@@ -977,34 +977,25 @@
 #define _u8 unsigned char
 #define _i16 signed short int
 #define _u16 unsigned short int
-#if defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
-#define _i32 signed int
-#define _u32 unsigned int
-#elif defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
+#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
 #define _i32 signed long int
 #define _u32 unsigned long int
+#elif defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
+#define _i32 signed int
+#define _u32 unsigned int
 #else
 #define _i32 signed long int
 #define _u32 unsigned long int
 #endif
-#if defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ == 8
-#define _i64 signed long long int
-#define _u64 unsigned long long int
-#elif defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 8
+#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 8
 #define _i64 signed long int
 #define _u64 unsigned long int
+#elif defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ == 8
+#define _i64 signed long long int
+#define _u64 unsigned long long int
 #elif defined(_MSC_VER) && defined(_WIN64)
 #define _i64 signed __int64
 #define _u64 unsigned __int64
-#elif defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ >= 8
-#define _i64 signed long long
-#define _u64 unsigned long long
-#elif defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ >= 8
-#define _i64 signed long int
-#define _u64 unsigned long int
-#else
-#define _i64 signed long long int
-#define _u64 unsigned long long int
 #endif
 #define i8 _i8
 #define u8 _u8
@@ -1094,14 +1085,22 @@
 #endif
 
 
+#undef _lcg32_mult
+#undef _lcg32_inc
 #undef _lcg32_a
 #undef _lcg32_c
+#undef _lcg64_mult
+#undef _lcg64_inc
 #undef _lcg64_a
 #undef _lcg64_c
 #undef _pcg32_mult
 #undef _pcg32_inc
+#undef _pcg32_a
+#undef _pcg32_c
 #undef _pcg64_mult
 #undef _pcg64_inc
+#undef _pcg64_a
+#undef _pcg64_c
 #undef _sha1_h0
 #undef _sha1_h1
 #undef _sha1_h2
@@ -1147,13 +1146,21 @@
 #define _sha256_h7   0x5be0cd19U
 #define _pcg32_mult  747796405U
 #define _pcg32_inc   2891336453U
+#define _pcg32_a     747796405U
+#define _pcg32_c     2891336453U
+#define _lcg32_mult     1103515245U
+#define _lcg32_inc     12345U
 #define _lcg32_a     1103515245U
 #define _lcg32_c     12345U
 #if defined(_u64) && _u64_max >= 18446744073709551615ULL
+#define _lcg64_mult     6364136223846793005ULL
+#define _lcg64_inc     1442695040888963407ULL
 #define _lcg64_a     6364136223846793005ULL
 #define _lcg64_c     1442695040888963407ULL
 #define _pcg64_mult  6364136223846793005ULL
 #define _pcg64_inc   1442695040888963407ULL
+#define _pcg64_a     6364136223846793005ULL
+#define _pcg64_c     1442695040888963407ULL
 #define _sha512_h0   0x6a09e667f3bcc908ULL
 #define _sha512_h1   0xbb67ae8584caa73bULL
 #define _sha512_h2   0x3c6ef372fe94f82bULL
@@ -1165,40 +1172,66 @@
 #endif
 
 
-// _umax _rand = 1;
-//
-// #undef _lcg_random
-// #undef _lcg_random64
-// #undef _lcg_random32
-// #undef _lcg_random16
-// #undef _lcg_random8
-//
-// #ifdef _u64
-// #define _lcg_random64 (_rand = _rand * )
-// #define _lcg_random _lcg_random64
-// #else
-// #define _lcg_random32 (_rand = _rand * )
-// #define _lcg_random _lcg_random32
-// #endif
-// #define _lcg_random32 (_rand = _rand * )
-// #define _lcg_random16 ((_i16)_random32)
-// #define _lcg_random8 ((_i8)_random32)
-//
-//
-// #undef _pcg_random
-// #undef _pcg_random64
-// #undef _pcg_random32
-// #undef _pcg_random16
-// #undef _pcg_random8
-//
-// #ifdef _u64
-// #define _pcg_random64 (_rand = _rand * )
-// #define _pcg_random _pcg_random64
-// #else
-// #define _pcg_random32 (_rand = _rand * )
-// #define _pcg_random _pcg_random32
-// #endif
-// #define _pcg_random16 ((_i16)_random32)
-// #define _pcg_random8 ((_i8)_random32)
+_umax _rand = 1;
+
+#undef _lcg_random
+#undef _lcg_random64
+#undef _lcg_random32
+#undef _lcg_random16
+#undef _lcg_random8
+#undef _lcg_random_bit
+#undef _lcg_brandom
+
+#define _lcg_random32 (_rand = _rand * _lcg32_a + _lcg32_c)
+#ifdef _u64
+#define _lcg_random64 (_rand = _rand * _lcg64_a + _lcg64_c)
+#define _lcg_random _lcg_random64
+#else
+#define _lcg_random _lcg_random32
+#endif
+#define _lcg_random16 ((_u16)_lcg_random)
+#define _lcg_random8 ((_u8)_lcg_random)
+#define _lcg_random_bit ((_lcg_random >> (_rand & 15)) & 1)
+#define _lcg_brandom _lcg_random_bit
+
+
+#undef _pcg_random
+#undef _pcg_random64
+#undef _pcg_random32
+#undef _pcg_random16
+#undef _pcg_random8
+#undef _pcg_random_bit
+#undef _pcg_brandom
+
+#define _pcg_random32 (_rand = _rand * _pcg32_a + _pcg32_c, (_u32)((((_rand >> 18) ^ _rand) >> 27) >> (_rand >> 59) | (((_rand >> 18) ^ _rand) >> 27) << ((-(_rand >> 59)) & 31)))
+#ifdef _u64
+#define _pcg_random64 (_rand = _rand * _pcg64_a + _pcg64_c, (_u64)((((_rand >> 29) ^ _rand) >> 58) >> (_u64)(_rand >> 122) | (((_rand >> 29) ^ _rand) >> 58) << ((-(_u64)(_rand >> 122)) & 63)))
+#define _pcg_random _pcg_random64
+#else
+#define _pcg_random _pcg_random32
+#endif
+#define _pcg_random16 ((_i16)_pcg_random)
+#define _pcg_random8 ((_i8)_pcg_random)
+#define _pcg_random_bit ((_pcg_random >> (_rand & 15)) & 1)
+#define _pcg_brandom _pcg_random_bit
+
+
+#undef _random
+#undef _random64
+#undef _random32
+#undef _random16
+#undef _random8
+#undef _random_bit
+#undef _brandom
+
+#define _random _pcg_random
+#ifdef _u64
+#define _random64 _pcg_random64
+#endif
+#define _random32 _pcg_random32
+#define _random16 _pcg_random16
+#define _random8 _pcg_random8
+#define _random_bit _pcg_random_bit
+#define _brandom _pcg_random_bit
 
 #endif
