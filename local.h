@@ -828,132 +828,132 @@
 #endif
 
 
-#undef _m_e
-#undef _m_log2e
-#undef _m_log10e
-#undef _m_ln2
-#undef _m_ln10
-#undef _m_pi
-#undef _m_pi_2
-#undef _m_pi_4
-#undef _m_1_pi
-#undef _m_2_pi
-#undef _m_2_sqrtpi
-#undef _m_sqrt2
-#undef _m_sqrt1_2
-#undef _m_euler
-#undef _m_gamma
-#undef _m_phi
-#undef _m_tau
-#undef _m_deg2rad
-#undef _m_rad2deg
-#undef _m_lnpi
-#undef _m_log2pi
-#undef _m_log10pi
-#undef _m_sqrtpi
-#undef _m_cbrt2
-#undef _m_cbrt3
-#undef _m_inv_pi
-#undef _m_inv_2pi
-#undef _m_sqrt3
-#undef _m_sqrt5
-#undef _m_ln3
-#undef _m_ln4
-#undef _m_ln5
-#undef _m_log10_2
-#undef _m_log10_3
-#undef _m_log10_4
-#undef _m_log10_5
-#undef _m_sqrt6
-#undef _m_sqrt7
-#undef _m_sqrt8
-#undef _m_sqrt10
-#undef _m_cbrt4
-#undef _m_cbrt5
-#undef _m_inv_sqrt2
-#undef _m_inv_sqrt3
-#undef _m_ln6
-#undef _m_ln7
-#undef _m_ln8
-#undef _m_ln9
-#undef _m_log10_6
-#undef _m_log10_7
-#undef _m_log10_8
-#undef _m_log10_9
-#undef _m_1_ln2
-#undef _m_1_ln10
-#undef _m_pi_2_sqrt2
-#undef _m_sqrt2_over_2
-#undef _m_sqrt3_over_2
-#undef _m_ln2pi
-#undef _m_ln_sqrt2pi
-#undef _m_golden
-#undef _m_catalan
-#undef _m_apery
-#undef _m_omega
+#undef _pi
+#undef _e
+#undef _log2e
+#undef _log10e
+#undef _ln2
+#undef _ln10
+#undef _pi_2
+#undef _pi_4
+#undef _1_pi
+#undef _2_pi
+#undef _2_sqrtpi
+#undef _sqrt2
+#undef _sqrt1_2
+#undef _euler
+#undef _gamma
+#undef _phi
+#undef _tau
+#undef _deg2rad
+#undef _rad2deg
+#undef _lnpi
+#undef _log2pi
+#undef _log10pi
+#undef _sqrtpi
+#undef _cbrt2
+#undef _cbrt3
+#undef _inv_pi
+#undef _inv_2pi
+#undef _sqrt3
+#undef _sqrt5
+#undef _ln3
+#undef _ln4
+#undef _ln5
+#undef _log10_2
+#undef _log10_3
+#undef _log10_4
+#undef _log10_5
+#undef _sqrt6
+#undef _sqrt7
+#undef _sqrt8
+#undef _sqrt10
+#undef _cbrt4
+#undef _cbrt5
+#undef _inv_sqrt2
+#undef _inv_sqrt3
+#undef _ln6
+#undef _ln7
+#undef _ln8
+#undef _ln9
+#undef _log10_6
+#undef _log10_7
+#undef _log10_8
+#undef _log10_9
+#undef _1_ln2
+#undef _1_ln10
+#undef _pi_2_sqrt2
+#undef _sqrt2_over_2
+#undef _sqrt3_over_2
+#undef _ln2pi
+#undef _ln_sqrt2pi
+#undef _golden
+#undef _catalan
+#undef _apery
+#undef _omega
 
-#define _m_e         2.718281828459045
-#define _m_log2e     1.442695040888963
-#define _m_log10e    0.434294481903252
-#define _m_ln2       0.693147180559945
-#define _m_ln10      2.302585092994046
-#define _m_pi        3.141592653589793
-#define _m_pi_2      1.570796326794897
-#define _m_pi_4      0.785398163397448
-#define _m_1_pi      0.318309886183791
-#define _m_2_pi      0.636619772367581
-#define _m_2_sqrtpi  1.128379167095513
-#define _m_sqrt2     1.414213562373095
-#define _m_sqrt1_2   0.707106781186548
-#define _m_euler     0.577215664901533
-#define _m_phi       1.618033988749895
-#define _m_tau       6.283185307179586
-#define _m_deg2rad   0.017453292519943
-#define _m_rad2deg  57.295779513082321
-#define _m_lnpi      1.144729885849400
-#define _m_log2pi    1.651496129472319
-#define _m_log10pi   0.497149872694134
-#define _m_sqrtpi    1.772453850905516
-#define _m_cbrt2     1.259921049894873
-#define _m_cbrt3     1.442249570307408
-#define _m_inv_pi    0.318309886183791
-#define _m_inv_2pi   0.159154943091895
-#define _m_sqrt3     1.732050807568877
-#define _m_sqrt5     2.236067977499790
-#define _m_ln3       1.098612288668110
-#define _m_ln4       1.386294361119891
-#define _m_ln5       1.609437912434100
-#define _m_log10_2   0.301029995663981
-#define _m_log10_3   0.477121254719662
-#define _m_log10_4   0.602059991327962
-#define _m_log10_5   0.698970004336019
-#define _m_sqrt6     2.449489742783178
-#define _m_sqrt7     2.645751311064591
-#define _m_sqrt8     2.828427124746190
-#define _m_sqrt10    3.162277660168379
-#define _m_cbrt4     1.587401051568199
-#define _m_cbrt5     1.709975946676697
-#define _m_inv_sqrt2 0.707106781186548
-#define _m_inv_sqrt3 0.577350269189626
-#define _m_ln6       1.791759469228055
-#define _m_ln7       1.945910149055313
-#define _m_ln8       2.079441541679836
-#define _m_ln9       2.197224577336220
-#define _m_log10_6   0.778151250383644
-#define _m_log10_7   0.845098040014257
-#define _m_log10_8   0.903089986991944
-#define _m_log10_9   0.954242509439325
-#define _m_1_ln2     1.442695040888963
-#define _m_1_ln10    0.434294481903252
-#define _m_pi_2_sqrt2    2.221441469079183
-#define _m_sqrt2_over_2  0.707106781186548
-#define _m_sqrt3_over_2  0.866025403784439
-#define _m_ln2pi     1.837877066409345
-#define _m_ln_sqrt2pi    0.918938533204673
-#define _m_golden    1.618033988749895
-#define _m_catalan   0.915965594177219
-#define _m_apery     1.202056903159594
-#define _m_omega     0.567143290409784
+#define _pi        3.141592653589793
+#define _e         2.718281828459045
+#define _log2e     1.442695040888963
+#define _log10e    0.434294481903252
+#define _ln2       0.693147180559945
+#define _ln10      2.302585092994046
+#define _pi_2      1.570796326794897
+#define _pi_4      0.785398163397448
+#define _1_pi      0.318309886183791
+#define _2_pi      0.636619772367581
+#define _2_sqrtpi  1.128379167095513
+#define _sqrt2     1.414213562373095
+#define _sqrt1_2   0.707106781186548
+#define _euler     0.577215664901533
+#define _phi       1.618033988749895
+#define _tau       6.283185307179586
+#define _deg2rad   0.017453292519943
+#define _rad2deg  57.295779513082321
+#define _lnpi      1.144729885849400
+#define _log2pi    1.651496129472319
+#define _log10pi   0.497149872694134
+#define _sqrtpi    1.772453850905516
+#define _cbrt2     1.259921049894873
+#define _cbrt3     1.442249570307408
+#define _inv_pi    0.318309886183791
+#define _inv_2pi   0.159154943091895
+#define _sqrt3     1.732050807568877
+#define _sqrt5     2.236067977499790
+#define _ln3       1.098612288668110
+#define _ln4       1.386294361119891
+#define _ln5       1.609437912434100
+#define _log10_2   0.301029995663981
+#define _log10_3   0.477121254719662
+#define _log10_4   0.602059991327962
+#define _log10_5   0.698970004336019
+#define _sqrt6     2.449489742783178
+#define _sqrt7     2.645751311064591
+#define _sqrt8     2.828427124746190
+#define _sqrt10    3.162277660168379
+#define _cbrt4     1.587401051568199
+#define _cbrt5     1.709975946676697
+#define _inv_sqrt2 0.707106781186548
+#define _inv_sqrt3 0.577350269189626
+#define _ln6       1.791759469228055
+#define _ln7       1.945910149055313
+#define _ln8       2.079441541679836
+#define _ln9       2.197224577336220
+#define _log10_6   0.778151250383644
+#define _log10_7   0.845098040014257
+#define _log10_8   0.903089986991944
+#define _log10_9   0.954242509439325
+#define _1_ln2     1.442695040888963
+#define _1_ln10    0.434294481903252
+#define _pi_2_sqrt2    2.221441469079183
+#define _sqrt2_over_2  0.707106781186548
+#define _sqrt3_over_2  0.866025403784439
+#define _ln2pi         1.837877066409345
+#define _ln_sqrt2pi    0.918938533204673
+#define _golden    1.618033988749895
+#define _catalan   0.915965594177219
+#define _apery     1.202056903159594
+#define _omega     0.567143290409784
 
 
 #undef _i8
@@ -1039,6 +1039,7 @@
 #endif
 #if defined(__SIZEOF_FLOAT__) && __SIZEOF_FLOAT__ == 4
 #define _f32 float
+#endif
 #if defined(__SIZEOF_DOUBLE__) && __SIZEOF_DOUBLE__ == 8
 #define _f64 double
 #elif defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 64
@@ -1105,112 +1106,93 @@
 #define _u64_max  18446744073709551615ULL
 #endif
 
-// ----------------------------------------------------------------------------
-#undef _lcg32_mult
-#undef _lcg32_inc
-#undef _lcg32_a
-#undef _lcg32_c
-#undef _lcg64_mult
-#undef _lcg64_inc
-#undef _lcg64_a
-#undef _lcg64_c
-#undef _pcg32_mult
-#undef _pcg32_inc
-#undef _pcg32_a
-#undef _pcg32_c
-#undef _pcg64_mult
-#undef _pcg64_inc
-#undef _pcg64_a
-#undef _pcg64_c
 
-#define _pcg32_mult  747796405
-#define _pcg32_inc   2891336453
-#define _pcg32_a     747796405
-#define _pcg32_c     2891336453
-#define _lcg32_mult  1103515245
-#define _lcg32_inc   12345
-#define _lcg32_a     1103515245
-#define _lcg32_c     12345
-#if defined(_u64) && _u64_max >= 18446744073709551615ULL
-#define _lcg64_mult  6364136223846793005ULL
-#define _lcg64_inc   1442695040888963407ULL
-#define _lcg64_a     6364136223846793005ULL
-#define _lcg64_c     1442695040888963407ULL
-#define _pcg64_mult  6364136223846793005ULL
-#define _pcg64_inc   1442695040888963407ULL
-#define _pcg64_a     6364136223846793005ULL
-#define _pcg64_c     1442695040888963407ULL
-#endif
-
-
-_umax _rand = 1;
-
-#undef _lcg_random
-#undef _lcg_random64
-#undef _lcg_random32
-#undef _lcg_random16
-#undef _lcg_random8
-#undef _lcg_random_bit
-#undef _lcg_brandom
-
-#define _lcg_random32 (_rand = _rand * _lcg32_a + _lcg32_c)
-#ifdef _u64
-#define _lcg_random64 (_rand = _rand * _lcg64_a + _lcg64_c)
-#define _lcg_random _lcg_random64
-#else
-#define _lcg_random _lcg_random32
-#endif
-#define _lcg_random16 ((_u16)_lcg_random)
-#define _lcg_random8 ((_u8)_lcg_random)
-#define _lcg_random_bit ((_lcg_random >> (_rand & 15)) & 1)
-#define _lcg_brandom _lcg_random_bit
-
-
-#undef _pcg_random
-#undef _pcg_random64
-#undef _pcg_random32
-#undef _pcg_random16
-#undef _pcg_random8
-#undef _pcg_random_bit
-#undef _pcg_brandom
-
-#define _pcg_random32 (_rand = _rand * _pcg32_a + _pcg32_c, (_u32)((((_rand >> 18) ^ _rand) >> 27) >> (_rand >> 59) | (((_rand >> 18) ^ _rand) >> 27) << ((-(_rand >> 59)) & 31)))
-#ifdef _u64
-#define _pcg_random64 (_rand = _rand * _pcg64_a + _pcg64_c, (_u64)((((_rand >> 29) ^ _rand) >> 58) >> (_u64)(_rand >> 122) | (((_rand >> 29) ^ _rand) >> 58) << ((-(_u64)(_rand >> 122)) & 63)))
-#define _pcg_random _pcg_random64
-#else
-#define _pcg_random _pcg_random32
-#endif
-#define _pcg_random16 ((_i16)_pcg_random)
-#define _pcg_random8 ((_i8)_pcg_random)
-#define _pcg_random_bit ((_pcg_random >> (_rand & 15)) & 1)
-#define _pcg_brandom _pcg_random_bit
-
-
-#undef _random
-#undef _random64
-#undef _random32
-#undef _random16
-#undef _random8
-#undef _random_bit
-#undef _brandom
-
-#define _random _pcg_random
-#ifdef _u64
-#define _random64 _pcg_random64
-#endif
-#define _random32 _pcg_random32
-#define _random16 _pcg_random16
-#define _random8 _pcg_random8
-#define _random_bit _pcg_random_bit
-#define _brandom _pcg_random_bit
-
-// ---------------------------------------------------------------------------------------
+#undef _md5_a
+#undef _md5_b
+#undef _md5_c
+#undef _md5_d
+#undef _md5_t1
+#undef _md5_t2
+#undef _md5_t3
+#undef _md5_t4
+#undef _md5_t5
+#undef _md5_t6
+#undef _md5_t7
+#undef _md5_t8
+#undef _md5_t9
+#undef _md5_t10
+#undef _md5_t11
+#undef _md5_t12
+#undef _md5_t13
+#undef _md5_t14
+#undef _md5_t15
+#undef _md5_t16
+#undef _md5_t17
+#undef _md5_t18
+#undef _md5_t19
+#undef _md5_t20
+#undef _md5_t21
+#undef _md5_t22
+#undef _md5_t23
+#undef _md5_t24
+#undef _md5_t25
+#undef _md5_t26
+#undef _md5_t27
+#undef _md5_t28
+#undef _md5_t29
+#undef _md5_t30
+#undef _md5_t31
+#undef _md5_t32
+#undef _md5_t33
+#undef _md5_t34
+#undef _md5_t35
+#undef _md5_t36
+#undef _md5_t37
+#undef _md5_t38
+#undef _md5_t39
+#undef _md5_t40
+#undef _md5_t41
+#undef _md5_t42
+#undef _md5_t43
+#undef _md5_t44
+#undef _md5_t45
+#undef _md5_t46
+#undef _md5_t47
+#undef _md5_t48
+#undef _md5_t49
+#undef _md5_t50
+#undef _md5_t51
+#undef _md5_t52
+#undef _md5_t53
+#undef _md5_t54
+#undef _md5_t55
+#undef _md5_t56
+#undef _md5_t57
+#undef _md5_t58
+#undef _md5_t59
+#undef _md5_t60
+#undef _md5_t61
+#undef _md5_t62
+#undef _md5_t63
+#undef _md5_t64
 #undef _sha1_h0
 #undef _sha1_h1
 #undef _sha1_h2
 #undef _sha1_h3
 #undef _sha1_h4
+#undef _sha1_k0
+#undef _sha1_k1
+#undef _sha1_k2
+#undef _sha1_k3
+#undef _sha1_k4
+#undef _sha224_h0
+#undef _sha224_h1
+#undef _sha224_h2
+#undef _sha224_h3
+#undef _sha224_h4
+#undef _sha224_h5
+#undef _sha224_h6
+#undef _sha224_h7
 #undef _sha256_h0
 #undef _sha256_h1
 #undef _sha256_h2
@@ -1219,6 +1201,78 @@ _umax _rand = 1;
 #undef _sha256_h5
 #undef _sha256_h6
 #undef _sha256_h7
+#undef _sha256_k1
+#undef _sha256_k2
+#undef _sha256_k3
+#undef _sha256_k4
+#undef _sha256_k5
+#undef _sha256_k6
+#undef _sha256_k7
+#undef _sha256_k8
+#undef _sha256_k9
+#undef _sha256_k10
+#undef _sha256_k11
+#undef _sha256_k12
+#undef _sha256_k13
+#undef _sha256_k14
+#undef _sha256_k15
+#undef _sha256_k16
+#undef _sha256_k17
+#undef _sha256_k18
+#undef _sha256_k19
+#undef _sha256_k20
+#undef _sha256_k21
+#undef _sha256_k22
+#undef _sha256_k23
+#undef _sha256_k24
+#undef _sha256_k25
+#undef _sha256_k26
+#undef _sha256_k27
+#undef _sha256_k28
+#undef _sha256_k29
+#undef _sha256_k30
+#undef _sha256_k31
+#undef _sha256_k32
+#undef _sha256_k33
+#undef _sha256_k34
+#undef _sha256_k35
+#undef _sha256_k36
+#undef _sha256_k37
+#undef _sha256_k38
+#undef _sha256_k39
+#undef _sha256_k40
+#undef _sha256_k41
+#undef _sha256_k42
+#undef _sha256_k43
+#undef _sha256_k44
+#undef _sha256_k45
+#undef _sha256_k46
+#undef _sha256_k47
+#undef _sha256_k48
+#undef _sha256_k49
+#undef _sha256_k50
+#undef _sha256_k51
+#undef _sha256_k52
+#undef _sha256_k53
+#undef _sha256_k54
+#undef _sha256_k55
+#undef _sha256_k56
+#undef _sha256_k57
+#undef _sha256_k58
+#undef _sha256_k59
+#undef _sha256_k60
+#undef _sha256_k61
+#undef _sha256_k62
+#undef _sha256_k63
+#undef _sha256_k64
+#undef _sha384_h0
+#undef _sha384_h1
+#undef _sha384_h2
+#undef _sha384_h3
+#undef _sha384_h4
+#undef _sha384_h5
+#undef _sha384_h6
+#undef _sha384_h7
 #undef _sha512_h0
 #undef _sha512_h1
 #undef _sha512_h2
@@ -1227,54 +1281,515 @@ _umax _rand = 1;
 #undef _sha512_h5
 #undef _sha512_h6
 #undef _sha512_h7
-#undef _md5_a
-#undef _md5_b
-#undef _md5_c
-#undef _md5_d
+#undef _sha512_k1
+#undef _sha512_k2
+#undef _sha512_k3
+#undef _sha512_k4
+#undef _sha512_k5
+#undef _sha512_k6
+#undef _sha512_k7
+#undef _sha512_k8
+#undef _sha512_k9
+#undef _sha512_k10
+#undef _sha512_k11
+#undef _sha512_k12
+#undef _sha512_k13
+#undef _sha512_k14
+#undef _sha512_k15
+#undef _sha512_k16
+#undef _sha512_k17
+#undef _sha512_k18
+#undef _sha512_k19
+#undef _sha512_k20
+#undef _sha512_k21
+#undef _sha512_k22
+#undef _sha512_k23
+#undef _sha512_k24
+#undef _sha512_k25
+#undef _sha512_k26
+#undef _sha512_k27
+#undef _sha512_k28
+#undef _sha512_k29
+#undef _sha512_k30
+#undef _sha512_k31
+#undef _sha512_k32
+#undef _sha512_k33
+#undef _sha512_k34
+#undef _sha512_k35
+#undef _sha512_k36
+#undef _sha512_k37
+#undef _sha512_k38
+#undef _sha512_k39
+#undef _sha512_k40
+#undef _sha512_k41
+#undef _sha512_k42
+#undef _sha512_k43
+#undef _sha512_k44
+#undef _sha512_k45
+#undef _sha512_k46
+#undef _sha512_k47
+#undef _sha512_k48
+#undef _sha512_k49
+#undef _sha512_k50
+#undef _sha512_k51
+#undef _sha512_k52
+#undef _sha512_k53
+#undef _sha512_k54
+#undef _sha512_k55
+#undef _sha512_k56
+#undef _sha512_k57
+#undef _sha512_k58
+#undef _sha512_k59
+#undef _sha512_k60
+#undef _sha512_k61
+#undef _sha512_k62
+#undef _sha512_k63
+#undef _sha512_k64
+#undef _sha512_k65
+#undef _sha512_k66
+#undef _sha512_k67
+#undef _sha512_k68
+#undef _sha512_k69
+#undef _sha512_k70
+#undef _sha512_k71
+#undef _sha512_k72
+#undef _sha512_k73
+#undef _sha512_k74
+#undef _sha512_k75
+#undef _sha512_k76
+#undef _sha512_k77
+#undef _sha512_k78
+#undef _sha512_k79
+#undef _sha512_k80
+#undef _sha512_224_h0
+#undef _sha512_224_h1
+#undef _sha512_224_h2
+#undef _sha512_224_h3
+#undef _sha512_224_h4
+#undef _sha512_224_h5
+#undef _sha512_224_h6
+#undef _sha512_224_h7
+#undef _sha512_256_h0
+#undef _sha512_256_h1
+#undef _sha512_256_h2
+#undef _sha512_256_h3
+#undef _sha512_256_h4
+#undef _sha512_256_h5
+#undef _sha512_256_h6
+#undef _sha512_256_h7
+#undef _sha3_224_h0
+#undef _sha3_224_h1
+#undef _sha3_224_h2
+#undef _sha3_224_h3
+#undef _sha3_224_h4
+#undef _sha3_224_h5
+#undef _sha3_224_h6
+#undef _sha3_224_h7
+#undef _sha3_256_h0
+#undef _sha3_256_h1
+#undef _sha3_256_h2
+#undef _sha3_256_h3
+#undef _sha3_256_h4
+#undef _sha3_256_h5
+#undef _sha3_256_h6
+#undef _sha3_256_h7
+#undef _sha3_384_h0
+#undef _sha3_384_h1
+#undef _sha3_384_h2
+#undef _sha3_384_h3
+#undef _sha3_384_h4
+#undef _sha3_384_h5
+#undef _sha3_384_h6
+#undef _sha3_384_h7
+#undef _sha3_512_h0
+#undef _sha3_512_h1
+#undef _sha3_512_h2
+#undef _sha3_512_h3
+#undef _sha3_512_h4
+#undef _sha3_512_h5
+#undef _sha3_512_h6
+#undef _sha3_512_h7
+#undef _blake2b_iv0
+#undef _blake2b_iv1
+#undef _blake2b_iv2
+#undef _blake2b_iv3
+#undef _blake2b_iv4
+#undef _blake2b_iv5
+#undef _blake2b_iv6
+#undef _blake2b_iv7
+#undef _blake2s_iv0
+#undef _blake2s_iv1
+#undef _blake2s_iv2
+#undef _blake2s_iv3
+#undef _blake2s_iv4
+#undef _blake2s_iv5
+#undef _blake2s_iv6
+#undef _blake2s_iv7
+#undef _ripemd160_h0
+#undef _ripemd160_h1
+#undef _ripemd160_h2
+#undef _ripemd160_h3
+#undef _ripemd160_h4
+#undef _ripemd160_k0
+#undef _ripemd160_k1
+#undef _ripemd160_k2
+#undef _ripemd160_k3
+#undef _ripemd160_k4
+#undef _hmac_ipad
+#undef _hmac_opad
 
-#define _md5_a       0x67452301U
-#define _md5_b       0xefcdab89U
-#define _md5_c       0x98badcfeU
-#define _md5_d       0x10325476U
-#define _sha1_h0     0x67452301U
-#define _sha1_h1     0xefcdab89U
-#define _sha1_h2     0x98badcfeU
-#define _sha1_h3     0x10325476U
-#define _sha1_h4     0xc3d2e1f0U
-#define _sha256_h0   0x6a09e667U
-#define _sha256_h1   0xbb67ae85U
-#define _sha256_h2   0x3c6ef372U
-#define _sha256_h3   0xa54ff53aU
-#define _sha256_h4   0x510e527fU
-#define _sha256_h5   0x9b05688cU
-#define _sha256_h6   0x1f83d9abU
-#define _sha256_h7   0x5be0cd19U
+#define _md5_a 0x67452301U
+#define _md5_b 0xefcdab89U
+#define _md5_c 0x98badcfeU
+#define _md5_d 0x10325476U
+#define _md5_t1 0xd76aa478U
+#define _md5_t2 0xe8c7b756U
+#define _md5_t3 0x242070dbU
+#define _md5_t4 0xc1bdceeeU
+#define _md5_t5 0xf57c0fafU
+#define _md5_t6 0x4787c62aU
+#define _md5_t7 0xa8304613U
+#define _md5_t8 0xfd469501U
+#define _md5_t9 0x698098d8U
+#define _md5_t10 0x8b44f7afU
+#define _md5_t11 0xffff5bb1U
+#define _md5_t12 0x895cd7beU
+#define _md5_t13 0x6b901122U
+#define _md5_t14 0xfd987193U
+#define _md5_t15 0xa679438eU
+#define _md5_t16 0x49b40821U
+#define _md5_t17 0xf61e2562U
+#define _md5_t18 0xc040b340U
+#define _md5_t19 0x265e5a51U
+#define _md5_t20 0xe9b6c7aaU
+#define _md5_t21 0xd62f105dU
+#define _md5_t22 0x02441453U
+#define _md5_t23 0xd8a1e681U
+#define _md5_t24 0xe7d3fbc8U
+#define _md5_t25 0x21e1cde6U
+#define _md5_t26 0xc33707d6U
+#define _md5_t27 0xf4d50d87U
+#define _md5_t28 0x455a14edU
+#define _md5_t29 0xa9e3e905U
+#define _md5_t30 0xfcefa3f8U
+#define _md5_t31 0x676f02d9U
+#define _md5_t32 0x8d2a4c8aU
+#define _md5_t33 0xfffa3942U
+#define _md5_t34 0x8771f681U
+#define _md5_t35 0x6d9d6122U
+#define _md5_t36 0xfde5380cU
+#define _md5_t37 0xa4beea44U
+#define _md5_t38 0x4bdecfa9U
+#define _md5_t39 0xf6bb4b60U
+#define _md5_t40 0xbebfbc70U
+#define _md5_t41 0x289b7ec6U
+#define _md5_t42 0xeaa127faU
+#define _md5_t43 0xd4ef3085U
+#define _md5_t44 0x04881d05U
+#define _md5_t45 0xd9d4d039U
+#define _md5_t46 0xe6db99e5U
+#define _md5_t47 0x1fa27cf8U
+#define _md5_t48 0xc4ac5665U
+#define _md5_t49 0xf4292244U
+#define _md5_t50 0x432aff97U
+#define _md5_t51 0xab9423a7U
+#define _md5_t52 0xfc93a039U
+#define _md5_t53 0x655b59c3U
+#define _md5_t54 0x8f0ccc92U
+#define _md5_t55 0xffeff47dU
+#define _md5_t56 0x85845dd1U
+#define _md5_t57 0x6fa87e4fU
+#define _md5_t58 0xfe2ce6e0U
+#define _md5_t59 0xa3014314U
+#define _md5_t60 0x4e0811a1U
+#define _md5_t61 0xf7537e82U
+#define _md5_t62 0xbd3af235U
+#define _md5_t63 0x2ad7d2bbU
+#define _md5_t64 0xeb86d391U
+#define _sha1_h0 0x67452301U
+#define _sha1_h1 0xefcdab89U
+#define _sha1_h2 0x98badcfeU
+#define _sha1_h3 0x10325476U
+#define _sha1_h4 0xc3d2e1f0U
+#define _sha1_k0 0x5a827999U
+#define _sha1_k1 0x6ed9eba1U
+#define _sha1_k2 0x8f1bbcdcU
+#define _sha1_k3 0xca62c1d6U
+#define _sha1_k4 0x5a827999U
+#define _sha224_h0 0xc1059ed8U
+#define _sha224_h1 0x367cd507U
+#define _sha224_h2 0x3070dd17U
+#define _sha224_h3 0xf70e5939U
+#define _sha224_h4 0xffc00b31U
+#define _sha224_h5 0x68581511U
+#define _sha224_h6 0x64f98fa7U
+#define _sha224_h7 0xbefa4fa4U
+#define _sha256_h0 0x6a09e667U
+#define _sha256_h1 0xbb67ae85U
+#define _sha256_h2 0x3c6ef372U
+#define _sha256_h3 0xa54ff53aU
+#define _sha256_h4 0x510e527fU
+#define _sha256_h5 0x9b05688cU
+#define _sha256_h6 0x1f83d9abU
+#define _sha256_h7 0x5be0cd19U
+#define _sha256_k1 0x428a2f98U
+#define _sha256_k2 0x71374491U
+#define _sha256_k3 0xb5c0fbcfU
+#define _sha256_k4 0xe9b5dba5U
+#define _sha256_k5 0x3956c25bU
+#define _sha256_k6 0x59f111f1U
+#define _sha256_k7 0x923f82a4U
+#define _sha256_k8 0xab1c5ed5U
+#define _sha256_k9 0xd807aa98U
+#define _sha256_k10 0x12835b01U
+#define _sha256_k11 0x243185beU
+#define _sha256_k12 0x550c7dc3U
+#define _sha256_k13 0x72be5d74U
+#define _sha256_k14 0x80deb1feU
+#define _sha256_k15 0x9bdc06a7U
+#define _sha256_k16 0xc19bf174U
+#define _sha256_k17 0xe49b69c1U
+#define _sha256_k18 0xefbe4786U
+#define _sha256_k19 0x0fc19dc6U
+#define _sha256_k20 0x240ca1ccU
+#define _sha256_k21 0x2de92c6fU
+#define _sha256_k22 0x4a7484aaU
+#define _sha256_k23 0x5cb0a9dcU
+#define _sha256_k24 0x76f988daU
+#define _sha256_k25 0x983e5152U
+#define _sha256_k26 0xa831c66dU
+#define _sha256_k27 0xb00327c8U
+#define _sha256_k28 0xbf597fc7U
+#define _sha256_k29 0xc6e00bf3U
+#define _sha256_k30 0xd5a79147U
+#define _sha256_k31 0x06ca6351U
+#define _sha256_k32 0x14292967U
+#define _sha256_k33 0x27b70a85U
+#define _sha256_k34 0x2e1b2138U
+#define _sha256_k35 0x4d2c6dfcU
+#define _sha256_k36 0x53380d13U
+#define _sha256_k37 0x650a7354U
+#define _sha256_k38 0x766a0abbU
+#define _sha256_k39 0x81c2c92eU
+#define _sha256_k40 0x92722c85U
+#define _sha256_k41 0xa2bfe8a1U
+#define _sha256_k42 0xa81a664bU
+#define _sha256_k43 0xc24b8b70U
+#define _sha256_k44 0xc76c51a3U
+#define _sha256_k45 0xd192e819U
+#define _sha256_k46 0xd6990624U
+#define _sha256_k47 0xf40e3585U
+#define _sha256_k48 0x106aa070U
+#define _sha256_k49 0x19a4c116U
+#define _sha256_k50 0x1e376c08U
+#define _sha256_k51 0x2748774cU
+#define _sha256_k52 0x34b0bcb5U
+#define _sha256_k53 0x391c0cb3U
+#define _sha256_k54 0x4ed8aa4aU
+#define _sha256_k55 0x5b9cca4fU
+#define _sha256_k56 0x682e6ff3U
+#define _sha256_k57 0x748f82eeU
+#define _sha256_k58 0x78a5636fU
+#define _sha256_k59 0x84c87814U
+#define _sha256_k60 0x8cc70208U
+#define _sha256_k61 0x90befffaU
+#define _sha256_k62 0xa4506cebU
+#define _sha256_k63 0xbef9a3f7U
+#define _sha256_k64 0xc67178f2U
 #ifdef _u64
-#define _sha512_h0   0x6a09e667f3bcc908ULL
-#define _sha512_h1   0xbb67ae8584caa73bULL
-#define _sha512_h2   0x3c6ef372fe94f82bULL
-#define _sha512_h3   0xa54ff53a5f1d36f1ULL
-#define _sha512_h4   0x510e527fade682d1ULL
-#define _sha512_h5   0x9b05688c2b3e6c1fULL
-#define _sha512_h6   0x1f83d9abfb41bd6bULL
-#define _sha512_h7   0x5be0cd19137e2179ULL
+#define _sha384_h0 0xcbbb9d5dc1059ed8ULL
+#define _sha384_h1 0x629a292a367cd507ULL
+#define _sha384_h2 0x9159015a3070dd17ULL
+#define _sha384_h3 0x152fecd8f70e5939ULL
+#define _sha384_h4 0x67332667ffc00b31ULL
+#define _sha384_h5 0x8eb44a8768581511ULL
+#define _sha384_h6 0xdb0c2e0d64f98fa7ULL
+#define _sha384_h7 0x47b5481dbefa4fa4ULL
+#define _sha512_h0 0x6a09e667f3bcc908ULL
+#define _sha512_h1 0xbb67ae8584caa73bULL
+#define _sha512_h2 0x3c6ef372fe94f82bULL
+#define _sha512_h3 0xa54ff53a5f1d36f1ULL
+#define _sha512_h4 0x510e527fade682d1ULL
+#define _sha512_h5 0x9b05688c2b3e6c1fULL
+#define _sha512_h6 0x1f83d9abfb41bd6bULL
+#define _sha512_h7 0x5be0cd19137e2179ULL
+#define _sha512_k1 0x428a2f98d728ae22ULL
+#define _sha512_k2 0x7137449123ef65cdULL
+#define _sha512_k3 0xb5c0fbcfec4d3b2fULL
+#define _sha512_k4 0xe9b5dba58189dbbcULL
+#define _sha512_k5 0x3956c25bf348b538ULL
+#define _sha512_k6 0x59f111f1b605d019ULL
+#define _sha512_k7 0x923f82a4af194f9bULL
+#define _sha512_k8 0xab1c5ed5da6d8118ULL
+#define _sha512_k9 0xd807aa98a3030242ULL
+#define _sha512_k10 0x12835b0145706fbeULL
+#define _sha512_k11 0x243185be4ee4b28cULL
+#define _sha512_k12 0x550c7dc3d5ffb4e2ULL
+#define _sha512_k13 0x72be5d74f27b896fULL
+#define _sha512_k14 0x80deb1fe3b1696b1ULL
+#define _sha512_k15 0x9bdc06a725c71235ULL
+#define _sha512_k16 0xc19bf174cf692694ULL
+#define _sha512_k17 0xe49b69c19ef14ad2ULL
+#define _sha512_k18 0xefbe4786384f25e3ULL
+#define _sha512_k19 0x0fc19dc68b8cd5b5ULL
+#define _sha512_k20 0x240ca1cc77ac9c65ULL
+#define _sha512_k21 0x2de92c6f592b0275ULL
+#define _sha512_k22 0x4a7484aa6ea6e483ULL
+#define _sha512_k23 0x5cb0a9dcbd41fbd4ULL
+#define _sha512_k24 0x76f988da831153b5ULL
+#define _sha512_k25 0x983e5152ee66dfabULL
+#define _sha512_k26 0xa831c66d2db43210ULL
+#define _sha512_k27 0xb00327c898fb213fULL
+#define _sha512_k28 0xbf597fc7beef0ee4ULL
+#define _sha512_k29 0xc6e00bf33da88fc2ULL
+#define _sha512_k30 0xd5a79147930aa725ULL
+#define _sha512_k31 0x06ca6351e003826fULL
+#define _sha512_k32 0x142929670a0e6e70ULL
+#define _sha512_k33 0x27b70a8546d22ffcULL
+#define _sha512_k34 0x2e1b21385c26c926ULL
+#define _sha512_k35 0x4d2c6dfc5ac42aedULL
+#define _sha512_k36 0x53380d139d95b3dfULL
+#define _sha512_k37 0x650a73548baf63deULL
+#define _sha512_k38 0x766a0abb3c77b2a8ULL
+#define _sha512_k39 0x81c2c92e47edaee6ULL
+#define _sha512_k40 0x92722c851482353bULL
+#define _sha512_k41 0xa2bfe8a14cf10364ULL
+#define _sha512_k42 0xa81a664bbc423001ULL
+#define _sha512_k43 0xc24b8b70d0f89791ULL
+#define _sha512_k44 0xc76c51a30654be30ULL
+#define _sha512_k45 0xd192e819d6ef5218ULL
+#define _sha512_k46 0xd69906245565a910ULL
+#define _sha512_k47 0xf40e35855771202aULL
+#define _sha512_k48 0x106aa07032bbd1b8ULL
+#define _sha512_k49 0x19a4c116b8d2d0c8ULL
+#define _sha512_k50 0x1e376c085141ab53ULL
+#define _sha512_k51 0x2748774cdf8eeb99ULL
+#define _sha512_k52 0x34b0bcb5e19b48a8ULL
+#define _sha512_k53 0x391c0cb3c5c95a63ULL
+#define _sha512_k54 0x4ed8aa4ae3418acbULL
+#define _sha512_k55 0x5b9cca4f7763e373ULL
+#define _sha512_k56 0x682e6ff3d6b2b8a3ULL
+#define _sha512_k57 0x748f82ee5defb2fcULL
+#define _sha512_k58 0x78a5636f43172f60ULL
+#define _sha512_k59 0x84c87814a1f0ab72ULL
+#define _sha512_k60 0x8cc702081a6439ecULL
+#define _sha512_k61 0x90befffa23631e28ULL
+#define _sha512_k62 0xa4506cebde82bde9ULL
+#define _sha512_k63 0xbef9a3f7b2c67915ULL
+#define _sha512_k64 0xc67178f2e372532bULL
+#define _sha512_k65 0xca273eceea26619cULL
+#define _sha512_k66 0xd186b8c721c0c207ULL
+#define _sha512_k67 0xeada7dd6cde0eb1eULL
+#define _sha512_k68 0xf57d4f7fee6ed178ULL
+#define _sha512_k69 0x06f067aa72176fbaULL
+#define _sha512_k70 0x0a637dc5a2c898a6ULL
+#define _sha512_k71 0x113f9804bef90daeULL
+#define _sha512_k72 0x1b710b35131c471bULL
+#define _sha512_k73 0x28db77f523047d84ULL
+#define _sha512_k74 0x32caab7b40c72493ULL
+#define _sha512_k75 0x3c9ebe0a15c9bebcULL
+#define _sha512_k76 0x431d67c49c100d4cULL
+#define _sha512_k77 0x4cc5d4becb3e42b6ULL
+#define _sha512_k78 0x597f299cfc657e2aULL
+#define _sha512_k79 0x5fcb6fab3ad6faecULL
+#define _sha512_k80 0x6c44198c4a475817ULL
+#define _sha512_224_h0 0x8c3d37c819544da2ULL
+#define _sha512_224_h1 0x73e1996689dcd4d6ULL
+#define _sha512_224_h2 0x1dfab7ae32ff9c82ULL
+#define _sha512_224_h3 0x679dd514582f9fcfULL
+#define _sha512_224_h4 0x0f6d2b697bd44da8ULL
+#define _sha512_224_h5 0x77e36f7304c48942ULL
+#define _sha512_224_h6 0x3f9d85a86a1d36c8ULL
+#define _sha512_224_h7 0x1112e6ad91d692a1ULL
+#define _sha512_256_h0 0x22312194fc2bf72cULL
+#define _sha512_256_h1 0x9f555fa3c84c64c2ULL
+#define _sha512_256_h2 0x2393b86b6f53b151ULL
+#define _sha512_256_h3 0x963877195940eabdULL
+#define _sha512_256_h4 0x96283ee2a88effe3ULL
+#define _sha512_256_h5 0xbe5e1e2553863992ULL
+#define _sha512_256_h6 0x2b0199fc2c85b8aaULL
+#define _sha512_256_h7 0x0eb72ddc81c52ca2ULL
+#define _sha3_224_h0 0x0000000000000000ULL
+#define _sha3_224_h1 0x0000000000000000ULL
+#define _sha3_224_h2 0x0000000000000000ULL
+#define _sha3_224_h3 0x0000000000000000ULL
+#define _sha3_224_h4 0x0000000000000000ULL
+#define _sha3_224_h5 0x0000000000000000ULL
+#define _sha3_224_h6 0x0000000000000000ULL
+#define _sha3_224_h7 0x0000000000000000ULL
+#define _sha3_256_h0 0x0000000000000000ULL
+#define _sha3_256_h1 0x0000000000000000ULL
+#define _sha3_256_h2 0x0000000000000000ULL
+#define _sha3_256_h3 0x0000000000000000ULL
+#define _sha3_256_h4 0x0000000000000000ULL
+#define _sha3_256_h5 0x0000000000000000ULL
+#define _sha3_256_h6 0x0000000000000000ULL
+#define _sha3_256_h7 0x0000000000000000ULL
+#define _sha3_384_h0 0x0000000000000000ULL
+#define _sha3_384_h1 0x0000000000000000ULL
+#define _sha3_384_h2 0x0000000000000000ULL
+#define _sha3_384_h3 0x0000000000000000ULL
+#define _sha3_384_h4 0x0000000000000000ULL
+#define _sha3_384_h5 0x0000000000000000ULL
+#define _sha3_384_h6 0x0000000000000000ULL
+#define _sha3_384_h7 0x0000000000000000ULL
+#define _sha3_512_h0 0x0000000000000000ULL
+#define _sha3_512_h1 0x0000000000000000ULL
+#define _sha3_512_h2 0x0000000000000000ULL
+#define _sha3_512_h3 0x0000000000000000ULL
+#define _sha3_512_h4 0x0000000000000000ULL
+#define _sha3_512_h5 0x0000000000000000ULL
+#define _sha3_512_h6 0x0000000000000000ULL
+#define _sha3_512_h7 0x0000000000000000ULL
+#define _blake2b_iv0 0x6a09e667f3bcc908ULL
+#define _blake2b_iv1 0xbb67ae8584caa73bULL
+#define _blake2b_iv2 0x3c6ef372fe94f82bULL
+#define _blake2b_iv3 0xa54ff53a5f1d36f1ULL
+#define _blake2b_iv4 0x510e527fade682d1ULL
+#define _blake2b_iv5 0x9b05688c2b3e6c1fULL
+#define _blake2b_iv6 0x1f83d9abfb41bd6bULL
+#define _blake2b_iv7 0x5be0cd19137e2179ULL
 #endif
+#define _blake2s_iv0 0x6a09e667U
+#define _blake2s_iv1 0xbb67ae85U
+#define _blake2s_iv2 0x3c6ef372U
+#define _blake2s_iv3 0xa54ff53aU
+#define _blake2s_iv4 0x510e527fU
+#define _blake2s_iv5 0x9b05688cU
+#define _blake2s_iv6 0x1f83d9abU
+#define _blake2s_iv7 0x5be0cd19U
+#define _ripemd160_h0 0x67452301U
+#define _ripemd160_h1 0xefcdab89U
+#define _ripemd160_h2 0x98badcfeU
+#define _ripemd160_h3 0x10325476U
+#define _ripemd160_h4 0xc3d2e1f0U
+#define _ripemd160_k0 0x00000000U
+#define _ripemd160_k1 0x5a827999U
+#define _ripemd160_k2 0x6ed9eba1U
+#define _ripemd160_k3 0x8f1bbcdcU
+#define _ripemd160_k4 0xa953fd4eU
+#define _hmac_ipad 0x36
+#define _hmac_opad 0x5c
 
 
-#undef _hash
-#undef _hash64
-#undef _hash32
-#undef _hash16
-#undef _hash8
+#undef _lcg32_a
+#undef _lcg32_c
+#undef _lcg64_a
+#undef _lcg64_c
+#undef _pcg32_mult
+#undef _pcg32_inc
+#undef _pcg64_mult
+#undef _pcg64_inc
 
-#define _hash32(x) ((_u32)(((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) ^ (((((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) >> 13) * 0xC2B2AE35U) ^ ((((((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) ^ (((((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) >> 13) * 0xC2B2AE35U) >> 16))
-#ifdef _u64
-#define _hash64(x) ((_u64)(((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) ^ (((((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) >> 27) * 0x94D049BB133111EBULL) ^ ((((((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) ^ (((((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) >> 27) * 0x94D049BB133111EBULL) >> 31))
-#define _hash(x) _hash64((x))
-#else
-#define _hash(x) _hash32((x))
+#define _pcg32_mult 747796405
+#define _pcg32_inc 2891336453
+#define _lcg32_a 1103515245
+#define _lcg32_c 12345
+#if defined(_u64) && _u64_max >= 18446744073709551615ULL
+#define _lcg64_a 6364136223846793005ULL
+#define _lcg64_c 1442695040888963407ULL
+#define _pcg64_mult 6364136223846793005ULL
+#define _pcg64_inc 1442695040888963407ULL
 #endif
-#define _hash16(x) ((_u16)_hash32((x)))
-#define _hash8(x) ((_u8)_hash32((x)))
 
 #endif
