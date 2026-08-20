@@ -964,14 +964,6 @@
 #undef _u32
 #undef _i64
 #undef _u64
-#undef i8
-#undef u8
-#undef i16
-#undef u16
-#undef i32
-#undef u32
-#undef i64
-#undef u64
 
 #define _i8 signed char
 #define _u8 unsigned char
@@ -997,6 +989,17 @@
 #define _i64 signed __int64
 #define _u64 unsigned __int64
 #endif
+
+
+#undef i8
+#undef u8
+#undef i16
+#undef u16
+#undef i32
+#undef u32
+#undef i64
+#undef u64
+
 #define i8 _i8
 #define u8 _u8
 #define i16 _i16
@@ -1006,45 +1009,6 @@
 #ifdef _u64
 #define i64 _i64
 #define u64 _u64
-#endif
-
-
-#undef _f16
-#undef _f32
-#undef _f64
-#undef _f80
-#undef _f128
-#undef f16
-#undef f32
-#undef f64
-#undef f80
-#undef f128
-
-#if defined(__FLT16_MIN__) || defined(__FLT16_MAX__)
-#define _f16 _Float16
-#endif
-#define _f32 float
-#define _f64 double
-#if defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 64
-#define _f80 long double
-#elif defined(__FLOAT80__)
-#define _f80 __float80
-#endif
-#if defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 113
-#define _f128 long double
-#elif defined(__FLOAT128__)
-#define _f128 __float128
-#endif
-#ifdef _f16
-#define f16 _f16
-#endif
-#define f32 _f32
-#define f64 _f64
-#ifdef _f80
-#define f80 _f80
-#endif
-#ifdef _f128
-#define f128 _f128
 #endif
 
 
@@ -1064,6 +1028,63 @@
 #define umax _umax
 
 
+#undef _f16
+#undef _f32
+#undef _f64
+#undef _f80
+#undef _f128
+
+#if defined(__FLT16_MIN__) || defined(__FLT16_MAX__)
+#define _f16 _Float16
+#endif
+#if defined(__SIZEOF_FLOAT__) && __SIZEOF_FLOAT__ == 4
+#define _f32 float
+#if defined(__SIZEOF_DOUBLE__) && __SIZEOF_DOUBLE__ == 8
+#define _f64 double
+#elif defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 64
+#define _f80 long double
+#elif defined(__FLOAT80__)
+#define _f80 __float80
+#endif
+#if defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 113
+#define _f128 long double
+#elif defined(__FLOAT128__)
+#define _f128 __float128
+#endif
+
+
+#undef f16
+#undef f32
+#undef f64
+#undef f80
+#undef f128
+
+#ifdef _f16
+#define f16 _f16
+#endif
+#define f32 _f32
+#define f64 _f64
+#ifdef _f80
+#define f80 _f80
+#endif
+#ifdef _f128
+#define f128 _f128
+#endif
+
+
+#undef _fmax
+#undef fmax
+
+#ifdef _f128
+#define _fmax _f128
+#elif defined(_f80)
+#define _fmax _f80
+#else
+#define _fmax _f64
+#endif
+#define fmax _fmax
+
+
 #undef _i8_max
 #undef _u8_max
 #undef _i16_max
@@ -1073,18 +1094,18 @@
 #undef _i64_max
 #undef _u64_max
 
-#define _i8_max  127
-#define _u8_max  255
-#define _i16_max 32767
-#define _u16_max 65535
-#define _i32_max 2147483647
-#define _u32_max 4294967295
+#define _i8_max   127
+#define _u8_max   255
+#define _i16_max  32767
+#define _u16_max  65535
+#define _i32_max  2147483647
+#define _u32_max  4294967295
 #ifdef _u64
 #define _i64_max  9223372036854775807ULL
-#define _u64_max 18446744073709551615ULL
+#define _u64_max  18446744073709551615ULL
 #endif
 
-
+// ----------------------------------------------------------------------------
 #undef _lcg32_mult
 #undef _lcg32_inc
 #undef _lcg32_a
@@ -1101,74 +1122,24 @@
 #undef _pcg64_inc
 #undef _pcg64_a
 #undef _pcg64_c
-#undef _sha1_h0
-#undef _sha1_h1
-#undef _sha1_h2
-#undef _sha1_h3
-#undef _sha1_h4
-#undef _sha256_h0
-#undef _sha256_h1
-#undef _sha256_h2
-#undef _sha256_h3
-#undef _sha256_h4
-#undef _sha256_h5
-#undef _sha256_h6
-#undef _sha256_h7
-#undef _sha512_h0
-#undef _sha512_h1
-#undef _sha512_h2
-#undef _sha512_h3
-#undef _sha512_h4
-#undef _sha512_h5
-#undef _sha512_h6
-#undef _sha512_h7
-#undef _md5_a
-#undef _md5_b
-#undef _md5_c
-#undef _md5_d
 
-#define _md5_a       0x67452301U
-#define _md5_b       0xefcdab89U
-#define _md5_c       0x98badcfeU
-#define _md5_d       0x10325476U
-#define _sha1_h0     0x67452301U
-#define _sha1_h1     0xefcdab89U
-#define _sha1_h2     0x98badcfeU
-#define _sha1_h3     0x10325476U
-#define _sha1_h4     0xc3d2e1f0U
-#define _sha256_h0   0x6a09e667U
-#define _sha256_h1   0xbb67ae85U
-#define _sha256_h2   0x3c6ef372U
-#define _sha256_h3   0xa54ff53aU
-#define _sha256_h4   0x510e527fU
-#define _sha256_h5   0x9b05688cU
-#define _sha256_h6   0x1f83d9abU
-#define _sha256_h7   0x5be0cd19U
-#define _pcg32_mult  747796405U
-#define _pcg32_inc   2891336453U
-#define _pcg32_a     747796405U
-#define _pcg32_c     2891336453U
-#define _lcg32_mult     1103515245U
-#define _lcg32_inc     12345U
-#define _lcg32_a     1103515245U
-#define _lcg32_c     12345U
+#define _pcg32_mult  747796405
+#define _pcg32_inc   2891336453
+#define _pcg32_a     747796405
+#define _pcg32_c     2891336453
+#define _lcg32_mult  1103515245
+#define _lcg32_inc   12345
+#define _lcg32_a     1103515245
+#define _lcg32_c     12345
 #if defined(_u64) && _u64_max >= 18446744073709551615ULL
-#define _lcg64_mult     6364136223846793005ULL
-#define _lcg64_inc     1442695040888963407ULL
+#define _lcg64_mult  6364136223846793005ULL
+#define _lcg64_inc   1442695040888963407ULL
 #define _lcg64_a     6364136223846793005ULL
 #define _lcg64_c     1442695040888963407ULL
 #define _pcg64_mult  6364136223846793005ULL
 #define _pcg64_inc   1442695040888963407ULL
 #define _pcg64_a     6364136223846793005ULL
 #define _pcg64_c     1442695040888963407ULL
-#define _sha512_h0   0x6a09e667f3bcc908ULL
-#define _sha512_h1   0xbb67ae8584caa73bULL
-#define _sha512_h2   0x3c6ef372fe94f82bULL
-#define _sha512_h3   0xa54ff53a5f1d36f1ULL
-#define _sha512_h4   0x510e527fade682d1ULL
-#define _sha512_h5   0x9b05688c2b3e6c1fULL
-#define _sha512_h6   0x1f83d9abfb41bd6bULL
-#define _sha512_h7   0x5be0cd19137e2179ULL
 #endif
 
 
@@ -1233,5 +1204,77 @@ _umax _rand = 1;
 #define _random8 _pcg_random8
 #define _random_bit _pcg_random_bit
 #define _brandom _pcg_random_bit
+
+// ---------------------------------------------------------------------------------------
+#undef _sha1_h0
+#undef _sha1_h1
+#undef _sha1_h2
+#undef _sha1_h3
+#undef _sha1_h4
+#undef _sha256_h0
+#undef _sha256_h1
+#undef _sha256_h2
+#undef _sha256_h3
+#undef _sha256_h4
+#undef _sha256_h5
+#undef _sha256_h6
+#undef _sha256_h7
+#undef _sha512_h0
+#undef _sha512_h1
+#undef _sha512_h2
+#undef _sha512_h3
+#undef _sha512_h4
+#undef _sha512_h5
+#undef _sha512_h6
+#undef _sha512_h7
+#undef _md5_a
+#undef _md5_b
+#undef _md5_c
+#undef _md5_d
+
+#define _md5_a       0x67452301U
+#define _md5_b       0xefcdab89U
+#define _md5_c       0x98badcfeU
+#define _md5_d       0x10325476U
+#define _sha1_h0     0x67452301U
+#define _sha1_h1     0xefcdab89U
+#define _sha1_h2     0x98badcfeU
+#define _sha1_h3     0x10325476U
+#define _sha1_h4     0xc3d2e1f0U
+#define _sha256_h0   0x6a09e667U
+#define _sha256_h1   0xbb67ae85U
+#define _sha256_h2   0x3c6ef372U
+#define _sha256_h3   0xa54ff53aU
+#define _sha256_h4   0x510e527fU
+#define _sha256_h5   0x9b05688cU
+#define _sha256_h6   0x1f83d9abU
+#define _sha256_h7   0x5be0cd19U
+#ifdef _u64
+#define _sha512_h0   0x6a09e667f3bcc908ULL
+#define _sha512_h1   0xbb67ae8584caa73bULL
+#define _sha512_h2   0x3c6ef372fe94f82bULL
+#define _sha512_h3   0xa54ff53a5f1d36f1ULL
+#define _sha512_h4   0x510e527fade682d1ULL
+#define _sha512_h5   0x9b05688c2b3e6c1fULL
+#define _sha512_h6   0x1f83d9abfb41bd6bULL
+#define _sha512_h7   0x5be0cd19137e2179ULL
+#endif
+
+
+#undef _hash
+#undef _hash64
+#undef _hash32
+#undef _hash16
+#undef _hash8
+
+#define _hash32(x) ((_u32)(((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) ^ (((((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) >> 13) * 0xC2B2AE35U) ^ ((((((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) ^ (((((_u32)((x) + 0x9E3779B9U) ^ ((_u32)((x) + 0x9E3779B9U) >> 16)) * 0x85EBCA6BU) >> 13) * 0xC2B2AE35U) >> 16))
+#ifdef _u64
+#define _hash64(x) ((_u64)(((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) ^ (((((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) >> 27) * 0x94D049BB133111EBULL) ^ ((((((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) ^ (((((_u64)((x) + 0x9E3779B97F4A7C15ULL) ^ ((_u64)((x) + 0x9E3779B97F4A7C15ULL) >> 30)) * 0xBF58476D1CE4E5B9ULL) >> 27) * 0x94D049BB133111EBULL) >> 31))
+#define _hash(x) _hash64((x))
+#else
+#define _hash(x) _hash32((x))
+#endif
+#define _hash16(x) ((_u16)_hash32((x)))
+#define _hash8(x) ((_u8)_hash32((x)))
 
 #endif
