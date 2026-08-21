@@ -1796,16 +1796,10 @@
 #undef _stdin
 #undef _stdout
 #undef _stderr
-#undef stdin
-#undef stdout
-#undef stderr
 
 #define _stdin 0
 #define _stdout 1
 #define _stderr 2
-#define stdin 0
-#define stdout 1
-#define stderr 2
 
 
 #undef _bool
@@ -1831,12 +1825,51 @@
 #endif
 
 
-#undef _vd
-#undef _bs
 #undef _str
-
-#define _vd void*
-#define _bs _vd
 #define _str char*
+
+
+#undef _is_ascii
+#undef _ascii
+#undef _is_num
+#undef _is_digit
+#undef _is_letter
+#undef _is_alpha
+#undef _is_alnum
+#undef _is_aldigit
+#undef _is_upper
+#undef _is_lower
+#undef _is_space
+#undef _is_null
+#undef _is_print
+#undef _is_graph
+#undef _is_control
+#undef _is_hex
+#undef _is_hex_upper
+#undef _is_hex_lower
+#undef _is_oct
+#undef _is_bin
+
+#define _is_ascii(c) ((c) <= 127)
+#define _ascii(c) _is_ascii((c))
+#define _is_num(c) (((c) >= '0') && ((c) <= '9'))
+#define _is_digit(c) _is_num((c))
+#define _is_letter(c) (((c) >= 'a') && ((c) <= 'z') || ((c) >= 'A') && ((c) <= 'Z'))
+#define _is_alpha(c) _is_letter((c))
+#define _is_alnum(c) (_is_letter((c)) || _is_num((c)))
+#define _is_aldigit(c) _is_alnum((c))
+#define _is_upper(c) (((c) >= 'A') && ((c) <= 'Z'))
+#define _is_lower(c) (((c) >= 'a') && ((c) <= 'z'))
+#define _is_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
+#define _is_null(c) (!(c))
+#define _is_print(c) (((c) >= 32) && ((c) <= 126))
+#define _is_graph(c) (((c) >= 33) && ((c) <= 126))
+#define _is_punct(c) (!_is_alnum((c)) && _is_graph((c)))
+#define _is_control(c) (((c) >= 0) && ((c) <= 31))
+#define _is_hex(c) (_is_num((c)) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
+#define _is_hex_upper(c) (_is_num((c)) || (((c) >= 'a') && ((c) <= 'f')))
+#define _is_hex_lower(c) (_is_num((c)) || (((c) >= 'A') && ((c) <= 'F')))
+#define _is_oct(c) (((c) >= '0') && ((c) <= '7'))
+#define _is_bin(c) (((c) >= '0') || ((c) <= '1'))
 
 #endif
