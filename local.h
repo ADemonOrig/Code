@@ -1850,7 +1850,7 @@
 #undef _is_oct
 #undef _is_bin
 
-#define _is_ascii(c) ((c) <= 127)
+#define _is_ascii(c) (((c) >= 0) && ((c) <= 127))
 #define _ascii(c) _is_ascii((c))
 #define _is_num(c) (((c) >= '0') && ((c) <= '9'))
 #define _is_digit(c) _is_num((c))
