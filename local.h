@@ -1872,4 +1872,17 @@
 #define _is_oct(c) (((c) >= '0') && ((c) <= '7'))
 #define _is_bin(c) (((c) >= '0') || ((c) <= '1'))
 
+
+#undef _nullptr
+#undef nullptr
+#undef _null
+#undef null
+
+#define _nullptr ((void*)0)
+#ifdef _c
+#define nullptr _nullptr
+#endif
+#deifne _null _nullptr
+#deifne null _null
+
 #endif
