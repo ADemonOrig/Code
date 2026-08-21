@@ -1882,7 +1882,7 @@
 #ifdef _c
 #define nullptr _nullptr
 #endif
-#deifne _null _nullptr
-#deifne null _null
+#define _null _nullptr
+#define null _null
 
 #endif
