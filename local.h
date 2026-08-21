@@ -1792,4 +1792,51 @@
 #define _pcg64_inc 1442695040888963407ULL
 #endif
 
+
+#undef _stdin
+#undef _stdout
+#undef _stderr
+#undef stdin
+#undef stdout
+#undef stderr
+
+#define _stdin 0
+#define _stdout 1
+#define _stderr 2
+#define stdin 0
+#define stdout 1
+#define stderr 2
+
+
+#undef _bool
+#undef _true
+#undef _false
+
+#define _true 1
+#define _false 0
+#ifdef _cpp
+#define _bool bool
+#else
+#undef true
+#undef false
+#define true 1
+#define false 0
+#ifdef _c99
+#define _bool _Bool
+#else
+#define _bool _u8
+#endif
+#undef bool
+#define bool _bool
+#endif
+
+
+#undef _vd
+#undef _bs
+#undef _str
+
+#define _vd void*
+#define _bs _vd
+#define _str char*
+
 #endif
