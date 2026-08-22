@@ -1931,6 +1931,27 @@
 #define null _null
 
 
+#undef _db
+#undef _dw
+#undef _dd
+#undef _dq
+#undef db
+#undef dw
+#undef dd
+#undef dq
+
+#define _db _u8
+#define _dw _u16
+#define _dd _u32
+#define db _db
+#define dw _dw
+#define dd _dd
+#ifdef _u64
+#define _dq _u64
+#define dq _dq
+#endif
+
+
 #undef _string
 #undef _str
 #undef _ustring
