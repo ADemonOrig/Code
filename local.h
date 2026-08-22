@@ -892,68 +892,68 @@
 #undef _apery
 #undef _omega
 
-#define _pi        3.141592653589793
-#define _e         2.718281828459045
-#define _log2e     1.442695040888963
-#define _log10e    0.434294481903252
-#define _ln2       0.693147180559945
-#define _ln10      2.302585092994046
-#define _pi_2      1.570796326794897
-#define _pi_4      0.785398163397448
-#define _1_pi      0.318309886183791
-#define _2_pi      0.636619772367581
-#define _2_sqrtpi  1.128379167095513
-#define _sqrt2     1.414213562373095
-#define _sqrt1_2   0.707106781186548
-#define _euler     0.577215664901533
-#define _phi       1.618033988749895
-#define _tau       6.283185307179586
-#define _deg2rad   0.017453292519943
-#define _rad2deg  57.295779513082321
-#define _lnpi      1.144729885849400
-#define _log2pi    1.651496129472319
-#define _log10pi   0.497149872694134
-#define _sqrtpi    1.772453850905516
-#define _cbrt2     1.259921049894873
-#define _cbrt3     1.442249570307408
-#define _inv_pi    0.318309886183791
-#define _inv_2pi   0.159154943091895
-#define _sqrt3     1.732050807568877
-#define _sqrt5     2.236067977499790
-#define _ln3       1.098612288668110
-#define _ln4       1.386294361119891
-#define _ln5       1.609437912434100
-#define _log10_2   0.301029995663981
-#define _log10_3   0.477121254719662
-#define _log10_4   0.602059991327962
-#define _log10_5   0.698970004336019
-#define _sqrt6     2.449489742783178
-#define _sqrt7     2.645751311064591
-#define _sqrt8     2.828427124746190
-#define _sqrt10    3.162277660168379
-#define _cbrt4     1.587401051568199
-#define _cbrt5     1.709975946676697
-#define _inv_sqrt2 0.707106781186548
-#define _inv_sqrt3 0.577350269189626
-#define _ln6       1.791759469228055
-#define _ln7       1.945910149055313
-#define _ln8       2.079441541679836
-#define _ln9       2.197224577336220
-#define _log10_6   0.778151250383644
-#define _log10_7   0.845098040014257
-#define _log10_8   0.903089986991944
-#define _log10_9   0.954242509439325
-#define _1_ln2     1.442695040888963
-#define _1_ln10    0.434294481903252
+#define _pi            3.141592653589793
+#define _e             2.718281828459045
+#define _log2e         1.442695040888963
+#define _log10e        0.434294481903252
+#define _ln2           0.693147180559945
+#define _ln10          2.302585092994046
+#define _pi_2          1.570796326794897
+#define _pi_4          0.785398163397448
+#define _1_pi          0.318309886183791
+#define _2_pi          0.636619772367581
+#define _2_sqrtpi      1.128379167095513
+#define _sqrt2         1.414213562373095
+#define _sqrt1_2       0.707106781186548
+#define _euler         0.577215664901533
+#define _phi           1.618033988749895
+#define _tau           6.283185307179586
+#define _deg2rad       0.017453292519943
+#define _rad2deg      57.295779513082321
+#define _lnpi          1.144729885849400
+#define _log2pi        1.651496129472319
+#define _log10pi       0.497149872694134
+#define _sqrtpi        1.772453850905516
+#define _cbrt2         1.259921049894873
+#define _cbrt3         1.442249570307408
+#define _inv_pi        0.318309886183791
+#define _inv_2pi       0.159154943091895
+#define _sqrt3         1.732050807568877
+#define _sqrt5         2.236067977499790
+#define _ln3           1.098612288668110
+#define _ln4           1.386294361119891
+#define _ln5           1.609437912434100
+#define _log10_2       0.301029995663981
+#define _log10_3       0.477121254719662
+#define _log10_4       0.602059991327962
+#define _log10_5       0.698970004336019
+#define _sqrt6         2.449489742783178
+#define _sqrt7         2.645751311064591
+#define _sqrt8         2.828427124746190
+#define _sqrt10        3.162277660168379
+#define _cbrt4         1.587401051568199
+#define _cbrt5         1.709975946676697
+#define _inv_sqrt2     0.707106781186548
+#define _inv_sqrt3     0.577350269189626
+#define _ln6           1.791759469228055
+#define _ln7           1.945910149055313
+#define _ln8           2.079441541679836
+#define _ln9           2.197224577336220
+#define _log10_6       0.778151250383644
+#define _log10_7       0.845098040014257
+#define _log10_8       0.903089986991944
+#define _log10_9       0.954242509439325
+#define _1_ln2         1.442695040888963
+#define _1_ln10        0.434294481903252
 #define _pi_2_sqrt2    2.221441469079183
 #define _sqrt2_over_2  0.707106781186548
 #define _sqrt3_over_2  0.866025403784439
 #define _ln2pi         1.837877066409345
 #define _ln_sqrt2pi    0.918938533204673
-#define _golden    1.618033988749895
-#define _catalan   0.915965594177219
-#define _apery     1.202056903159594
-#define _omega     0.567143290409784
+#define _golden        1.618033988749895
+#define _catalan       0.915965594177219
+#define _apery         1.202056903159594
+#define _omega         0.567143290409784
 
 
 #undef _i8
@@ -965,8 +965,8 @@
 #undef _i64
 #undef _u64
 
-#define _i8 signed char
-#define _u8 unsigned char
+#define _i8  signed char
+#define _u8  unsigned char
 #define _i16 signed short int
 #define _u16 unsigned short int
 #if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
@@ -1000,8 +1000,8 @@
 #undef i64
 #undef u64
 
-#define i8 _i8
-#define u8 _u8
+#define i8  _i8
+#define u8  _u8
 #define i16 _i16
 #define u16 _u16
 #define i32 _i32
@@ -1024,8 +1024,8 @@
 #define _imax _i32
 #define _umax _u32
 #endif
-#define imax _imax
-#define umax _umax
+#define imax  _imax
+#define umax  _umax
 
 
 #undef _f16
@@ -1035,17 +1035,17 @@
 #undef _f128
 
 #if defined(__FLT16_MIN__) || defined(__FLT16_MAX__)
-#define _f16 _Float16
+#define _f16  _Float16
 #endif
 #if defined(__SIZEOF_FLOAT__) && __SIZEOF_FLOAT__ == 4
-#define _f32 float
+#define _f32  float
 #endif
 #if defined(__SIZEOF_DOUBLE__) && __SIZEOF_DOUBLE__ == 8
-#define _f64 double
+#define _f64  double
 #elif defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 64
-#define _f80 long double
+#define _f80  long double
 #elif defined(__FLOAT80__)
-#define _f80 __float80
+#define _f80  __float80
 #endif
 #if defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ == 16 && defined(__LDBL_MANT_DIG__) && __LDBL_MANT_DIG__ == 113
 #define _f128 long double
@@ -1061,12 +1061,12 @@
 #undef f128
 
 #ifdef _f16
-#define f16 _f16
+#define f16  _f16
 #endif
-#define f32 _f32
-#define f64 _f64
+#define f32  _f32
+#define f64  _f64
 #ifdef _f80
-#define f80 _f80
+#define f80  _f80
 #endif
 #ifdef _f128
 #define f128 _f128
@@ -1750,14 +1750,14 @@
 #define _blake2b_iv6 0x1f83d9abfb41bd6bULL
 #define _blake2b_iv7 0x5be0cd19137e2179ULL
 #endif
-#define _blake2s_iv0 0x6a09e667U
-#define _blake2s_iv1 0xbb67ae85U
-#define _blake2s_iv2 0x3c6ef372U
-#define _blake2s_iv3 0xa54ff53aU
-#define _blake2s_iv4 0x510e527fU
-#define _blake2s_iv5 0x9b05688cU
-#define _blake2s_iv6 0x1f83d9abU
-#define _blake2s_iv7 0x5be0cd19U
+#define _blake2s_iv0  0x6a09e667U
+#define _blake2s_iv1  0xbb67ae85U
+#define _blake2s_iv2  0x3c6ef372U
+#define _blake2s_iv3  0xa54ff53aU
+#define _blake2s_iv4  0x510e527fU
+#define _blake2s_iv5  0x9b05688cU
+#define _blake2s_iv6  0x1f83d9abU
+#define _blake2s_iv7  0x5be0cd19U
 #define _ripemd160_h0 0x67452301U
 #define _ripemd160_h1 0xefcdab89U
 #define _ripemd160_h2 0x98badcfeU
@@ -1768,8 +1768,8 @@
 #define _ripemd160_k2 0x6ed9eba1U
 #define _ripemd160_k3 0x8f1bbcdcU
 #define _ripemd160_k4 0xa953fd4eU
-#define _hmac_ipad 0x36
-#define _hmac_opad 0x5c
+#define _hmac_ipad    0x36
+#define _hmac_opad    0x5c
 
 
 #undef _lcg32_a
@@ -1793,13 +1793,118 @@
 #endif
 
 
-#undef _stdin
-#undef _stdout
-#undef _stderr
+#undef _is_ascii
+#undef _is_ascii_digit
+#undef _is_ascii_alpha
+#undef _is_ascii_alnum
+#undef _is_ascii_upper
+#undef _is_ascii_lower
+#undef _is_ascii_space
+#undef _is_ascii_null
+#undef _is_ascii_hex
+#undef _is_ascii_hex_upper
+#undef _is_ascii_hex_lower
+#undef _is_ascii_oct
+#undef _is_ascii_bin
+#undef _is_ascii_print
+#undef _is_ascii_graph
+#undef _is_ascii_punct
+#undef _is_ascii_control
 
-#define _stdin 0
-#define _stdout 1
-#define _stderr 2
+#define _is_ascii(c) (((c) >= 0) && ((c) <= 127))
+#define _is_ascii_digit(c) (((c) >= '0') && ((c) <= '9'))
+#define _is_ascii_alpha(c) (((c) >= 'a') && ((c) <= 'z') || ((c) >= 'A') && ((c) <= 'Z'))
+#define _is_ascii_alnum(c) (_is_ascii_alpha((c)) || _is_ascii_digit((c)))
+#define _is_ascii_upper(c) (((c) >= 'A') && ((c) <= 'Z'))
+#define _is_ascii_lower(c) (((c) >= 'a') && ((c) <= 'z'))
+#define _is_ascii_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
+#define _is_ascii_null(c) ((c) == 0)
+#define _is_ascii_hex(c) (_is_ascii_digit((c)) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
+#define _is_ascii_hex_upper(c) (_is_ascii_digit((c)) || (((c) >= 'a') && ((c) <= 'f')))
+#define _is_ascii_hex_lower(c) (_is_ascii_digit((c)) || (((c) >= 'A') && ((c) <= 'F')))
+#define _is_ascii_oct(c) (((c) >= '0') && ((c) <= '7'))
+#define _is_ascii_bin(c) (((c) == '0') || ((c) == '1'))
+#define _is_ascii_print(c) (((c) >= 32) && ((c) <= 126))
+#define _is_ascii_graph(c) (((c) >= 33) && ((c) <= 126))
+#define _is_ascii_punct(c) (!(_is_ascii_alnum((c))) && _is_ascii_graph((c)))
+#define _is_ascii_control(c) (((c) >= 0) && ((c) <= 31))
+
+
+#undef _in_ascii
+#undef _ascii
+#undef _int_in_ascii_digit
+#undef _int_in_ascii
+#undef _ascii_digit_in_int
+#undef _ascii_in_int
+#undef _in_ascii_upper
+#undef _ascii_upper
+#undef _in_ascii_lower
+#undef _ascii_lower
+#undef _int_in_ascii_hex_upper
+#undef _int_in_ascii_hex_lower
+#undef _int_in_ascii_hex
+#undef _ascii_hex_in_int
+#undef _int_in_ascii_oct
+#undef _ascii_oct_in_int
+#undef _int_in_ascii_bin
+#undef _ascii_bin_in_int
+
+#define _in_ascii(x) ((x) & 127)
+#define _ascii(x) _in_ascii((x))
+#define _int_in_ascii_digit(x) ((((x) >= 0) && ((x) <= 9)) ? ((x) + '0') : -1)
+#define _int_in_ascii(x) _int_in_ascii_digit((x))
+#define _ascii_digit_in_int(x) (_is_ascii_digit((x)) ? ((x) - '0') : -1)
+#define _ascii_in_int(x) _ascii_digit_in_int((x))
+#define _in_ascii_upper(x) (_is_ascii_alpha((x)) ? (_is_ascii_upper((x)) ? (x) : ((x) - 32)) : -1)
+#define _ascii_upper(x) _in_ascii_upper((x))
+#define _in_ascii_lower(x) (_is_ascii_alpha((x)) ? (_is_ascii_upper((x)) ? ((x) + 32) : (x)) : -1)
+#define _ascii_lower(x) _in_ascii_lower((x))
+#define _int_in_ascii_hex_upper(x) ((((x) >= 0) && ((x) <= 16)) ? (((x) <= 9) ? ((x) + '0') : (((x) - 10) + 'A')) : -1)
+#define _int_in_ascii_hex_lower(x) ((((x) >= 0) && ((x) <= 16)) ? (((x) <= 9) ? ((x) + '0') : (((x) - 10) + 'a')) : -1)
+#define _int_in_ascii_hex(x) _int_in_ascii_hex_upper((x))
+#define _ascii_hex_in_int(x) (_is_ascii_hex((x)) ? ((((x) >= 'A') && ((x) <= 'F')) ? (((x) - 'A') + 10) : ((((x) >= 'a') && ((x) <= 'f')) ? (((x) - 'a') + 10) : ((x) - '0'))) : -1)
+#define _int_in_ascii_oct(x) ((((x) >= 0) && ((x) <= 7)) ? ((x) + '0') : -1)
+#define _ascii_oct_in_int(x) (_is_ascii_oct((x)) ? ((x) - '0') : -1)
+#define _int_in_ascii_bin(x) ((((x) == 0) || ((x) == 1)) ? ((x) + '0') : -1)
+#define _ascii_bin_in_int(x) (_is_ascii_bin((x)) ? ((x) - '0') : -1)
+
+
+#undef _bit_get
+#undef _bit_align
+#undef _bit_set
+#undef _bit_reset
+#undef _bit_flip
+#undef _bit_mask
+#undef _bit_align_mask
+#undef _bit_first
+#undef _bit_shift
+#undef _bit_unshift
+#undef _bit_unshift_0
+#undef _bit_unshift_1
+#undef _bit_range_get
+#undef _bit_range
+#undef _bit_range_align
+#undef _bit_range_set
+#undef _bit_range_reset
+#undef _bit_range_flip
+
+#define _bit_get(x, i) (((x) >> (i)) & 1)
+#define _bit_align(x, i, b) (((x) & (~(1 << (i)))) | ((!(!(b))) << (i)))
+#define _bit_set(x, i) ((x) | (1 << (i)))
+#define _bit_reset(x, i) ((x) & (~(1 << (i))))
+#define _bit_flip(x, i) ((x) ^ (1 << (i)))
+#define _bit_mask(n, s) (((1 << (n)) - 1) << (s))
+#define _bit_first(x) ((x) & 1)
+#define _bit_shift(x) ((x) >> 1)
+#define _bit_unshift(x, b) (((x) << 1) | (!(!(b))))
+#define _bit_unshift_0(x) ((x) << 1)
+#define _bit_unshift_1(x) (((x) << 1) | 1)
+#define _bit_range_get(x, s, e) (((x) >> (s)) & ((1 << (((e) - (s)) + 1)) - 1))
+#define _bit_range(x, s, e) _bit_range_get((x), (s), (e))
+#define _bit_range_align(x, s, e, b) ((!(!(b))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
+#define _bit_range_set(x, s, e) ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s)))
+#define _bit_range_reset(x, s, e) ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s))))
+#define _bit_range_flip(x, s, e) ((x) ^ (((1 << (((e) - (s)) + 1)) - 1) << (s)))
 
 
 #undef _bool
@@ -1811,78 +1916,29 @@
 #ifdef _cpp
 #define _bool bool
 #else
-#undef true
-#undef false
-#define true 1
-#define false 0
 #ifdef _c99
 #define _bool _Bool
 #else
 #define _bool _u8
 #endif
-#undef bool
-#define bool _bool
 #endif
 
 
-#undef _str
-#define _str char*
-
-
-#undef _is_ascii
-#undef _ascii
-#undef _is_num
-#undef _is_digit
-#undef _is_letter
-#undef _is_alpha
-#undef _is_alnum
-#undef _is_aldigit
-#undef _is_upper
-#undef _is_lower
-#undef _is_space
-#undef _is_null
-#undef _is_print
-#undef _is_graph
-#undef _is_control
-#undef _is_hex
-#undef _is_hex_upper
-#undef _is_hex_lower
-#undef _is_oct
-#undef _is_bin
-
-#define _is_ascii(c) (((c) >= 0) && ((c) <= 127))
-#define _ascii(c) _is_ascii((c))
-#define _is_num(c) (((c) >= '0') && ((c) <= '9'))
-#define _is_digit(c) _is_num((c))
-#define _is_letter(c) (((c) >= 'a') && ((c) <= 'z') || ((c) >= 'A') && ((c) <= 'Z'))
-#define _is_alpha(c) _is_letter((c))
-#define _is_alnum(c) (_is_letter((c)) || _is_num((c)))
-#define _is_aldigit(c) _is_alnum((c))
-#define _is_upper(c) (((c) >= 'A') && ((c) <= 'Z'))
-#define _is_lower(c) (((c) >= 'a') && ((c) <= 'z'))
-#define _is_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
-#define _is_null(c) (!(c))
-#define _is_print(c) (((c) >= 32) && ((c) <= 126))
-#define _is_graph(c) (((c) >= 33) && ((c) <= 126))
-#define _is_punct(c) (!_is_alnum((c)) && _is_graph((c)))
-#define _is_control(c) (((c) >= 0) && ((c) <= 31))
-#define _is_hex(c) (_is_num((c)) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
-#define _is_hex_upper(c) (_is_num((c)) || (((c) >= 'a') && ((c) <= 'f')))
-#define _is_hex_lower(c) (_is_num((c)) || (((c) >= 'A') && ((c) <= 'F')))
-#define _is_oct(c) (((c) >= '0') && ((c) <= '7'))
-#define _is_bin(c) (((c) >= '0') || ((c) <= '1'))
-
-
-#undef _nullptr
-#undef nullptr
 #undef _null
 #undef null
 
-#define _nullptr ((void*)0)
-#ifdef _c
-#define nullptr _nullptr
-#endif
-#define _null _nullptr
+#define _null ((void*)0)
 #define null _null
+
+
+#undef _string
+#undef _str
+#undef _ustring
+#undef _ustr
+
+#define _string char*
+#define _str _string
+#define _ustring unsigned _string
+#define _ustr _ustring
 
 #endif
