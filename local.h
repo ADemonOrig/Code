@@ -2025,12 +2025,14 @@
 
 
 #undef _bytes
+#undef _char
 #undef _string
 #undef _str
 #undef _ustring
 #undef _ustr
 
 #define _bytes void*
+#define _char char
 #define _string char*
 #define _str _string
 #define _ustring unsigned _string
