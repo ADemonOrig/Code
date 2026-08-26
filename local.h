@@ -1954,6 +1954,8 @@
 #define _bit_set_range_first(x, n) ((x) | ((1 << (n)) - 1))
 #define _bit_reset_range_first(x, n) ((x) & (~((1 << (n)) - 1)))
 #define _bit_flip_range_first(x, n) ((x) ^ ((1 << (n)) - 1))
+#define _bit_merge(x, y) ((x) | (y))
+#define _bit_same(x, y) (~((x) ^ (y)))
 
 
 #undef _boolean
@@ -2020,13 +2022,6 @@
 #endif
 #endif
 #define bool _bool
-
-
-#undef _ptr
-#undef ptr
-
-#define _ptr _umax
-#define ptr _ptr
 
 
 #undef _bytes
