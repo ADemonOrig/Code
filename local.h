@@ -1802,12 +1802,12 @@
 #undef _is_ascii_hex
 #undef _is_ascii_oct
 #undef _is_ascii_bin
-#undef _is_ascii_null
 #undef _is_ascii_space
 #undef _is_ascii_print
 #undef _is_ascii_graph
 #undef _is_ascii_punct
-#undef _is_ascii_control
+#undef _is_ascii_cntrl
+#undef _is_ascii_null
 
 #define _is_ascii(c) (((c) & 127) ? 1 : 0)
 #define _is_ascii_digit(c) (((c) >= '0') && ((c) <= '9'))
@@ -1818,12 +1818,12 @@
 #define _is_ascii_hex(c) ((((c) >= '0') && ((c) <= '9')) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
 #define _is_ascii_oct(c) (((c) >= '0') && ((c) <= '7'))
 #define _is_ascii_bin(c) (((c) == '0') || ((c) == '1'))
-#define _is_ascii_null(c) ((c) == 0)
 #define _is_ascii_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
 #define _is_ascii_print(c) (((c) >= 32) && ((c) <= 126))
 #define _is_ascii_graph(c) (((c) >= 33) && ((c) <= 126))
 #define _is_ascii_punct(c) ((!((((c) >= '0') && ((c) <= '9')) || (((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))) && (((c) >= 33) && ((c) <= 126)))
-#define _is_ascii_control(c) (((c) >= 0) && ((c) <= 31))
+#define _is_ascii_cntrl(c) (((c) >= 0) && ((c) <= 31))
+#define _is_ascii_null(c) ((c) == 0)
 
 
 #undef _is_digit
@@ -1834,12 +1834,12 @@
 #undef _is_hex
 #undef _is_oct
 #undef _is_bin
-#undef _is_null
 #undef _is_space
 #undef _is_print
 #undef _is_graph
 #undef _is_punct
-#undef _is_control
+#undef _is_cntrl
+#undef _is_null
 
 #define _is_digit(c) (((c) >= '0') && ((c) <= '9'))
 #define _is_alpha(c) ((((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))
@@ -1849,12 +1849,12 @@
 #define _is_hex(c) ((((c) >= '0') && ((c) <= '9')) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
 #define _is_oct(c) (((c) >= '0') && ((c) <= '7'))
 #define _is_bin(c) (((c) == '0') || ((c) == '1'))
-#define _is_null(c) ((c) == 0)
 #define _is_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
 #define _is_print(c) (((c) >= 32) && ((c) <= 126))
 #define _is_graph(c) (((c) >= 33) && ((c) <= 126))
 #define _is_punct(c) ((!((((c) >= '0') && ((c) <= '9')) || (((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))) && (((c) >= 33) && ((c) <= 126)))
-#define _is_control(c) (((c) >= 0) && ((c) <= 31))
+#define _is_cntrl(c) (((c) >= 0) && ((c) <= 31))
+#define _is_null(c) ((c) == 0)
 
 
 #undef _in_ascii
@@ -1990,9 +1990,11 @@
 
 #undef _boolean
 #undef _in_boolean
+#undef _in_bool
 
 #define _boolean(x) (!(!(x)))
 #define _in_boolean(x) (!(!(x)))
+#define _in_bool(x) (!(!(x)))
 
 
 #undef _pick
@@ -2015,7 +2017,9 @@
 #undef true
 #undef false
 #undef _bool
+#undef _bit
 #undef bool
+#undef bit
 
 #define _true 1
 #define _false 0
@@ -2030,7 +2034,9 @@
 #define _bool _u8
 #endif
 #endif
+#define _bit _bool
 #define bool _bool
+#define bit _bit
 
 
 #undef _byte
@@ -2068,17 +2074,27 @@
 
 
 #undef _bytes
+#define _bytes void*
+
+
 #undef _char
 #undef _string
 #undef _str
 #undef _ustring
 #undef _ustr
+#undef _cstring
+#undef _cstr
+#undef _custring
+#undef _custr
 
-#define _bytes void*
 #define _char char
 #define _string char*
 #define _str _string
 #define _ustring unsigned _string
 #define _ustr _ustring
+#define _cstring const _string
+#define _cstr _cstring
+#define _custring const _ustring
+#define _custr _custring
 
 #endif
