@@ -1878,23 +1878,17 @@
 #define _ascii_lower_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((x) - '0'))
 
 
-#undef _in_ascii
 #undef _in_upper
 #undef _in_lower
-#undef _int_in_ascii
 #undef _int_in_upper
 #undef _int_in_lower
-#undef _ascii_in_int
 #undef _upper_in_int
 #undef _lower_in_int
 
-#define _in_ascii(x) ((x) & 127)
 #define _in_upper(x) ((((c) >= 'a') && ((c) <= 'z')) ? ((x) - 32) : (x))
 #define _in_lower(x) ((((c) >= 'A') && ((c) <= 'Z')) ? ((x) + 32) : (x))
-#define _int_in_ascii(x) (((x) >= 10) ? ((x) + 87) : ((x) + '0'))
 #define _int_in_upper(x) (((x) >= 10) ? ((x) + 55) : ((x) + '0'))
 #define _int_in_lower(x) (((x) >= 10) ? ((x) + 87) : ((x) + '0'))
-#define _ascii_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((((x) >= 'A') && ((x) <= 'Z')) ? ((x) - 55) : ((x) - '0')))
 #define _upper_in_int(x) ((((x) >= 'A') && ((x) <= 'Z')) ? ((x) - 55) : ((x) - '0'))
 #define _lower_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((x) - '0'))
 
