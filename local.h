@@ -1799,74 +1799,104 @@
 #undef _is_ascii_alnum
 #undef _is_ascii_upper
 #undef _is_ascii_lower
-#undef _is_ascii_space
-#undef _is_ascii_null
 #undef _is_ascii_hex
-#undef _is_ascii_hex_upper
-#undef _is_ascii_hex_lower
 #undef _is_ascii_oct
 #undef _is_ascii_bin
+#undef _is_ascii_null
+#undef _is_ascii_space
 #undef _is_ascii_print
 #undef _is_ascii_graph
 #undef _is_ascii_punct
 #undef _is_ascii_control
 
-#define _is_ascii(c) (((c) >= 0) && ((c) <= 127))
+#define _is_ascii(c) (((c) & 127) ? 1 : 0)
 #define _is_ascii_digit(c) (((c) >= '0') && ((c) <= '9'))
-#define _is_ascii_alpha(c) (((c) >= 'a') && ((c) <= 'z') || ((c) >= 'A') && ((c) <= 'Z'))
-#define _is_ascii_alnum(c) (_is_ascii_alpha((c)) || _is_ascii_digit((c)))
+#define _is_ascii_alpha(c) ((((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))
+#define _is_ascii_alnum(c) ((((c) >= '0') && ((c) <= '9')) || (((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))
 #define _is_ascii_upper(c) (((c) >= 'A') && ((c) <= 'Z'))
 #define _is_ascii_lower(c) (((c) >= 'a') && ((c) <= 'z'))
-#define _is_ascii_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
-#define _is_ascii_null(c) ((c) == 0)
-#define _is_ascii_hex(c) (_is_ascii_digit((c)) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
-#define _is_ascii_hex_upper(c) (_is_ascii_digit((c)) || (((c) >= 'a') && ((c) <= 'f')))
-#define _is_ascii_hex_lower(c) (_is_ascii_digit((c)) || (((c) >= 'A') && ((c) <= 'F')))
+#define _is_ascii_hex(c) ((((c) >= '0') && ((c) <= '9')) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
 #define _is_ascii_oct(c) (((c) >= '0') && ((c) <= '7'))
 #define _is_ascii_bin(c) (((c) == '0') || ((c) == '1'))
+#define _is_ascii_null(c) ((c) == 0)
+#define _is_ascii_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
 #define _is_ascii_print(c) (((c) >= 32) && ((c) <= 126))
 #define _is_ascii_graph(c) (((c) >= 33) && ((c) <= 126))
-#define _is_ascii_punct(c) (!(_is_ascii_alnum((c))) && _is_ascii_graph((c)))
+#define _is_ascii_punct(c) ((!((((c) >= '0') && ((c) <= '9')) || (((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))) && (((c) >= 33) && ((c) <= 126)))
 #define _is_ascii_control(c) (((c) >= 0) && ((c) <= 31))
 
 
+#undef _is_digit
+#undef _is_alpha
+#undef _is_alnum
+#undef _is_upper
+#undef _is_lower
+#undef _is_hex
+#undef _is_oct
+#undef _is_bin
+#undef _is_null
+#undef _is_space
+#undef _is_print
+#undef _is_graph
+#undef _is_punct
+#undef _is_control
+
+#define _is_digit(c) (((c) >= '0') && ((c) <= '9'))
+#define _is_alpha(c) ((((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))
+#define _is_alnum(c) ((((c) >= '0') && ((c) <= '9')) || (((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))
+#define _is_upper(c) (((c) >= 'A') && ((c) <= 'Z'))
+#define _is_lower(c) (((c) >= 'a') && ((c) <= 'z'))
+#define _is_hex(c) ((((c) >= '0') && ((c) <= '9')) || ((((c) >= 'a') && ((c) <= 'f')) || (((c) >= 'A') && ((c) <= 'F'))))
+#define _is_oct(c) (((c) >= '0') && ((c) <= '7'))
+#define _is_bin(c) (((c) == '0') || ((c) == '1'))
+#define _is_null(c) ((c) == 0)
+#define _is_space(c) (((c) == ' ') || ((c) == '\t') || ((c) == '\n') || ((c) == '\v') || ((c) == '\r') || ((c) == '\f'))
+#define _is_print(c) (((c) >= 32) && ((c) <= 126))
+#define _is_graph(c) (((c) >= 33) && ((c) <= 126))
+#define _is_punct(c) ((!((((c) >= '0') && ((c) <= '9')) || (((c) >= 'a') && ((c) <= 'z')) || (((c) >= 'A') && ((c) <= 'Z')))) && (((c) >= 33) && ((c) <= 126)))
+#define _is_control(c) (((c) >= 0) && ((c) <= 31))
+
+
 #undef _in_ascii
-#undef _ascii
-#undef _int_in_ascii_digit
-#undef _int_in_ascii
-#undef _ascii_digit_in_int
-#undef _ascii_in_int
 #undef _in_ascii_upper
-#undef _ascii_upper
 #undef _in_ascii_lower
-#undef _ascii_lower
-#undef _int_in_ascii_hex_upper
-#undef _int_in_ascii_hex_lower
-#undef _int_in_ascii_hex
-#undef _ascii_hex_in_int
-#undef _int_in_ascii_oct
-#undef _ascii_oct_in_int
-#undef _int_in_ascii_bin
-#undef _ascii_bin_in_int
+#undef _int_in_ascii
+#undef _int_in_ascii_upper
+#undef _int_in_ascii_lower
+#undef _ascii_in_int
+#undef _ascii_upper_in_int
+#undef _ascii_lower_in_int
 
 #define _in_ascii(x) ((x) & 127)
-#define _ascii(x) _in_ascii((x))
-#define _int_in_ascii_digit(x) ((((x) >= 0) && ((x) <= 9)) ? ((x) + '0') : -1)
-#define _int_in_ascii(x) _int_in_ascii_digit((x))
-#define _ascii_digit_in_int(x) (_is_ascii_digit((x)) ? ((x) - '0') : -1)
-#define _ascii_in_int(x) _ascii_digit_in_int((x))
-#define _in_ascii_upper(x) (_is_ascii_alpha((x)) ? (_is_ascii_upper((x)) ? (x) : ((x) - 32)) : -1)
-#define _ascii_upper(x) _in_ascii_upper((x))
-#define _in_ascii_lower(x) (_is_ascii_alpha((x)) ? (_is_ascii_upper((x)) ? ((x) + 32) : (x)) : -1)
-#define _ascii_lower(x) _in_ascii_lower((x))
-#define _int_in_ascii_hex_upper(x) ((((x) >= 0) && ((x) <= 16)) ? (((x) <= 9) ? ((x) + '0') : (((x) - 10) + 'A')) : -1)
-#define _int_in_ascii_hex_lower(x) ((((x) >= 0) && ((x) <= 16)) ? (((x) <= 9) ? ((x) + '0') : (((x) - 10) + 'a')) : -1)
-#define _int_in_ascii_hex(x) _int_in_ascii_hex_upper((x))
-#define _ascii_hex_in_int(x) (_is_ascii_hex((x)) ? ((((x) >= 'A') && ((x) <= 'F')) ? (((x) - 'A') + 10) : ((((x) >= 'a') && ((x) <= 'f')) ? (((x) - 'a') + 10) : ((x) - '0'))) : -1)
-#define _int_in_ascii_oct(x) ((((x) >= 0) && ((x) <= 7)) ? ((x) + '0') : -1)
-#define _ascii_oct_in_int(x) (_is_ascii_oct((x)) ? ((x) - '0') : -1)
-#define _int_in_ascii_bin(x) ((((x) == 0) || ((x) == 1)) ? ((x) + '0') : -1)
-#define _ascii_bin_in_int(x) (_is_ascii_bin((x)) ? ((x) - '0') : -1)
+#define _in_ascii_upper(x) ((((c) >= 'a') && ((c) <= 'z')) ? ((x) - 32) : (x))
+#define _in_ascii_lower(x) ((((c) >= 'A') && ((c) <= 'Z')) ? ((x) + 32) : (x))
+#define _int_in_ascii(x) (((x) >= 10) ? ((x) + 87) : ((x) + '0'))
+#define _int_in_ascii_upper(x) (((x) >= 10) ? ((x) + 55) : ((x) + '0'))
+#define _int_in_ascii_lower(x) (((x) >= 10) ? ((x) + 87) : ((x) + '0'))
+#define _ascii_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((((x) >= 'A') && ((x) <= 'Z')) ? ((x) - 55) : ((x) - '0')))
+#define _ascii_upper_in_int(x) ((((x) >= 'A') && ((x) <= 'Z')) ? ((x) - 55) : ((x) - '0'))
+#define _ascii_lower_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((x) - '0'))
+
+
+#undef _in_ascii
+#undef _in_upper
+#undef _in_lower
+#undef _int_in_ascii
+#undef _int_in_upper
+#undef _int_in_lower
+#undef _ascii_in_int
+#undef _upper_in_int
+#undef _lower_in_int
+
+#define _in_ascii(x) ((x) & 127)
+#define _in_upper(x) ((((c) >= 'a') && ((c) <= 'z')) ? ((x) - 32) : (x))
+#define _in_lower(x) ((((c) >= 'A') && ((c) <= 'Z')) ? ((x) + 32) : (x))
+#define _int_in_ascii(x) (((x) >= 10) ? ((x) + 87) : ((x) + '0'))
+#define _int_in_upper(x) (((x) >= 10) ? ((x) + 55) : ((x) + '0'))
+#define _int_in_lower(x) (((x) >= 10) ? ((x) + 87) : ((x) + '0'))
+#define _ascii_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((((x) >= 'A') && ((x) <= 'Z')) ? ((x) - 55) : ((x) - '0')))
+#define _upper_in_int(x) ((((x) >= 'A') && ((x) <= 'Z')) ? ((x) - 55) : ((x) - '0'))
+#define _lower_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((x) - '0'))
 
 
 #undef _in_bit
@@ -1891,6 +1921,7 @@
 #undef _bit_set_first
 #undef _bit_reset_first
 #undef _bit_flip_first
+#undef _bit_insert
 #undef _bit_range
 #undef _bit_get_range
 #undef _bit_let_range
@@ -1911,6 +1942,9 @@
 #undef _bit_set_range_first
 #undef _bit_reset_range_first
 #undef _bit_flip_range_first
+#undef _bit_insert_range
+#undef _bit_merge
+#undef _bit_same
 
 #define _in_bit(x) ((x) & 1)
 #define _bit_mask(n, s) (((1 << (n)) - 1) << (s))
@@ -1922,38 +1956,40 @@
 #define _bit_reset(x, i) ((x) & (~(1 << (i))))
 #define _bit_flip(x, i) ((x) ^ (1 << (i)))
 #define _bit_shift(x) ((x) >> 1)
-#define _bit_unshift_let(x, b) (((x) << 1) | (!(!(b))))
-#define _bit_unshift_align(x, b) (((x) << 1) | (!(!(b))))
-#define _bit_unshift(x, b) (((x) << 1) | (!(!(b))))
+#define _bit_unshift_let(x, b) (((x) << 1) | (!(!(b)))))
+#define _bit_unshift_align(x, b) (((x) << 1) | (!(!(b)))))
+#define _bit_unshift(x, b) (((x) << 1) | (!(!(b)))))
 #define _bit_unshift_0(x) ((x) << 1)
 #define _bit_unshift_1(x) (((x) << 1) | 1)
 #define _bit_first(x) ((x) & 1)
 #define _bit_get_first(x) ((x) & 1)
-#define _bit_let_first(x, b) (((x) & (~(1))) | (!(!(b))))
-#define _bit_align_first(x, b) (((x) & (~(1))) | (!(!(b))))
+#define _bit_let_first(x, b) (((x) & (~(1))) | (!(!(b)))))
+#define _bit_align_first(x, b) (((x) & (~(1))) | (!(!(b)))))
 #define _bit_set_first(x) ((x) | 1)
 #define _bit_reset_first(x) ((x) & (~(1)))
 #define _bit_flip_first(x) ((x) ^ 1)
+#define _bit_insert(x, i, b) (((((x) & (~((1 << (i)) - 1))) << 1) | ((x) & ((1 << (i)) - 1))) | ((!(!(b))) << (i)))
 #define _bit_range(x, s, e) (((x) >> (s)) & ((1 << (((e) - (s)) + 1)) - 1))
 #define _bit_get_range(x, s, e) (((x) >> (s)) & ((1 << (((e) - (s)) + 1)) - 1))
-#define _bit_let_range(x, s, e, b) ((!(!(b))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
-#define _bit_align_range(x, s, e, b) ((!(!(b))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
+#define _bit_let_range(x, s, e, b) ((!(!(b)))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
+#define _bit_align_range(x, s, e, b) ((!(!(b)))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
 #define _bit_set_range(x, s, e) ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s)))
 #define _bit_reset_range(x, s, e) ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s))))
 #define _bit_flip_range(x, s, e) ((x) ^ (((1 << (((e) - (s)) + 1)) - 1) << (s)))
 #define _bit_shift_range(x, n) ((x) >> (n))
-#define _bit_unshift_let_range(x, n, b) ((!(!(b))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
-#define _bit_unshift_align_range(x, n, b) ((!(!(b))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
-#define _bit_unshift_range(x, n, b) ((!(!(b))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
+#define _bit_unshift_let_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
+#define _bit_unshift_align_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
+#define _bit_unshift_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
 #define _bit_unshift_0_range(x, n) ((x) << (n))
 #define _bit_unshift_1_range(x, n) (((x) << (n)) | ((1 << (n)) - 1))
 #define _bit_range_first(x, n) ((x) & ((1 << (n)) - 1))
 #define _bit_get_range_first(x, n) ((x) & ((1 << (n)) - 1))
-#define _bit_let_range_first(x, n, b) ((!(!(b))) ? ((x) | ((1 << (n)) - 1)) : ((x) & (~((1 << (n)) - 1))))
-#define _bit_align_range_first(x, n, b) ((!(!(b))) ? ((x) | ((1 << (n)) - 1)) : ((x) & (~((1 << (n)) - 1))))
+#define _bit_let_range_first(x, n, b) ((!(!(b)))) ? ((x) | ((1 << (n)) - 1)) : ((x) & (~((1 << (n)) - 1))))
+#define _bit_align_range_first(x, n, b) ((!(!(b)))) ? ((x) | ((1 << (n)) - 1)) : ((x) & (~((1 << (n)) - 1))))
 #define _bit_set_range_first(x, n) ((x) | ((1 << (n)) - 1))
 #define _bit_reset_range_first(x, n) ((x) & (~((1 << (n)) - 1)))
 #define _bit_flip_range_first(x, n) ((x) ^ ((1 << (n)) - 1))
+#define _bit_insert_range(x, s, e, b) (((((x) & (~((1 << (s)) - 1))) << (((e) - (s)) + 1)) | ((x) & ((1 << (s)) - 1))) | ((!(!(b))) ? (((1 << (((e) - (s)) + 1)) - 1) << (s)) : 0))
 #define _bit_merge(x, y) ((x) | (y))
 #define _bit_same(x, y) (~((x) ^ (y)))
 
@@ -1980,27 +2016,6 @@
 #define null _null
 
 
-#undef _db
-#undef _dw
-#undef _dd
-#undef _dq
-#undef db
-#undef dw
-#undef dd
-#undef dq
-
-#define _db _u8
-#define _dw _u16
-#define _dd _u32
-#define db _db
-#define dw _dw
-#define dd _dd
-#ifdef _u64
-#define _dq _u64
-#define dq _dq
-#endif
-
-
 #undef _true
 #undef _false
 #undef true
@@ -2022,6 +2037,40 @@
 #endif
 #endif
 #define bool _bool
+
+
+#undef _byte
+#undef _word
+#undef _dword
+#undef _qword
+
+#define _byte _u8
+#define _word _u16
+#define _dword _u32
+#ifdef _u64
+#define _qword _u64
+#endif
+
+
+#undef _db
+#undef _dw
+#undef _dd
+#undef _dq
+#undef db
+#undef dw
+#undef dd
+#undef dq
+
+#define _db _byte
+#define _dw _word
+#define _dd _dword
+#define db _db
+#define dw _dw
+#define dd _dd
+#ifdef _u64
+#define _dq _qword
+#define dq _dq
+#endif
 
 
 #undef _bytes
