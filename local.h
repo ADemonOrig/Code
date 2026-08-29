@@ -2073,10 +2073,8 @@
 #endif
 
 
+#undef _rawbytes
 #undef _bytes
-#define _bytes void*
-
-
 #undef _char
 #undef _string
 #undef _str
@@ -2087,6 +2085,8 @@
 #undef _custring
 #undef _custr
 
+#define _rawbytes void*
+#define _bytes _byte*
 #define _char char
 #define _string char*
 #define _str _string
