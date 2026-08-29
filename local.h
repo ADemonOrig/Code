@@ -2052,6 +2052,19 @@
 #endif
 
 
+#undef byte
+#undef word
+#undef dword
+#undef qword
+
+#define byte _byte
+#define word _word
+#define dword _dword
+#ifdef _u64
+#define qword _qword
+#endif
+
+
 #undef _db
 #undef _dw
 #undef _dd
@@ -2073,7 +2086,6 @@
 #endif
 
 
-#undef _rawbytes
 #undef _bytes
 #undef _char
 #undef _string
@@ -2085,7 +2097,6 @@
 #undef _custring
 #undef _custr
 
-#define _rawbytes void*
 #define _bytes _byte*
 #define _char char
 #define _string char*
