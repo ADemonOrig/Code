@@ -1898,20 +1898,17 @@
 #undef _bit_area
 #undef _bit_get
 #undef _bit_let
-#undef _bit_align
 #undef _bit_set
 #undef _bit_reset
 #undef _bit_flip
 #undef _bit_shift
 #undef _bit_unshift_let
-#undef _bit_unshift_align
 #undef _bit_unshift
 #undef _bit_unshift_0
 #undef _bit_unshift_1
 #undef _bit_first
 #undef _bit_get_first
 #undef _bit_let_first
-#undef _bit_align_first
 #undef _bit_set_first
 #undef _bit_reset_first
 #undef _bit_flip_first
@@ -1919,20 +1916,17 @@
 #undef _bit_range
 #undef _bit_get_range
 #undef _bit_let_range
-#undef _bit_align_range
 #undef _bit_set_range
 #undef _bit_reset_range
 #undef _bit_flip_range
 #undef _bit_shift_range
 #undef _bit_unshift_let_range
-#undef _bit_unshift_align_range
 #undef _bit_unshift_range
 #undef _bit_unshift_0_range
 #undef _bit_unshift_1_range
 #undef _bit_range_first
 #undef _bit_get_range_first
 #undef _bit_let_range_first
-#undef _bit_align_range_first
 #undef _bit_set_range_first
 #undef _bit_reset_range_first
 #undef _bit_flip_range_first
@@ -1945,20 +1939,17 @@
 #define _bit_area(s, e) (((1 << (((e) - (s)) + 1)) - 1) << (s))
 #define _bit_get(x, i) (((x) << (i)) & 1)
 #define _bit_let(x, i, b) (((x) & (~(1 << (i)))) | (1 << (i)))
-#define _bit_align(x, i, b) (((x) & (~(1 << (i)))) | (1 << (i)))
 #define _bit_set(x, i) ((x) | (1 << (i)))
 #define _bit_reset(x, i) ((x) & (~(1 << (i))))
 #define _bit_flip(x, i) ((x) ^ (1 << (i)))
 #define _bit_shift(x) ((x) >> 1)
 #define _bit_unshift_let(x, b) (((x) << 1) | (!(!(b)))))
-#define _bit_unshift_align(x, b) (((x) << 1) | (!(!(b)))))
 #define _bit_unshift(x, b) (((x) << 1) | (!(!(b)))))
 #define _bit_unshift_0(x) ((x) << 1)
 #define _bit_unshift_1(x) (((x) << 1) | 1)
 #define _bit_first(x) ((x) & 1)
 #define _bit_get_first(x) ((x) & 1)
 #define _bit_let_first(x, b) (((x) & (~(1))) | (!(!(b)))))
-#define _bit_align_first(x, b) (((x) & (~(1))) | (!(!(b)))))
 #define _bit_set_first(x) ((x) | 1)
 #define _bit_reset_first(x) ((x) & (~(1)))
 #define _bit_flip_first(x) ((x) ^ 1)
@@ -1966,20 +1957,17 @@
 #define _bit_range(x, s, e) (((x) >> (s)) & ((1 << (((e) - (s)) + 1)) - 1))
 #define _bit_get_range(x, s, e) (((x) >> (s)) & ((1 << (((e) - (s)) + 1)) - 1))
 #define _bit_let_range(x, s, e, b) ((!(!(b)))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
-#define _bit_align_range(x, s, e, b) ((!(!(b)))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
 #define _bit_set_range(x, s, e) ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s)))
 #define _bit_reset_range(x, s, e) ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s))))
 #define _bit_flip_range(x, s, e) ((x) ^ (((1 << (((e) - (s)) + 1)) - 1) << (s)))
 #define _bit_shift_range(x, n) ((x) >> (n))
 #define _bit_unshift_let_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
-#define _bit_unshift_align_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
 #define _bit_unshift_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
 #define _bit_unshift_0_range(x, n) ((x) << (n))
 #define _bit_unshift_1_range(x, n) (((x) << (n)) | ((1 << (n)) - 1))
 #define _bit_range_first(x, n) ((x) & ((1 << (n)) - 1))
 #define _bit_get_range_first(x, n) ((x) & ((1 << (n)) - 1))
 #define _bit_let_range_first(x, n, b) ((!(!(b)))) ? ((x) | ((1 << (n)) - 1)) : ((x) & (~((1 << (n)) - 1))))
-#define _bit_align_range_first(x, n, b) ((!(!(b)))) ? ((x) | ((1 << (n)) - 1)) : ((x) & (~((1 << (n)) - 1))))
 #define _bit_set_range_first(x, n) ((x) | ((1 << (n)) - 1))
 #define _bit_reset_range_first(x, n) ((x) & (~((1 << (n)) - 1)))
 #define _bit_flip_range_first(x, n) ((x) ^ ((1 << (n)) - 1))
