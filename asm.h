@@ -2,6 +2,11 @@
 #define __ASM_H__
 
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
 #undef   al
 #undef   ah
 #undef   ax
@@ -224,43 +229,39 @@
 #define dr7 0xd064
 
 
-// #undef i8
-// #undef u8
-// #undef i16
-// #undef u16
-// #undef i32
-// #undef u32
-// #undef i64
-// #undef u64
-//
-// #define i8  signed char
-// #define u8  unsigned char
-// #define i16 signed short int
-// #define u16 unsigned short int
-// #if defined(SIZEOF_LONG) && SIZEOF_LONG == 4
-// #define i32 signed long int
-// #define u32 unsigned long int
-// #elif defined(SIZEOF_INT) && SIZEOF_INT == 4
-// #define i32 signed int
-// #define u32 unsigned int
-// #else
-// #define i32 signed long int
-// #define u32 unsigned long int
-// #endif
-// #if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 8
-// #define i64 signed long int
-// #define u64 unsigned long int
-// #elif defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ == 8
-// #define i64 signed long long int
-// #define u64 unsigned long long int
-// #elif defined(_MSC_VER) && defined(_WIN64)
-// #define i64 signed __int64
-// #define u64 unsigned __int64
-// #endif
+#undef i8
+#undef u8
+#undef i16
+#undef u16
+#undef i32
+#undef u32
+#undef i64
+#undef u64
 
-
-#undef null
-#define null (0)
+#define i8  signed char
+#define u8  unsigned char
+#define i16 signed short int
+#define u16 unsigned short int
+#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
+#define i32 signed long int
+#define u32 unsigned long int
+#elif defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
+#define i32 signed int
+#define u32 unsigned int
+#else
+#define i32 signed long int
+#define u32 unsigned long int
+#endif
+#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 8
+#define i64 signed long int
+#define u64 unsigned long int
+#elif defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ == 8
+#define i64 signed long long int
+#define u64 unsigned long long int
+#elif defined(_MSC_VER) && defined(_WIN64)
+#define i64 signed __int64
+#define u64 unsigned __int64
+#endif
 
 
 #undef false
@@ -271,56 +272,68 @@
 #define bool u8
 
 
-#include "local.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#undef null
+#define null 0
 
 
-enum arch_t {
-    x86 = 1,
-    x86_64 = 2,
-    ARM = 3,
-    ARM64 = 4
-};
+#undef ARCH_x86
+#undef ARCH_x86_64
+#undef ARCH_ARM
+#undef ARCH_ARM64
+
+#define ARCH_x86 1
+#define ARCH_x86_64 2
+#define ARCH_ARM 3
+#define ARCH_ARM64 4
 
 
-enum hform_t {
-    BIN,
-    ELF,
-    ELFshared,
-    ELFexec,
-    ELFexec1,
-    ELFexec2,
-    ELFexec3,
-    ELF64,
-    ELF64shared,
-    ELF64exec,
-    ELF64exec1,
-    ELF64exec2,
-    ELF64exec3,
-    PE,
-    PE64,
-    COFF,
-    MACHO,
-    MACHO64
-};
+#undef FORMAT_BIN
+#undef FORMAT_ELF
+#undef FORMAT_ELF64
+#undef FORMAT_ELFso
+#undef FORMAT_ELF64so
+#undef FORMAT_ELFexec
+#undef FORMAT_ELF64exec
+#undef FORMAT_PE
+#undef FORMAT_PE64
+#undef FORMAT_COFF
+#undef FORMAT_MACHO
+#undef FORMAT_MACHO64
+
+#define FORMAT_BIN 1
+#define FORMAT_ELF 2
+#define FORMAT_ELF64 3
+#define FORMAT_ELFso 4
+#define FORMAT_ELF64so 5
+#define FORMAT_ELFexec 6
+#define FORMAT_ELF64exec 7
+#define FORMAT_PE 8
+#define FORMAT_PE64 9
+#define FORMAT_COFF 10
+#define FORMAT_MACHO 11
+#define FORMAT_MACHO64 12
 
 
-enum segment_t {
-    SEG_NULL,
-    SEG_LOAD,
-    SEG_DYNAMIC,
-    SEG_INTERP,
-    SEG_NOTE
-};
+#undef SEGMENT_NULL
+#undef SEGMENT_LOAD
+#undef SEGMENT_DYNAMIC
+#undef SEGMENT_INTERP
+#undef SEGMENT_NOTE
+
+#define SEGMENT_NULL 0
+#define SEGMENT_LOAD 1
+#define SEGMENT_DYNAMIC 2
+#define SEGMENT_INTERP 3
+#define SEGMENT_NOTE 4
 
 
-enum segment_flag {
-    SEG_EXEC = 1,
-    SEG_WRITE = 2,
-    SEG_READ = 4
-};
+#undef SEGMENT_EXEC
+#undef SEGMENT_WRITE
+#undef SEGMENT_READ
+
+#define SEGMENT_EXEC 1
+#define SEGMENT_WRITE 2
+#define SEGMENT_READ 3
 
 
 struct segment {
@@ -349,7 +362,7 @@ struct assembly {
 
 
 u8 asm_init(struct assembly *ass) {
-    ass->arch = null;
+    ass->arch = 0;
     ass->format = BIN;
     memset(ass->head, 0, 64);
     ass->head_size = 0;
@@ -365,10 +378,32 @@ u8 asm_init(struct assembly *ass) {
 
 
 u8 asm_free(struct assembly* ass) {
+    ass->arch = 0;
+    ass->format = 0;
+    memset(ass->head, 0, 64);
+    ass->head_size = 0;
     if (ass->data != null) {
         free(ass->data);
         ass->data = null;
-        ass->data_offset = null;
+        ass->offset = null;
+        ass->capacity = 0;
+    }
+    if (ass->segments != null) {
+        free(ass->segments);
+        ass->segments = null;
+        ass->seg_count = 0;
+        ass->seg_capacity = 0;
+        ass->seg_open = 0;
+    }
+    return 0;
+}
+
+
+u8 asm_clear(struct assembly* ass) {
+    if (ass->data != null) {
+        free(ass->data);
+        ass->data = null;
+        ass->offset = null;
         ass->capacity = 0;
     }
     if (ass->segments != null) {
@@ -386,13 +421,12 @@ u8 asm_write(struct assembly *ass, void* data, u64 size) {
     if (!ass->seg_open) return 1;
     u64 new_size = ass->offset - ass->data + size;
     if (new_size > ass->capacity) {
-        u64 new_capacity = ass->capacity == 0 ? 4096 : ass->capacity * 2;
-        while (new_capacity < new_size) new_capacity *= 2;
-        u8 *new_data = (u8*)realloc(ass->data, new_capacity);
+        if (ass->capacity == 0) ass->capacity = 4096;
+        while (ass->capacity < new_size) ass->capacity *= 2;
+        u8 *new_data = (u8*)realloc(ass->data, ass->capacity);
         if (new_data == null) return 1;
         ass->data = new_data;
         ass->offset = ass->data + new_size - size;
-        ass->capacity = new_capacity;
     }
     memcpy(ass->offset, data, size);
     ass->offset += size;
@@ -401,8 +435,8 @@ u8 asm_write(struct assembly *ass, void* data, u64 size) {
 
 
 u8 asm_segment_end(struct assembly *ass) {
-    if (!ass->seg_open || ass->seg_count == 0 || ass->seg_capacity == 0) return 0;
-    ass->segments[ass->seg_count - 1].size = ass->offset - ass->data - ass->segments[ass->seg_count - 1].offset;
+    if (!ass->seg_open) return 0;
+    ass->segments[ass->seg_count-1].size = ass->offset - ass->data - ass->segments[ass->seg_count - 1].offset;
     ass->seg_open = 0;
     return 0;
 }
@@ -411,17 +445,19 @@ u8 asm_segment_end(struct assembly *ass) {
 u8 asm_segment(struct assembly* ass, enum segment_t type, enum segment_flag flag, u64 vaddr, u64 align) {
     asm_segment_end(ass);
     if (ass->seg_count >= ass->seg_capacity) {
-        u64 new_seg_capacity = ass->seg_capacity == 0 ? 4 : ass->seg_capacity * 2
+        u64 new_seg_capacity = ass->seg_capacity == 0 ? 4 : ass->seg_capacity * 2;
         struct segment *new_segments = (struct segment*)realloc(ass->segments, new_seg_capacity * sizeof(struct segment));
         if (new_segments == null) return 1;
         ass->segments = new_segments;
+        ass->seg_capacity = new_seg_capacity;
     }
     ass->segments[ass->seg_count].type = type;
-    ass->segments[ass->seg_count].offset = ass->offset;
+    ass->segments[ass->seg_count].offset = ass->offset - ass->data;
     ass->segments[ass->seg_count].flag = flag;
     ass->segments[ass->seg_count].vaddr = vaddr;
     ass->segments[ass->seg_count].align = align;
     ass->seg_count++;
+    ass->seg_open = 1;
     return 0;
 }
 
@@ -431,7 +467,8 @@ u8 asm_alignment(struct assembly *ass, u64 align) {
     u64 padding = (align - (size % align)) % align;
     if (padding) {
         u8* zeros = calloc(1, padding);
-        if (zeros == null || asm_write(ass, zeros, padding)) return 1;
+        if (zeros == null) return 1;
+        if (asm_write(ass, zeros, padding)) return 1;
         free(zeros);
     }
     return 0;

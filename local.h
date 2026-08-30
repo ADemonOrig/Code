@@ -1996,7 +1996,7 @@
 #undef _null
 #undef null
 
-#define _null (0)
+#define _null 0
 #define null _null
 
 
