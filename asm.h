@@ -260,7 +260,15 @@
 
 
 #undef null
-#define null ((void*)0)
+#define null (0)
+
+
+#undef false
+#undef true
+#undef bool
+#define false 0
+#define true 1
+#define bool u8
 
 
 #include "local.h"
@@ -328,21 +336,23 @@ struct segment {
 struct assembly {
     enum arch_t arch;
     enum hform_t format;
-    u8 *head;
+    u8 head[64];
+    u8 head_size;
     u8 *data;
     u8 *offset;
     u64 capacity;
     struct segment *segments;
     u64 seg_count;
     u64 seg_capacity;
-    u8 seg_open;
+    bool seg_open;
 };
 
 
 u8 asm_init(struct assembly *ass) {
-    ass->arch = 0;
-    ass->format = 0;
-    ass->head = null;
+    ass->arch = null;
+    ass->format = BIN;
+    memset(ass->head, 0, 64);
+    ass->head_size = 0;
     ass->data = null;
     ass->offset = null;
     ass->capacity = 0;
@@ -354,11 +364,11 @@ u8 asm_init(struct assembly *ass) {
 }
 
 
-u8 asm_free(struct assembly *ass) {
+u8 asm_free(struct assembly* ass) {
     if (ass->data != null) {
         free(ass->data);
         ass->data = null;
-        ass->offset = null;
+        ass->data_offset = null;
         ass->capacity = 0;
     }
     if (ass->segments != null) {
@@ -372,36 +382,20 @@ u8 asm_free(struct assembly *ass) {
 }
 
 
-u8 asm_expand(struct assembly *ass, u64 size) {
-    u64 offset = ass->offset - ass->data;
-    if (offset + size > ass->capacity) {
+u8 asm_write(struct assembly *ass, void* data, u64 size) {
+    if (!ass->seg_open) return 1;
+    u64 new_size = ass->offset - ass->data + size;
+    if (new_size > ass->capacity) {
         u64 new_capacity = ass->capacity == 0 ? 4096 : ass->capacity * 2;
-        while (new_capacity < offset + size) new_capacity *= 2;
+        while (new_capacity < new_size) new_capacity *= 2;
         u8 *new_data = (u8*)realloc(ass->data, new_capacity);
         if (new_data == null) return 1;
         ass->data = new_data;
-        ass->offset = ass->data + offset;
+        ass->offset = ass->data + new_size - size;
         ass->capacity = new_capacity;
     }
-    return 0;
-}
-
-
-u8 asm_write(struct assembly *ass, void* data, u64 size) {
-    if (!ass->seg_open || asm_expand(ass, size)) return 1;
     memcpy(ass->offset, data, size);
     ass->offset += size;
-    return 0;
-}
-
-
-u8 asm_segment_expand(struct assembly *ass) {
-    if (ass->seg_count >= ass->seg_capacity) {
-        u64 new_seg_capacity = ass->seg_capacity == 0 ? 4 : ass->seg_capacity * 2
-        struct segment *new_segments = (struct segment*)realloc(ass->segments, new_seg_capacity * sizeof(struct segment));
-        if (new_segments == null) return 1;
-        ass->segments = new_segments;
-    }
     return 0;
 }
 
@@ -414,17 +408,27 @@ u8 asm_segment_end(struct assembly *ass) {
 }
 
 
-u8 asm_segment(struct assembly* ass) {
+u8 asm_segment(struct assembly* ass, enum segment_t type, enum segment_flag flag, u64 vaddr, u64 align) {
     asm_segment_end(ass);
-    asm_segment_expand(ass);
-
+    if (ass->seg_count >= ass->seg_capacity) {
+        u64 new_seg_capacity = ass->seg_capacity == 0 ? 4 : ass->seg_capacity * 2
+        struct segment *new_segments = (struct segment*)realloc(ass->segments, new_seg_capacity * sizeof(struct segment));
+        if (new_segments == null) return 1;
+        ass->segments = new_segments;
+    }
+    ass->segments[ass->seg_count].type = type;
+    ass->segments[ass->seg_count].offset = ass->offset;
+    ass->segments[ass->seg_count].flag = flag;
+    ass->segments[ass->seg_count].vaddr = vaddr;
+    ass->segments[ass->seg_count].align = align;
+    ass->seg_count++;
     return 0;
 }
 
 
-u8 asm_alignment(struct assembly *ass, u64 alignment) {
+u8 asm_alignment(struct assembly *ass, u64 align) {
     u64 size = ass->offset - ass->data;
-    u64 padding = (alignment - (size % alignment)) % alignment;
+    u64 padding = (align - (size % align)) % align;
     if (padding) {
         u8* zeros = calloc(1, padding);
         if (zeros == null || asm_write(ass, zeros, padding)) return 1;
@@ -437,25 +441,15 @@ u8 asm_alignment(struct assembly *ass, u64 alignment) {
 u8 asm_header(struct assembly *ass) {
     switch (ass->format) {
         case BIN:
-            return 0;
+            ass->head_size = 0;
         case ELF:
         case ELFshared:
         case ELFexec:
         case ELFexec1:
         case ELFexec2:
         case ELFexec3: {
-            u8 elf_header[52] = {0};
-            elf_header[0] = 0x7f;
-            elf_header[1] = 'E';
-            elf_header[2] = 'L';
-            elf_header[3] = 'F';
-            elf_header[4] = 1;
-            elf_header[5] = 1;
-            elf_header[6] = 1;
-            elf_header[16] = 2;
-            elf_header[18] = 3;
-            elf_header[20] = 1;
-            return asm_write(ass, elf_header, 52);
+            ass->head[0] = ;
+            ass->head_size = 64;
         }
         case ELF64:
         case ELF64shared:
@@ -463,54 +457,15 @@ u8 asm_header(struct assembly *ass) {
         case ELF64exec1:
         case ELF64exec2:
         case ELF64exec3: {
-            u8 elf64_header[64] = {0};
-            elf64_header[0] = 0x7f;
-            elf64_header[1] = 'E';
-            elf64_header[2] = 'L';
-            elf64_header[3] = 'F';
-            elf64_header[4] = 2;
-            elf64_header[5] = 1;
-            elf64_header[6] = 1;
-            elf64_header[16] = 2;
-            elf64_header[18] = 62;
-            elf64_header[20] = 1;
-            return asm_write(ass, elf64_header, 64);
         }
         case PE:
         case PE64: {
-            u8 dos_header[64] = {0};
-            dos_header[0] = 'M';
-            dos_header[1] = 'Z';
-            dos_header[60] = 0x40;
-            return asm_write(ass, dos_header, 64);
         }
         case COFF: {
-            u8 coff_header[20] = {0};
-            coff_header[0] = 0x4c;
-            coff_header[1] = 0x01;
-            return asm_write(ass, coff_header, 20);
         }
         case MACHO: {
-            u8 macho_header[28] = {0};
-            macho_header[0] = 0xce;
-            macho_header[1] = 0xfa;
-            macho_header[2] = 0xed;
-            macho_header[3] = 0xfe;
-            macho_header[4] = 7;
-            macho_header[12] = 2;
-            macho_header[16] = 1;
-            return asm_write(ass, macho_header, 28);
         }
         case MACHO64: {
-            u8 macho64_header[32] = {0};
-            macho64_header[0] = 0xcf;
-            macho64_header[1] = 0xfa;
-            macho64_header[2] = 0xed;
-            macho64_header[3] = 0xfe;
-            macho64_header[4] = 3;
-            macho64_header[12] = 2;
-            macho64_header[16] = 1;
-            return asm_write(ass, macho64_header, 32);
         }
     }
     return 0;
@@ -519,6 +474,11 @@ u8 asm_header(struct assembly *ass) {
 
 u8 *asm_data(struct assembly *ass) {
     return ass->data;
+}
+
+
+u8 *asm_offset(struct assembly *ass) {
+    return ass->offset;
 }
 
 
