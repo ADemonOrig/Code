@@ -2096,4 +2096,65 @@
 #define _custring const _ustring
 #define _custr _custring
 
+
+#undef _mode_null
+#undef _mode_r
+#undef _mode_rw
+#undef _mode_rx
+#undef _mode_rwx
+#undef _mode_w
+#undef _mode_wx
+#undef _mode_x
+#undef _mode____
+#undef _mode_r__
+#undef _mode_rw_
+#undef _mode_r_x
+#undef _mode_rwx
+#undef _mode__w_
+#undef _mode__wx
+#undef _mode___x
+
+#define _mode_null 0
+#define _mode_r 4
+#define _mode_rw 6
+#define _mode_rx 5
+#define _mode_rwx 7
+#define _mode_w 2
+#define _mode_wx 3
+#define _mode_x 1
+#define _mode____ 0
+#define _mode_r__ 4
+#define _mode_rw_ 6
+#define _mode_r_x 5
+#define _mode_rwx 7
+#define _mode__w_ 2
+#define _mode__wx 3
+#define _mode___x 1
+
+#undef _has_mode_read
+#undef _has_mode_write
+#undef _has_mode_exec
+
+#define _has_mode_read(x) (((x) >> 2) & 1)
+#define _has_mode_write(x) (((x) >> 1) & 1)
+#define _has_mode_execute(x) ((x) & 1)
+
+
+#undef _mode_read
+#undef _mode_write
+#undef _mode_exec
+
+#define _mode_read(x) (((x) >> 2) & 1)
+#define _mode_write(x) (((x) >> 1) & 1)
+#define _mode_execute(x) ((x) & 1)
+
+
+#undef _mode_let_read
+#undef _mode_let_write
+#undef _mode_let_execute
+
+#define _mode_let_read(x) ((x) | 4)
+#define _mode_let_write(x) ((x) | 2)
+#define _mode_let_execute(x) ((x) | 1)
+
 #endif
