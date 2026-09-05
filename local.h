@@ -2131,6 +2131,7 @@
 #define _mode__wx 3
 #define _mode___x 1
 
+
 #undef _has_mode_read
 #undef _has_mode_write
 #undef _has_mode_exec
@@ -2138,15 +2139,6 @@
 #define _has_mode_read(x) (((x) >> 2) & 1)
 #define _has_mode_write(x) (((x) >> 1) & 1)
 #define _has_mode_execute(x) ((x) & 1)
-
-
-#undef _mode_read
-#undef _mode_write
-#undef _mode_exec
-
-#define _mode_read(x) (((x) >> 2) & 1)
-#define _mode_write(x) (((x) >> 1) & 1)
-#define _mode_execute(x) ((x) & 1)
 
 
 #undef _mode_let_read
