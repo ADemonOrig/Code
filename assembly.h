@@ -45,12 +45,12 @@ simple assembler lib
 #define i8 signed char
 #define u16 unsigned short int
 #define i16 signed short int
-#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
-#define u32 unsigned long int
-#define i32 signed long int
-#elif defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
+#if defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
 #define u32 unsigned int
 #define i32 signed int
+#elif defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
+#define u32 unsigned long int
+#define i32 signed long int
 #else
 #define u32 unsigned int
 #define i32 signed int
@@ -363,6 +363,7 @@ u8 asm_init(struct assembly *ass) {
 
 u8 asm_free(struct assembly *ass) {
     if (ass == null) return 1;
+    umax i;
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
     if (ass->header != null) {
@@ -382,7 +383,6 @@ u8 asm_free(struct assembly *ass) {
         ass->seg_cap = 0;
     }
     if (ass->l_cap != 0) {
-        umax i;
         for(i = 0; i < ass->l_count; i++) {
             if (ass->labels[i].len != 0) free(ass->labels[i].name);
         }
@@ -392,7 +392,6 @@ u8 asm_free(struct assembly *ass) {
         ass->l_cap = 0;
     }
     if (ass->a_cap != 0) {
-        umax i;
         for(i = 0; i < ass->a_count; i++) {
             if (ass->addrs[i].len != 0) free(ass->addrs[i].name);
         }
