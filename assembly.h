@@ -322,7 +322,7 @@ extern "C" {
 
 struct segment {
     u8 *data;
-    umax offset;
+    umax addr;
     umax size;
     u8 mode;
 };
@@ -331,7 +331,7 @@ struct segment {
 struct label {
     char *name;
     umax len;
-    u8 *point;
+    u8 *addr;
 };
 
 
@@ -340,15 +340,15 @@ struct assembly {
     u8 format;
     u8 header[asm_format_max_size];
     u8 *data;
-    u8 *curr;
-    umax cap;
+    u8 *offset;
+    umax capacity;
     struct segment *segs;
     umax seg_count;
     umax seg_cap;
-    struct label *labs;
+    struct label *labels;
     umax l_count;
     umax l_cap;
-    struct label *ads;
+    struct label *addrs;
     umax a_count;
     umax a_cap;
 };
@@ -359,15 +359,15 @@ void asm_init(struct assembly *ass) {
     ass->format = asm_format_null;
     memset(ass->header, 0, asm_format_max_size);
     ass->data = null;
-    ass->curr = null;
-    ass->cap = 0;
+    ass->offset = null;
+    ass->capacity = 0;
     ass->segs = null;
     ass->seg_count = 0;
     ass->seg_cap = 0;
-    ass->labs = null;
+    ass->labels = null;
     ass->l_count = 0;
     ass->l_cap = 0;
-    ass->ads = null;
+    ass->addrs = null;
     ass->a_count = 0;
     ass->a_cap = 0;
 }
@@ -377,24 +377,27 @@ void asm_free(struct assembly *ass) {
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
     memset(ass->header, 0, asm_format_max_size);
-    if (ass->cap != 0) {
+    if (ass->capacity != 0) {
+        free(ass->data);
         ass->data = null;
-        ass->curr = null;
-        ass->cap = 0;
+        ass->offset = null;
+        ass->capacity = 0;
     }
     if (ass->seg_cap != 0) {
+        free(ass->segs);
         ass->segs = null;
         ass->seg_count = 0;
         ass->seg_cap = 0;
     }
     if (ass->l_cap != 0) {
-        free(ass->labs);
-        ass->labs = null;
+        free(ass->labels);
+        ass->labels = null;
         ass->l_count = 0;
         ass->l_cap = 0;
     }
     if (ass->a_cap != 0) {
-        ass->ads = null;
+        free(ass->addrs);
+        ass->addrs = null;
         ass->a_count = 0;
         ass->a_cap = 0;
     }
