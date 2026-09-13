@@ -193,10 +193,6 @@ extern "C" {
 #define asm_format_iso_size 2048
 
 
-#undef asm_format_max_size
-#define asm_format_max_size 2048
-
-
 // segment size
 
 #undef asm_segment_null_size
@@ -221,10 +217,6 @@ extern "C" {
 #define asm_segment_macho64_size 72
 #define asm_segment_dos_size 0
 #define asm_segment_iso_size 34
-
-
-#undef asm_segment_max_size
-#define asm_segment_max_size 72
 
 
 // section
@@ -321,34 +313,33 @@ extern "C" {
 // assembly func
 
 struct segment {
-    u8 *data;
-    umax addr;
-    umax size;
     u8 mode;
+    u8 *offset;
+    umax size;
 };
 
 
-struct label {
+struct address {
     char *name;
     umax len;
-    u8 *addr;
+    u8 *offset;
 };
 
 
 struct assembly {
     u8 arch;
     u8 format;
-    u8 header[asm_format_max_size];
+    u8 *header;
     u8 *data;
     u8 *offset;
     umax capacity;
     struct segment *segs;
     umax seg_count;
     umax seg_cap;
-    struct label *labels;
+    struct address *labels;
     umax l_count;
     umax l_cap;
-    struct label *addrs;
+    struct address *addrs;
     umax a_count;
     umax a_cap;
 };
@@ -357,7 +348,7 @@ struct assembly {
 void asm_init(struct assembly *ass) {
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
-    memset(ass->header, 0, asm_format_max_size);
+    ass->header = null;
     ass->data = null;
     ass->offset = null;
     ass->capacity = 0;
@@ -376,7 +367,10 @@ void asm_init(struct assembly *ass) {
 void asm_free(struct assembly *ass) {
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
-    memset(ass->header, 0, asm_format_max_size);
+    if (ass->header != 0) {
+        free(ass->header);
+        ass->header = 0;
+    }
     if (ass->capacity != 0) {
         free(ass->data);
         ass->data = null;
@@ -390,12 +384,18 @@ void asm_free(struct assembly *ass) {
         ass->seg_cap = 0;
     }
     if (ass->l_cap != 0) {
+        for(umax i = 0; i < ass->l_count; i++) {
+            if (ass->labels[i].len != 0) free(ass->labels[i].name);
+        }
         free(ass->labels);
         ass->labels = null;
         ass->l_count = 0;
         ass->l_cap = 0;
     }
     if (ass->a_cap != 0) {
+        for(umax i = 0; i < ass->a_count; i++) {
+            if (ass->addrs[i].len != 0) free(ass->addrs[i].name);
+        }
         free(ass->addrs);
         ass->addrs = null;
         ass->a_count = 0;
