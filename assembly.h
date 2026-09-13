@@ -8,14 +8,17 @@ simple assembler lib
 #define __ASSEMBLY_H__
 
 
+// library
+
 #ifdef __cplusplus
-extern "C" {
-#endif
-
-
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#else
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#endif
 
 
 // constant
@@ -140,7 +143,7 @@ extern "C" {
 #define asm_arch_i386 asm_arch_x86_32
 
 
-// format header
+// format
 
 #undef asm_format_null
 #undef asm_format_bin
@@ -166,7 +169,7 @@ extern "C" {
 #define asm_format_iso 10
 
 
-// format header size
+// format size
 
 #undef asm_format_null_size
 #undef asm_format_bin_size
@@ -249,8 +252,6 @@ extern "C" {
 #undef asm_endian_my
 #undef asm_arch_my
 #undef asm_format_my
-
-
 #if defined(__x86_64__) || defined(_M_X64) || defined(__amd64__) || defined(__amd64)
 #define asm_arch_my asm_arch_x86_64
 #elif defined(__i386__) || defined(_M_IX86) || defined(__i386) || defined(_X86_)
@@ -304,19 +305,19 @@ extern "C" {
 #endif
 
 
-// assembly func
+// assembly
 
 struct segment {
-    u8 mode;
     u8 *offset;
     umax size;
+    u8 mode;
 };
 
 
 struct address {
+    u8 *offset;
     char *name;
     umax len;
-    u8 *offset;
 };
 
 
@@ -423,10 +424,11 @@ u8 asm_bytes(struct assembly *ass, void *data, umax size) {
     umax len = ass->cap ? ass->offset - ass->data : 0;
     if (len + size > ass->cap) {
         umax new_cap = ass->cap ? ass->cap * 2 : 4096;
-        while(new_cap < ass->cap) new_cap *= 2;
+        while(new_cap < len + size) new_cap *= 2;
         u8 *new_data = (u8*)realloc(ass->data, new_cap);
         if (new_data == null) return 2;
         ass->data = new_data;
+        ass->offset = new_data + len;
         ass->cap = new_cap;
     }
     if (data == null) memset(ass->offset, 0, size);
@@ -822,11 +824,6 @@ u8 asm_bytes(struct assembly *ass, void *data, umax size) {
 #define asm_zmm29 0x407d
 #define asm_zmm30 0x407e
 #define asm_zmm31 0x407f
-
-
-#ifdef __cplusplus
-}
-#endif
 
 
 #endif
