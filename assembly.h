@@ -246,9 +246,9 @@ extern "C" {
 
 // my system
 
+#undef asm_endian_my
 #undef asm_arch_my
 #undef asm_format_my
-#undef asm_endian_my
 
 
 #if defined(__x86_64__) || defined(_M_X64) || defined(__amd64__) || defined(__amd64)
@@ -326,7 +326,7 @@ struct assembly {
     u8 *header;
     u8 *data;
     u8 *offset;
-    umax capacity;
+    umax cap;
     struct segment *segs;
     umax seg_count;
     umax seg_cap;
@@ -339,13 +339,14 @@ struct assembly {
 };
 
 
-void asm_init(struct assembly *ass) {
+u8 asm_init(struct assembly *ass) {
+    if (ass == null) return 1;
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
     ass->header = null;
     ass->data = null;
     ass->offset = null;
-    ass->capacity = 0;
+    ass->cap = 0;
     ass->segs = null;
     ass->seg_count = 0;
     ass->seg_cap = 0;
@@ -355,21 +356,23 @@ void asm_init(struct assembly *ass) {
     ass->addrs = null;
     ass->a_count = 0;
     ass->a_cap = 0;
+    return 0;
 }
 
 
-void asm_free(struct assembly *ass) {
+u8 asm_free(struct assembly *ass) {
+    if (ass == null) return 1;
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
     if (ass->header != null) {
         free(ass->header);
         ass->header = null;
     }
-    if (ass->capacity != 0) {
+    if (ass->cap != 0) {
         free(ass->data);
         ass->data = null;
         ass->offset = null;
-        ass->capacity = 0;
+        ass->cap = 0;
     }
     if (ass->seg_cap != 0) {
         free(ass->segs);
@@ -397,6 +400,39 @@ void asm_free(struct assembly *ass) {
         ass->a_count = 0;
         ass->a_cap = 0;
     }
+    return 0;
+}
+
+
+u8 asm_arch(struct assembly *ass, u8 arch) {
+    if (ass == null) return 1;
+    ass->arch = arch;
+    return 0;
+}
+
+
+u8 asm_format(struct assembly *ass, u8 format) {
+    if (ass == null) return 1;
+    ass->format = format;
+    return 0;
+}
+
+
+u8 asm_bytes(struct assembly *ass, void *data, umax size) {
+    if (ass == null) return 1;
+    umax len = ass->cap ? ass->offset - ass->data : 0;
+    if (len + size > ass->cap) {
+        umax new_cap = ass->cap ? ass->cap * 2 : 4096;
+        while(new_cap < ass->cap) new_cap *= 2;
+        u8 *new_data = (u8*)realloc(ass->data, new_cap);
+        if (new_data == null) return 2;
+        ass->data = new_data;
+        ass->cap = new_cap;
+    }
+    if (data == null) memset(ass->offset, 0, size);
+    else memcpy(ass->offset, data, size);
+    ass->offset += size;
+    return 0;
 }
 
 
