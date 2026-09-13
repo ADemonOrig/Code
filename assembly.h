@@ -13,6 +13,17 @@ extern "C" {
 #endif
 
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+// constant
+
+#undef null
+#define null 0
+
+
 // type
 
 #undef u8
@@ -31,12 +42,15 @@ extern "C" {
 #define i8 signed char
 #define u16 unsigned short int
 #define i16 signed short int
-#if defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
-#define u32 unsigned int
-#define i32 signed int
-#elif defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
+#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
 #define u32 unsigned long int
 #define i32 signed long int
+#elif defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
+#define u32 unsigned int
+#define i32 signed int
+#else
+#define u32 unsigned int
+#define i32 signed int
 #endif
 #if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 8
 #define u64 unsigned long int
@@ -51,29 +65,14 @@ extern "C" {
 #define umaxsz 8
 #define imaxsz 8
 #else
-#ifdef u32
 #define umax u32
 #define imax i32
 #define umaxsz 4
 #define imaxsz 4
-#else
-#define umax u16
-#define imax i16
-#define umaxsz 2
-#define imaxsz 2
-#endif
 #endif
 
 
-#undef bool
-#undef byte
-#define bool u8
-#define byte u8
-
-
-#undef null
-#define null 0
-
+// null?
 
 #undef asm_null
 #define asm_null 0
@@ -260,9 +259,9 @@ extern "C" {
 #define asm_arch_my asm_arch_arm64
 #elif defined(__arm__) || defined(_M_ARM) || defined(_M_ARMT)
 #define asm_arch_my asm_arch_arm32
-#elif defined(__riscv) && (__riscv_xlen == 64)
+#elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
 #define asm_arch_my asm_arch_riscv64
-#elif defined(__riscv) && (__riscv_xlen == 32)
+#elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 32)
 #define asm_arch_my asm_arch_riscv32
 #elif defined(__mips64) || defined(__mips64__)
 #define asm_arch_my asm_arch_mips64
@@ -303,11 +302,6 @@ extern "C" {
 #else
 #define asm_format_my asm_format_null
 #endif
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 
 // assembly func
@@ -367,9 +361,9 @@ void asm_init(struct assembly *ass) {
 void asm_free(struct assembly *ass) {
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
-    if (ass->header != 0) {
+    if (ass->header != null) {
         free(ass->header);
-        ass->header = 0;
+        ass->header = null;
     }
     if (ass->capacity != 0) {
         free(ass->data);
@@ -384,7 +378,8 @@ void asm_free(struct assembly *ass) {
         ass->seg_cap = 0;
     }
     if (ass->l_cap != 0) {
-        for(umax i = 0; i < ass->l_count; i++) {
+        umax i;
+        for(i = 0; i < ass->l_count; i++) {
             if (ass->labels[i].len != 0) free(ass->labels[i].name);
         }
         free(ass->labels);
@@ -393,7 +388,8 @@ void asm_free(struct assembly *ass) {
         ass->l_cap = 0;
     }
     if (ass->a_cap != 0) {
-        for(umax i = 0; i < ass->a_count; i++) {
+        umax i;
+        for(i = 0; i < ass->a_count; i++) {
             if (ass->addrs[i].len != 0) free(ass->addrs[i].name);
         }
         free(ass->addrs);
