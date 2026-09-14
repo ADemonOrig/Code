@@ -10,15 +10,9 @@ simple assembler lib
 
 // library
 
-#ifdef __cplusplus
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#else
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#endif
 
 
 // constant
@@ -305,6 +299,18 @@ simple assembler lib
 #endif
 
 
+u8 asm_little_endian() {
+    unsigned short x = 1;
+    return *(unsigned char*)&x == 1);
+}
+
+
+u8 asm_big_endian() {
+    unsigned short x = 1;
+    return *(unsigned char*)&x == 0);
+}
+
+
 // assembly
 
 struct segment {
@@ -362,8 +368,8 @@ u8 asm_init(struct assembly *ass) {
 
 
 u8 asm_free(struct assembly *ass) {
-    if (ass == null) return 1;
     umax i;
+    if (ass == null) return 1;
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
     if (ass->header != null) {
@@ -414,6 +420,20 @@ u8 asm_arch(struct assembly *ass, u8 arch) {
 u8 asm_format(struct assembly *ass, u8 format) {
     if (ass == null) return 1;
     ass->format = format;
+    return 0;
+}
+
+
+u8 asm_clear_arch(struct assembly *ass) {
+    if (ass == null) return 1;
+    ass->arch = asm_arch_null;
+    return 0;
+}
+
+
+u8 asm_clear_format(struct assembly *ass) {
+    if (ass == null) return 1;
+    ass->format = asm_format_null;
     return 0;
 }
 
