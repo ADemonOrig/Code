@@ -8,74 +8,67 @@ simple assembler lib
 #define __ASSEMBLY_H__
 
 
-// library
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
-// constant
+#undef i8
+#undef u8
+#undef i16
+#undef u16
+#undef i32
+#undef u32
+#undef i64
+#undef u64
+#undef imax
+#undef umax
+#undef imaxsz
+#undef umaxsz
+#define i8  signed char
+#define u8  unsigned char
+#define i16 signed short int
+#define u16 unsigned short int
+#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
+#define i32 signed long int
+#define u32 unsigned long int
+#elif defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
+#define i32 signed int
+#define u32 unsigned int
+#else
+#define i32 signed long int
+#define u32 unsigned long int
+#endif
+#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 8
+#define i64 signed long int
+#define u64 unsigned long int
+#elif defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ == 8
+#define i64 signed long long int
+#define u64 unsigned long long int
+#elif defined(_MSC_VER) && defined(_WIN64)
+#define i64 signed __int64
+#define u64 unsigned __int64
+#endif
+#ifdef u64
+#define imax u64
+#define umax i64
+#define imaxsz 8
+#define umaxsz 8
+#else
+#define imax u32
+#define umax i32
+#define imaxsz 4
+#define umaxsz 4
+#endif
+
 
 #undef null
 #define null 0
 
 
-// type
-
-#undef u8
-#undef u16
-#undef u32
-#undef u64
-#undef i8
-#undef i16
-#undef i32
-#undef i64
-#undef umax
-#undef imax
-#undef umaxsz
-#undef imaxsz
-#define u8 unsigned char
-#define i8 signed char
-#define u16 unsigned short int
-#define i16 signed short int
-#if defined(__SIZEOF_INT__) && __SIZEOF_INT__ == 4
-#define u32 unsigned int
-#define i32 signed int
-#elif defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 4
-#define u32 unsigned long int
-#define i32 signed long int
-#else
-#define u32 unsigned int
-#define i32 signed int
-#endif
-#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ == 8
-#define u64 unsigned long int
-#define i64 signed long int
-#elif defined(__SIZEOF_LONG_LONG__) && __SIZEOF_LONG_LONG__ == 8
-#define u64 unsigned long long int
-#define i64 signed long long int
-#endif
-#ifdef u64
-#define umax u64
-#define imax i64
-#define umaxsz 8
-#define imaxsz 8
-#else
-#define umax u32
-#define imax i32
-#define umaxsz 4
-#define imaxsz 4
-#endif
-
-
-// null?
-
 #undef asm_null
 #define asm_null 0
 
-
-// endian
 
 #undef asm_endian_null
 #undef asm_endian_little
@@ -86,8 +79,6 @@ simple assembler lib
 #define asm_endian_big 2
 #define asm_endian_mixed 3
 
-
-// architecture
 
 #undef asm_arch_null
 #undef asm_arch_x86_32
@@ -115,7 +106,7 @@ simple assembler lib
 #define asm_arch_null asm_null
 #define asm_arch_x86_32 1
 #define asm_arch_x86_64 2
-#define asm_arch_x86 asm_arch_x86_64
+#define asm_arch_x86 asm_arch_x86_32
 #define asm_arch_amd32 asm_arch_x86_32
 #define asm_arch_amd64 asm_arch_x86_64
 #define asm_arch_amd asm_arch_amd64
@@ -136,8 +127,6 @@ simple assembler lib
 #define asm_arch_mips asm_arch_mips64
 #define asm_arch_i386 asm_arch_x86_32
 
-
-// format
 
 #undef asm_format_null
 #undef asm_format_bin
@@ -163,8 +152,6 @@ simple assembler lib
 #define asm_format_iso 10
 
 
-// format size
-
 #undef asm_format_null_size
 #undef asm_format_bin_size
 #undef asm_format_elf_size
@@ -188,8 +175,6 @@ simple assembler lib
 #define asm_format_dos_size 64
 #define asm_format_iso_size 2048
 
-
-// segment size
 
 #undef asm_segment_null_size
 #undef asm_segment_bin_size
@@ -215,8 +200,6 @@ simple assembler lib
 #define asm_segment_iso_size 34
 
 
-// section
-
 #undef asm_section_null
 #undef asm_section_text
 #undef asm_section_code
@@ -241,9 +224,6 @@ simple assembler lib
 #define asm_section_fini ".fini"
 
 
-// my system
-
-#undef asm_endian_my
 #undef asm_arch_my
 #undef asm_format_my
 #if defined(__x86_64__) || defined(_M_X64) || defined(__amd64__) || defined(__amd64)
@@ -265,19 +245,6 @@ simple assembler lib
 #else
 #define asm_arch_my asm_arch_null
 #endif
-#if defined(__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
-#define asm_endian_my asm_endian_little
-#elif defined(__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
-#define asm_endian_my asm_endian_big
-#elif defined(__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_PDP_ENDIAN__)
-#define asm_endian_my asm_endian_mixed
-#elif defined(_WIN32) || defined(__i386__) || defined(__x86_64__) || defined(__amd64__) || defined(__aarch64__) || defined(__arm__) || defined(__riscv)
-#define asm_endian_my asm_endian_little
-#elif defined(__MIPSEB__) || defined(__MIPSEB) || defined(__sparc__) || defined(__sparc) || defined(__hppa__) || defined(__s390__) || defined(__s390x__) || defined(__powerpc__) || defined(__ppc__)
-#define asm_endian_my asm_endian_big
-#else
-#define asm_endian_my asm_endian_null
-#endif
 #if defined(asm_arch_my) && ((asm_arch_my == asm_arch_x86_64) || (asm_arch_my == asm_arch_arm64) || (asm_arch_my == asm_arch_riscv64) || (asm_arch_my == asm_arch_mips64))
 #if defined(_WIN32) || defined(_WIN64)
 #define asm_format_my asm_format_pe64
@@ -298,20 +265,6 @@ simple assembler lib
 #define asm_format_my asm_format_null
 #endif
 
-
-u8 asm_little_endian() {
-    unsigned short x = 1;
-    return *(unsigned char*)&x == 1);
-}
-
-
-u8 asm_big_endian() {
-    unsigned short x = 1;
-    return *(unsigned char*)&x == 0);
-}
-
-
-// assembly
 
 struct segment {
     u8 *offset;
@@ -368,7 +321,6 @@ u8 asm_init(struct assembly *ass) {
 
 
 u8 asm_free(struct assembly *ass) {
-    umax i;
     if (ass == null) return 1;
     ass->arch = asm_arch_null;
     ass->format = asm_format_null;
@@ -389,7 +341,7 @@ u8 asm_free(struct assembly *ass) {
         ass->seg_cap = 0;
     }
     if (ass->l_cap != 0) {
-        for(i = 0; i < ass->l_count; i++) {
+        for(umax i = 0; i < ass->l_count; i++) {
             if (ass->labels[i].len != 0) free(ass->labels[i].name);
         }
         free(ass->labels);
@@ -398,7 +350,7 @@ u8 asm_free(struct assembly *ass) {
         ass->l_cap = 0;
     }
     if (ass->a_cap != 0) {
-        for(i = 0; i < ass->a_count; i++) {
+        for(umax i = 0; i < ass->a_count; i++) {
             if (ass->addrs[i].len != 0) free(ass->addrs[i].name);
         }
         free(ass->addrs);
@@ -406,20 +358,6 @@ u8 asm_free(struct assembly *ass) {
         ass->a_count = 0;
         ass->a_cap = 0;
     }
-    return 0;
-}
-
-
-u8 asm_arch(struct assembly *ass, u8 arch) {
-    if (ass == null) return 1;
-    ass->arch = arch;
-    return 0;
-}
-
-
-u8 asm_format(struct assembly *ass, u8 format) {
-    if (ass == null) return 1;
-    ass->format = format;
     return 0;
 }
 
@@ -438,9 +376,23 @@ u8 asm_clear_format(struct assembly *ass) {
 }
 
 
+u8 asm_arch(struct assembly *ass, u8 arch) {
+    if (ass == null) return 1;
+    ass->arch = arch;
+    return 0;
+}
+
+
+u8 asm_format(struct assembly *ass, u8 format) {
+    if (ass == null) return 1;
+    ass->format = format;
+    return 0;
+}
+
+
 u8 asm_bytes(struct assembly *ass, void *data, umax size) {
     if (ass == null) return 1;
-    umax len = ass->cap ? ass->offset - ass->data : 0;
+    u64 len = ass->cap ? ass->offset - ass->data : 0;
     if (len + size > ass->cap) {
         umax new_cap = ass->cap ? ass->cap * 2 : 4096;
         while(new_cap < len + size) new_cap *= 2;
@@ -454,6 +406,83 @@ u8 asm_bytes(struct assembly *ass, void *data, umax size) {
     else memcpy(ass->offset, data, size);
     ass->offset += size;
     return 0;
+}
+
+
+u8 asm_int8(struct assembly *ass, u8 v) {
+    return asm_bytes(ass, &v, 1);
+}
+
+u8 asm_int8le(struct assembly *ass, u8 v) {
+    return asm_bytes(ass, &v, 1);
+}
+
+u8 asm_int8be(struct assembly *ass, u8 v) {
+    return asm_bytes(ass, &v, 1);
+}
+
+
+u8 asm_int16le(struct assembly *ass, u16 v) {
+    u8 b[2];
+    b[0] = (u8)(v & 0xFF);
+    b[1] = (u8)((v >> 8) & 0xFF);
+    return asm_bytes(ass, b, 2);
+}
+
+
+u8 asm_int16be(struct assembly *ass, u16 v) {
+    u8 b[2];
+    b[0] = (u8)((v >> 8) & 0xFF);
+    b[1] = (u8)(v & 0xFF);
+    return asm_bytes(ass, b, 2);
+}
+
+
+u8 asm_int32le(struct assembly *ass, u32 v) {
+    u8 b[4];
+    b[0] = (u8)(v & 0xFF);
+    b[1] = (u8)((v >> 8) & 0xFF);
+    b[2] = (u8)((v >> 16) & 0xFF);
+    b[3] = (u8)((v >> 24) & 0xFF);
+    return asm_bytes(ass, b, 4);
+}
+
+
+u8 asm_int32be(struct assembly *ass, u32 v) {
+    u8 b[4];
+    b[0] = (u8)((v >> 24) & 0xFF);
+    b[1] = (u8)((v >> 16) & 0xFF);
+    b[2] = (u8)((v >> 8) & 0xFF);
+    b[3] = (u8)(v & 0xFF);
+    return asm_bytes(ass, b, 4);
+}
+
+
+u8 asm_int64le(struct assembly *ass, u64 v) {
+    u8 b[8];
+    b[0] = (u8)(v & 0xFF);
+    b[1] = (u8)((v >> 8) & 0xFF);
+    b[2] = (u8)((v >> 16) & 0xFF);
+    b[3] = (u8)((v >> 24) & 0xFF);
+    b[4] = (u8)((v >> 32) & 0xFF);
+    b[5] = (u8)((v >> 40) & 0xFF);
+    b[6] = (u8)((v >> 48) & 0xFF);
+    b[7] = (u8)((v >> 56) & 0xFF);
+    return asm_bytes(ass, b, 8);
+}
+
+
+u8 asm_int64be(struct assembly *ass, u64 v) {
+    u8 b[8];
+    b[0] = (u8)((v >> 56) & 0xFF);
+    b[1] = (u8)((v >> 48) & 0xFF);
+    b[2] = (u8)((v >> 40) & 0xFF);
+    b[3] = (u8)((v >> 32) & 0xFF);
+    b[4] = (u8)((v >> 24) & 0xFF);
+    b[5] = (u8)((v >> 16) & 0xFF);
+    b[6] = (u8)((v >> 8) & 0xFF);
+    b[7] = (u8)(v & 0xFF);
+    return asm_bytes(ass, b, 8);
 }
 
 
