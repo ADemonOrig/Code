@@ -500,8 +500,9 @@ struct gelf {
 };
 
 
-u8 gelf_init(struct gelf *ge) {
+u32 gelf_init(struct gelf *ge) {
     if (ge == 0) return 1;
+
     ge->format = 0;
     ge->data = 0;
     ge->curr = 0;
@@ -515,13 +516,16 @@ u8 gelf_init(struct gelf *ge) {
     ge->addrs = 0;
     ge->a_count = 0;
     ge->a_cap = 0;
+
     return 0;
 }
 
 
-u8 gelf_free(struct gelf *ge) {
+u32 gelf_free(struct gelf *ge) {
     if (ge == 0) return 1;
+
     ge->format = 0;
+
     if (ge->header != 0) {
         free(ge->header);
         ge->header = 0;
@@ -556,14 +560,26 @@ u8 gelf_free(struct gelf *ge) {
         ge->a_count = 0;
         ge->a_cap = 0;
     }
+
     return 0;
 }
 
 
-u8 gelf_bytes(struct gelf *ge, void *data, u64 size) {
+u32 gelf_format(struct gelf *ge, u8 format) {
+    if (ge == 0) return 1;
+
+    ge->format = format;
+
+    return 0;
+}
+
+
+u32 gelf_bytes(struct gelf *ge, void *data, u64 size) {
     if (ge == 0) return 1;
     if (size == 0) return 0;
+
     u64 len = ge->cap ? ge->curr - ge->data : 0;
+
     if (len + size > ge->cap) {
         u64 new_cap = ge->cap ? ge->cap * 2 : 4096;
         while(len + size > new_cap) new_cap *= 2;
@@ -573,38 +589,45 @@ u8 gelf_bytes(struct gelf *ge, void *data, u64 size) {
         ge->curr = new_data + len;
         ge->cap = new_cap;
     }
+
     if (data) memcpy(ge->curr, data, size);
     else memset(ge->curr, 0, size);
     ge->curr += size;
+
     return 0;
 }
 
 
-u8 gelf_byte(struct gelf *ge, u8 v) {
+u32 gelf_byte(struct gelf *ge, u8 v) {
     return gelf_bytes(ge, &v, 1);
 }
 
 
-u8 gelf_short(struct gelf *ge, u16 v) {
+u32 gelf_short(struct gelf *ge, u16 v) {
     static u8 b[2];
+
     b[0] = v & 0xFF;
     b[1] = (v >> 8) & 0xFF;
+
     return gelf_bytes(ge, &b, 2);
 }
 
 
-u8 gelf_int(struct gelf *ge, u32 v) {
+u32 gelf_int(struct gelf *ge, u32 v) {
     static u8 b[4];
+
     b[0] = v & 0xFF;
     b[1] = (v >> 8) & 0xFF;
     b[2] = (v >> 16) & 0xFF;
     b[3] = (v >> 24) & 0xFF;
+
     return gelf_bytes(ge, &b, 4);
 }
 
 
-u8 gelf_long(struct gelf *ge, u64 v) {
+u32 gelf_long(struct gelf *ge, u64 v) {
     static u8 b[8];
+
     b[0] = v & 0xFF;
     b[1] = (v >> 8) & 0xFF;
     b[2] = (v >> 16) & 0xFF;
@@ -613,29 +636,40 @@ u8 gelf_long(struct gelf *ge, u64 v) {
     b[5] = (v >> 40) & 0xFF;
     b[6] = (v >> 48) & 0xFF;
     b[7] = (v >> 56) & 0xFF;
+
     return gelf_bytes(ge, &b, 8);
 }
 
 
-u8 gelf_format(struct gelf *ge, u8 format) {
+u32 gelf_segment(struct gelf *ge, u8 type, u8 flag, u64 msize) {
     if (ge == 0) return 1;
-    ge->format = format;
+
     return 0;
 }
 
 
-u8 gelf_build(struct gelf *ge) {
-    if (ge == 0) return 0;
-    u64 len = ge->cap ? ge->curr - ge->data : 0;
-    u8 *full = (u8*)malloc(len + 64 + (ge->seg_count * 56));
-    if (full == 0) return 0;
-    u8 *fcurr = full;
-    return full;
+u32 gelf_segment_end(struct gelf *ge) {
+    if (ge == 0) return 1;
+
+    return 0;
 }
 
 
-u8 gelf_build_file(struct gelf *ge, const char *path) {
+u32 gelf_build(struct gelf *ge, const char *path) {
     if (ge == 0) return 1;
+
+    FILE *file = fopen(path == 0 ? "a" : 0, "w+");
+    if (file == 0) return 2;
+
+    // something
+
+    for(u64 i = 0; i < ge->seg_count; i++) {
+        // something
+    }
+
+    u64 len = ge->cap ? ge->curr - ge->data : 0;
+    fwrite(ge->data, 1, len, file);
+
     return 0;
 }
 
