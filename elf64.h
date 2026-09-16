@@ -16,8 +16,8 @@ warning:
 
 */
 
-#ifndef __ELF64_H__
-#define __ELF64_H__
+#ifndef __GEN_ELF_X64__
+#define __GEN_ELF_X64__
 
 
 #include <stdio.h>
@@ -44,38 +44,27 @@ warning:
 #endif
 
 
-#undef null
-#define null 0
+#undef elf_object
+#undef elf_shared_object
+#undef elf_archive
+#undef elf_executable
+#undef elf_core
+#define elf_object 1
+#define elf_shared_object 2
+#define elf_executable 3
+#define elf_archive 4
+#define elf_core 5
 
 
-#undef format_null
-#undef format_bin
-#undef format_elf64_object
-#undef format_elf64_shared_object
-#undef format_elf64_archive
-#undef format_elf64_executable
-#undef format_elf64_core
-#define format_null 0
-#define format_bin 1
-#define format_elf64 2
-#define format_elf64_object 2
-#define format_elf64_shared_object 3
-#define format_elf64_archive 4
-#define format_elf64_executable 5
-#define format_elf64_core 6
-
-
-#undef segment_elf64_type_load
-#define segment_elf64_type_load 1
+#undef segment_load
+#define segment_load 1
 
 
 #undef section_null
 #undef section_text
 #undef section_code
 #undef section_data
-#undef section_bin
 #undef section_rodata
-#undef section_rdata
 #undef section_bss
 #undef section_tls
 #undef section_init
@@ -84,402 +73,400 @@ warning:
 #define section_text ".text"
 #define section_code section_text
 #define section_data ".data"
-#define section_bin section_data
 #define section_rodata ".rodata"
-#define section_rdata section_rodata
 #define section_bss ".bss"
 #define section_tls ".tls"
 #define section_init ".init"
 #define section_fini ".fini"
 
 
-#undef al
-#undef ah
-#undef ax
-#undef eax
-#undef rax
-#undef bl
-#undef bh
-#undef bx
-#undef ebx
-#undef rbx
-#undef cl
-#undef ch
-#undef cx
-#undef ecx
-#undef rcx
-#undef dl
-#undef dh
-#undef dx
-#undef edx
-#undef rdx
-#undef sil
-#undef si
-#undef esi
-#undef rsi
-#undef dil
-#undef di
-#undef edi
-#undef rdi
-#undef bpl
-#undef bp
-#undef ebp
-#undef rbp
-#undef spl
-#undef sp
-#undef esp
-#undef rsp
-#undef r8b
-#undef r8w
-#undef r8d
-#undef r8
-#undef r9b
-#undef r9w
-#undef r9d
-#undef r9
-#undef r10b
-#undef r10w
-#undef r10d
-#undef r10
-#undef r11b
-#undef r11w
-#undef r11d
-#undef r11
-#undef r12b
-#undef r12w
-#undef r12d
-#undef r12
-#undef r13b
-#undef r13w
-#undef r13d
-#undef r13
-#undef r14b
-#undef r14w
-#undef r14d
-#undef r14
-#undef r15b
-#undef r15w
-#undef r15d
-#undef r15
-#undef flags
-#undef eflags
-#undef rflags
-#undef ip
-#undef eip
-#undef rip
-#undef cs
-#undef ds
-#undef es
-#undef fs
-#undef gs
-#undef ss
-#undef cr0
-#undef cr1
-#undef cr2
-#undef cr3
-#undef cr4
-#undef cr5
-#undef cr6
-#undef cr7
-#undef cr8
-#undef cr9
-#undef cr10
-#undef cr11
-#undef cr12
-#undef cr13
-#undef cr14
-#undef cr15
-#undef dr0
-#undef dr1
-#undef dr2
-#undef dr3
-#undef dr4
-#undef dr5
-#undef dr6
-#undef dr7
-#undef dr8
-#undef dr9
-#undef dr10
-#undef dr11
-#undef dr12
-#undef dr13
-#undef dr14
-#undef dr15
-#undef st0
-#undef st1
-#undef st2
-#undef st3
-#undef st4
-#undef st5
-#undef st6
-#undef st7
-#undef mm0
-#undef mm1
-#undef mm2
-#undef mm3
-#undef mm4
-#undef mm5
-#undef mm6
-#undef mm7
-#undef xmm0
-#undef xmm1
-#undef xmm2
-#undef xmm3
-#undef xmm4
-#undef xmm5
-#undef xmm6
-#undef xmm7
-#undef xmm8
-#undef xmm9
-#undef xmm10
-#undef xmm11
-#undef xmm12
-#undef xmm13
-#undef xmm14
-#undef xmm15
-#undef ymm0
-#undef ymm1
-#undef ymm2
-#undef ymm3
-#undef ymm4
-#undef ymm5
-#undef ymm6
-#undef ymm7
-#undef ymm8
-#undef ymm9
-#undef ymm10
-#undef ymm11
-#undef ymm12
-#undef ymm13
-#undef ymm14
-#undef ymm15
-#undef zmm0
-#undef zmm1
-#undef zmm2
-#undef zmm3
-#undef zmm4
-#undef zmm5
-#undef zmm6
-#undef zmm7
-#undef zmm8
-#undef zmm9
-#undef zmm10
-#undef zmm11
-#undef zmm12
-#undef zmm13
-#undef zmm14
-#undef zmm15
-#undef zmm16
-#undef zmm17
-#undef zmm18
-#undef zmm19
-#undef zmm20
-#undef zmm21
-#undef zmm22
-#undef zmm23
-#undef zmm24
-#undef zmm25
-#undef zmm26
-#undef zmm27
-#undef zmm28
-#undef zmm29
-#undef zmm30
-#undef zmm31
-#define al 0x0100
-#define ah 0x0101
-#define ax 0x0200
-#define eax 0x0400
-#define rax 0x0800
-#define bl 0x0102
-#define bh 0x0103
-#define bx 0x0202
-#define ebx 0x0402
-#define rbx 0x0802
-#define cl 0x0104
-#define ch 0x0105
-#define cx 0x0204
-#define ecx 0x0404
-#define rcx 0x0804
-#define dl 0x0106
-#define dh 0x0107
-#define dx 0x0206
-#define edx 0x0406
-#define rdx 0x0806
-#define sil 0x0108
-#define si 0x0208
-#define esi 0x0408
-#define rsi 0x0808
-#define dil 0x0109
-#define di 0x0209
-#define edi 0x0409
-#define rdi 0x0809
-#define bpl 0x010a
-#define bp 0x020a
-#define ebp 0x040a
-#define rbp 0x080a
-#define spl 0x010b
-#define sp 0x020b
-#define esp 0x040b
-#define rsp 0x080b
-#define r8b 0x010c
-#define r8w 0x020c
-#define r8d 0x040c
-#define r8 0x080c
-#define r9b 0x010d
-#define r9w 0x020d
-#define r9d 0x040d
-#define r9 0x080d
-#define r10b 0x010e
-#define r10w 0x020e
-#define r10d 0x040e
-#define r10 0x080e
-#define r11b 0x010f
-#define r11w 0x020f
-#define r11d 0x040f
-#define r11 0x080f
-#define r12b 0x0110
-#define r12w 0x0210
-#define r12d 0x0410
-#define r12 0x0810
-#define r13b 0x0111
-#define r13w 0x0211
-#define r13d 0x0411
-#define r13 0x0811
-#define r14b 0x0112
-#define r14w 0x0212
-#define r14d 0x0412
-#define r14 0x0812
-#define r15b 0x0113
-#define r15w 0x0213
-#define r15d 0x0413
-#define r15 0x0813
-#define flags 0x0214
-#define eflags 0x0414
-#define rflags 0x0814
-#define ip 0x0215
-#define eip 0x0415
-#define rip 0x0815
-#define cs 0x0216
-#define ds 0x0217
-#define es 0x0218
-#define fs 0x0219
-#define gs 0x021a
-#define ss 0x021b
-#define cr0 0x0820
-#define cr1 0x0821
-#define cr2 0x0822
-#define cr3 0x0823
-#define cr4 0x0824
-#define cr5 0x0825
-#define cr6 0x0826
-#define cr7 0x0827
-#define cr8 0x0828
-#define cr9 0x0829
-#define cr10 0x082a
-#define cr11 0x082b
-#define cr12 0x082c
-#define cr13 0x082d
-#define cr14 0x082e
-#define cr15 0x082f
-#define dr0 0x0830
-#define dr1 0x0831
-#define dr2 0x0832
-#define dr3 0x0833
-#define dr4 0x0834
-#define dr5 0x0835
-#define dr6 0x0836
-#define dr7 0x0837
-#define dr8 0x0838
-#define dr9 0x0839
-#define dr10 0x083a
-#define dr11 0x083b
-#define dr12 0x083c
-#define dr13 0x083d
-#define dr14 0x083e
-#define dr15 0x083f
-#define st0 0x0a40
-#define st1 0x0a41
-#define st2 0x0a42
-#define st3 0x0a43
-#define st4 0x0a44
-#define st5 0x0a45
-#define st6 0x0a46
-#define st7 0x0a47
-#define mm0 0x0850
-#define mm1 0x0851
-#define mm2 0x0852
-#define mm3 0x0853
-#define mm4 0x0854
-#define mm5 0x0855
-#define mm6 0x0856
-#define mm7 0x0857
-#define xmm0 0x1060
-#define xmm1 0x1061
-#define xmm2 0x1062
-#define xmm3 0x1063
-#define xmm4 0x1064
-#define xmm5 0x1065
-#define xmm6 0x1066
-#define xmm7 0x1067
-#define xmm8 0x1068
-#define xmm9 0x1069
-#define xmm10 0x106a
-#define xmm11 0x106b
-#define xmm12 0x106c
-#define xmm13 0x106d
-#define xmm14 0x106e
-#define xmm15 0x106f
-#define ymm0 0x2060
-#define ymm1 0x2061
-#define ymm2 0x2062
-#define ymm3 0x2063
-#define ymm4 0x2064
-#define ymm5 0x2065
-#define ymm6 0x2066
-#define ymm7 0x2067
-#define ymm8 0x2068
-#define ymm9 0x2069
-#define ymm10 0x206a
-#define ymm11 0x206b
-#define ymm12 0x206c
-#define ymm13 0x206d
-#define ymm14 0x206e
-#define ymm15 0x206f
-#define zmm0 0x4060
-#define zmm1 0x4061
-#define zmm2 0x4062
-#define zmm3 0x4063
-#define zmm4 0x4064
-#define zmm5 0x4065
-#define zmm6 0x4066
-#define zmm7 0x4067
-#define zmm8 0x4068
-#define zmm9 0x4069
-#define zmm10 0x406a
-#define zmm11 0x406b
-#define zmm12 0x406c
-#define zmm13 0x406d
-#define zmm14 0x406e
-#define zmm15 0x406f
-#define zmm16 0x4070
-#define zmm17 0x4071
-#define zmm18 0x4072
-#define zmm19 0x4073
-#define zmm20 0x4074
-#define zmm21 0x4075
-#define zmm22 0x4076
-#define zmm23 0x4077
-#define zmm24 0x4078
-#define zmm25 0x4079
-#define zmm26 0x407a
-#define zmm27 0x407b
-#define zmm28 0x407c
-#define zmm29 0x407d
-#define zmm30 0x407e
-#define zmm31 0x407f
+#undef reg_al
+#undef reg_ah
+#undef reg_ax
+#undef reg_eax
+#undef reg_rax
+#undef reg_bl
+#undef reg_bh
+#undef reg_bx
+#undef reg_ebx
+#undef reg_rbx
+#undef reg_cl
+#undef reg_ch
+#undef reg_cx
+#undef reg_ecx
+#undef reg_rcx
+#undef reg_dl
+#undef reg_dh
+#undef reg_dx
+#undef reg_edx
+#undef reg_rdx
+#undef reg_sil
+#undef reg_si
+#undef reg_esi
+#undef reg_rsi
+#undef reg_dil
+#undef reg_di
+#undef reg_edi
+#undef reg_rdi
+#undef reg_bpl
+#undef reg_bp
+#undef reg_ebp
+#undef reg_rbp
+#undef reg_spl
+#undef reg_sp
+#undef reg_esp
+#undef reg_rsp
+#undef reg_r8b
+#undef reg_r8w
+#undef reg_r8d
+#undef reg_r8
+#undef reg_r9b
+#undef reg_r9w
+#undef reg_r9d
+#undef reg_r9
+#undef reg_r10b
+#undef reg_r10w
+#undef reg_r10d
+#undef reg_r10
+#undef reg_r11b
+#undef reg_r11w
+#undef reg_r11d
+#undef reg_r11
+#undef reg_r12b
+#undef reg_r12w
+#undef reg_r12d
+#undef reg_r12
+#undef reg_r13b
+#undef reg_r13w
+#undef reg_r13d
+#undef reg_r13
+#undef reg_r14b
+#undef reg_r14w
+#undef reg_r14d
+#undef reg_r14
+#undef reg_r15b
+#undef reg_r15w
+#undef reg_r15d
+#undef reg_r15
+#undef reg_flags
+#undef reg_eflags
+#undef reg_rflags
+#undef reg_ip
+#undef reg_eip
+#undef reg_rip
+#undef reg_cs
+#undef reg_ds
+#undef reg_es
+#undef reg_fs
+#undef reg_gs
+#undef reg_ss
+#undef reg_cr0
+#undef reg_cr1
+#undef reg_cr2
+#undef reg_cr3
+#undef reg_cr4
+#undef reg_cr5
+#undef reg_cr6
+#undef reg_cr7
+#undef reg_cr8
+#undef reg_cr9
+#undef reg_cr10
+#undef reg_cr11
+#undef reg_cr12
+#undef reg_cr13
+#undef reg_cr14
+#undef reg_cr15
+#undef reg_dr0
+#undef reg_dr1
+#undef reg_dr2
+#undef reg_dr3
+#undef reg_dr4
+#undef reg_dr5
+#undef reg_dr6
+#undef reg_dr7
+#undef reg_dr8
+#undef reg_dr9
+#undef reg_dr10
+#undef reg_dr11
+#undef reg_dr12
+#undef reg_dr13
+#undef reg_dr14
+#undef reg_dr15
+#undef reg_st0
+#undef reg_st1
+#undef reg_st2
+#undef reg_st3
+#undef reg_st4
+#undef reg_st5
+#undef reg_st6
+#undef reg_st7
+#undef reg_mm0
+#undef reg_mm1
+#undef reg_mm2
+#undef reg_mm3
+#undef reg_mm4
+#undef reg_mm5
+#undef reg_mm6
+#undef reg_mm7
+#undef reg_xmm0
+#undef reg_xmm1
+#undef reg_xmm2
+#undef reg_xmm3
+#undef reg_xmm4
+#undef reg_xmm5
+#undef reg_xmm6
+#undef reg_xmm7
+#undef reg_xmm8
+#undef reg_xmm9
+#undef reg_xmm10
+#undef reg_xmm11
+#undef reg_xmm12
+#undef reg_xmm13
+#undef reg_xmm14
+#undef reg_xmm15
+#undef reg_ymm0
+#undef reg_ymm1
+#undef reg_ymm2
+#undef reg_ymm3
+#undef reg_ymm4
+#undef reg_ymm5
+#undef reg_ymm6
+#undef reg_ymm7
+#undef reg_ymm8
+#undef reg_ymm9
+#undef reg_ymm10
+#undef reg_ymm11
+#undef reg_ymm12
+#undef reg_ymm13
+#undef reg_ymm14
+#undef reg_ymm15
+#undef reg_zmm0
+#undef reg_zmm1
+#undef reg_zmm2
+#undef reg_zmm3
+#undef reg_zmm4
+#undef reg_zmm5
+#undef reg_zmm6
+#undef reg_zmm7
+#undef reg_zmm8
+#undef reg_zmm9
+#undef reg_zmm10
+#undef reg_zmm11
+#undef reg_zmm12
+#undef reg_zmm13
+#undef reg_zmm14
+#undef reg_zmm15
+#undef reg_zmm16
+#undef reg_zmm17
+#undef reg_zmm18
+#undef reg_zmm19
+#undef reg_zmm20
+#undef reg_zmm21
+#undef reg_zmm22
+#undef reg_zmm23
+#undef reg_zmm24
+#undef reg_zmm25
+#undef reg_zmm26
+#undef reg_zmm27
+#undef reg_zmm28
+#undef reg_zmm29
+#undef reg_zmm30
+#undef reg_zmm31
+#define reg_al 0x0100
+#define reg_ah 0x0101
+#define reg_ax 0x0200
+#define reg_eax 0x0400
+#define reg_rax 0x0800
+#define reg_bl 0x0102
+#define reg_bh 0x0103
+#define reg_bx 0x0202
+#define reg_ebx 0x0402
+#define reg_rbx 0x0802
+#define reg_cl 0x0104
+#define reg_ch 0x0105
+#define reg_cx 0x0204
+#define reg_ecx 0x0404
+#define reg_rcx 0x0804
+#define reg_dl 0x0106
+#define reg_dh 0x0107
+#define reg_dx 0x0206
+#define reg_edx 0x0406
+#define reg_rdx 0x0806
+#define reg_sil 0x0108
+#define reg_si 0x0208
+#define reg_esi 0x0408
+#define reg_rsi 0x0808
+#define reg_dil 0x0109
+#define reg_di 0x0209
+#define reg_edi 0x0409
+#define reg_rdi 0x0809
+#define reg_bpl 0x010a
+#define reg_bp 0x020a
+#define reg_ebp 0x040a
+#define reg_rbp 0x080a
+#define reg_spl 0x010b
+#define reg_sp 0x020b
+#define reg_esp 0x040b
+#define reg_rsp 0x080b
+#define reg_r8b 0x010c
+#define reg_r8w 0x020c
+#define reg_r8d 0x040c
+#define reg_r8 0x080c
+#define reg_r9b 0x010d
+#define reg_r9w 0x020d
+#define reg_r9d 0x040d
+#define reg_r9 0x080d
+#define reg_r10b 0x010e
+#define reg_r10w 0x020e
+#define reg_r10d 0x040e
+#define reg_r10 0x080e
+#define reg_r11b 0x010f
+#define reg_r11w 0x020f
+#define reg_r11d 0x040f
+#define reg_r11 0x080f
+#define reg_r12b 0x0110
+#define reg_r12w 0x0210
+#define reg_r12d 0x0410
+#define reg_r12 0x0810
+#define reg_r13b 0x0111
+#define reg_r13w 0x0211
+#define reg_r13d 0x0411
+#define reg_r13 0x0811
+#define reg_r14b 0x0112
+#define reg_r14w 0x0212
+#define reg_r14d 0x0412
+#define reg_r14 0x0812
+#define reg_r15b 0x0113
+#define reg_r15w 0x0213
+#define reg_r15d 0x0413
+#define reg_r15 0x0813
+#define reg_flags 0x0214
+#define reg_eflags 0x0414
+#define reg_rflags 0x0814
+#define reg_ip 0x0215
+#define reg_eip 0x0415
+#define reg_rip 0x0815
+#define reg_cs 0x0216
+#define reg_ds 0x0217
+#define reg_es 0x0218
+#define reg_fs 0x0219
+#define reg_gs 0x021a
+#define reg_ss 0x021b
+#define reg_cr0 0x0820
+#define reg_cr1 0x0821
+#define reg_cr2 0x0822
+#define reg_cr3 0x0823
+#define reg_cr4 0x0824
+#define reg_cr5 0x0825
+#define reg_cr6 0x0826
+#define reg_cr7 0x0827
+#define reg_cr8 0x0828
+#define reg_cr9 0x0829
+#define reg_cr10 0x082a
+#define reg_cr11 0x082b
+#define reg_cr12 0x082c
+#define reg_cr13 0x082d
+#define reg_cr14 0x082e
+#define reg_cr15 0x082f
+#define reg_dr0 0x0830
+#define reg_dr1 0x0831
+#define reg_dr2 0x0832
+#define reg_dr3 0x0833
+#define reg_dr4 0x0834
+#define reg_dr5 0x0835
+#define reg_dr6 0x0836
+#define reg_dr7 0x0837
+#define reg_dr8 0x0838
+#define reg_dr9 0x0839
+#define reg_dr10 0x083a
+#define reg_dr11 0x083b
+#define reg_dr12 0x083c
+#define reg_dr13 0x083d
+#define reg_dr14 0x083e
+#define reg_dr15 0x083f
+#define reg_st0 0x0a40
+#define reg_st1 0x0a41
+#define reg_st2 0x0a42
+#define reg_st3 0x0a43
+#define reg_st4 0x0a44
+#define reg_st5 0x0a45
+#define reg_st6 0x0a46
+#define reg_st7 0x0a47
+#define reg_mm0 0x0850
+#define reg_mm1 0x0851
+#define reg_mm2 0x0852
+#define reg_mm3 0x0853
+#define reg_mm4 0x0854
+#define reg_mm5 0x0855
+#define reg_mm6 0x0856
+#define reg_mm7 0x0857
+#define reg_xmm0 0x1060
+#define reg_xmm1 0x1061
+#define reg_xmm2 0x1062
+#define reg_xmm3 0x1063
+#define reg_xmm4 0x1064
+#define reg_xmm5 0x1065
+#define reg_xmm6 0x1066
+#define reg_xmm7 0x1067
+#define reg_xmm8 0x1068
+#define reg_xmm9 0x1069
+#define reg_xmm10 0x106a
+#define reg_xmm11 0x106b
+#define reg_xmm12 0x106c
+#define reg_xmm13 0x106d
+#define reg_xmm14 0x106e
+#define reg_xmm15 0x106f
+#define reg_ymm0 0x2060
+#define reg_ymm1 0x2061
+#define reg_ymm2 0x2062
+#define reg_ymm3 0x2063
+#define reg_ymm4 0x2064
+#define reg_ymm5 0x2065
+#define reg_ymm6 0x2066
+#define reg_ymm7 0x2067
+#define reg_ymm8 0x2068
+#define reg_ymm9 0x2069
+#define reg_ymm10 0x206a
+#define reg_ymm11 0x206b
+#define reg_ymm12 0x206c
+#define reg_ymm13 0x206d
+#define reg_ymm14 0x206e
+#define reg_ymm15 0x206f
+#define reg_zmm0 0x4060
+#define reg_zmm1 0x4061
+#define reg_zmm2 0x4062
+#define reg_zmm3 0x4063
+#define reg_zmm4 0x4064
+#define reg_zmm5 0x4065
+#define reg_zmm6 0x4066
+#define reg_zmm7 0x4067
+#define reg_zmm8 0x4068
+#define reg_zmm9 0x4069
+#define reg_zmm10 0x406a
+#define reg_zmm11 0x406b
+#define reg_zmm12 0x406c
+#define reg_zmm13 0x406d
+#define reg_zmm14 0x406e
+#define reg_zmm15 0x406f
+#define reg_zmm16 0x4070
+#define reg_zmm17 0x4071
+#define reg_zmm18 0x4072
+#define reg_zmm19 0x4073
+#define reg_zmm20 0x4074
+#define reg_zmm21 0x4075
+#define reg_zmm22 0x4076
+#define reg_zmm23 0x4077
+#define reg_zmm24 0x4078
+#define reg_zmm25 0x4079
+#define reg_zmm26 0x407a
+#define reg_zmm27 0x407b
+#define reg_zmm28 0x407c
+#define reg_zmm29 0x407d
+#define reg_zmm30 0x407e
+#define reg_zmm31 0x407f
 
 
-struct elf64_segment {
+struct gelf_segment {
     u8 type;
     u8 *offset;
     u8 mode;
@@ -489,87 +476,166 @@ struct elf64_segment {
 };
 
 
-struct elf64_address {
+struct gelf_address {
     u8 *offset;
     char *name;
     u64 len;
 };
 
 
-struct elf64 {
+struct gelf {
     u8 format;
-    u8 header[64];
     u8 *data;
-    u8 *offset;
+    u8 *curr;
     u64 cap;
-    struct elf64_segment *segs;
+    struct gelf_segment *segs;
     u64 seg_count;
     u64 seg_cap;
-    struct elf64_address *labels;
+    struct gelf_address *labels;
     u64 l_count;
     u64 l_cap;
-    struct elf64_address *addrs;
+    struct gelf_address *addrs;
     u64 a_count;
     u64 a_cap;
 };
 
 
-u8 elf64_init(struct elf64 *e64) {
-    if (e64 == null) return 1;
-    e64->format = format_null;
-    e64->data = null;
-    e64->offset = null;
-    e64->cap = 0;
-    e64->segs = null;
-    e64->seg_count = 0;
-    e64->seg_cap = 0;
-    e64->labels = null;
-    e64->l_count = 0;
-    e64->l_cap = 0;
-    e64->addrs = null;
-    e64->a_count = 0;
-    e64->a_cap = 0;
+u8 gelf_init(struct gelf *ge) {
+    if (ge == 0) return 1;
+    ge->format = 0;
+    ge->data = 0;
+    ge->curr = 0;
+    ge->cap = 0;
+    ge->segs = 0;
+    ge->seg_count = 0;
+    ge->seg_cap = 0;
+    ge->labels = 0;
+    ge->l_count = 0;
+    ge->l_cap = 0;
+    ge->addrs = 0;
+    ge->a_count = 0;
+    ge->a_cap = 0;
     return 0;
 }
 
 
-u8 elf64_free(struct elf64 *e64) {
-    if (e64 == null) return 1;
-    e64->format = format_null;
-    if (e64->header != null) {
-        free(elf->header);
-        e64->header = null;
+u8 gelf_free(struct gelf *ge) {
+    if (ge == 0) return 1;
+    ge->format = 0;
+    if (ge->header != 0) {
+        free(ge->header);
+        ge->header = 0;
     }
-    if (e64->cap != 0) {
-        free(e64->data);
-        e64->data = null;
-        e64->offset = null;
-        e64->cap = 0;
+    if (ge->cap != 0) {
+        free(ge->data);
+        ge->data = 0;
+        ge->curr = 0;
+        ge->cap = 0;
     }
-    if (e64->seg_cap != 0) {
-        free(e64->segs);
-        e64->segs = null;
-        e64->seg_count = 0;
-        e64->seg_cap = 0;
+    if (ge->seg_cap != 0) {
+        free(ge->segs);
+        ge->segs = 0;
+        ge->seg_count = 0;
+        ge->seg_cap = 0;
     }
-    if (e64->l_cap != 0) {
-        for(u64 i = 0; i < e64->l_count; i++) {
-            if (e64->labels[i].len != 0) free(e64->labels[i].name);
+    if (ge->l_cap != 0) {
+        for(u64 i = 0; i < ge->l_count; i++) {
+            if (ge->labels[i].len != 0) free(ge->labels[i].name);
         }
-        free(e64->labels);
-        e64->labels = null;
-        e64->l_count = 0;
-        e64->l_cap = 0;
+        free(ge->labels);
+        ge->labels = 0;
+        ge->l_count = 0;
+        ge->l_cap = 0;
     }
-    if (e64->a_cap != 0) {
-        for(u64 i = 0; i < e64->a_count; i++) {
-            if (e64->addrs[i].len != 0) free(e64->addrs[i].name);
+    if (ge->a_cap != 0) {
+        for(u64 i = 0; i < ge->a_count; i++) {
+            if (ge->addrs[i].len != 0) free(ge->addrs[i].name);
         }
-        free(e64->addrs);
-        e64->addrs = null;
-        e64->a_count = 0;
-        e64->a_cap = 0;
+        free(ge->addrs);
+        ge->addrs = 0;
+        ge->a_count = 0;
+        ge->a_cap = 0;
     }
+    return 0;
+}
+
+
+u8 gelf_bytes(struct gelf *ge, void *data, u64 size) {
+    if (ge == 0) return 1;
+    if (size == 0) return 0;
+    u64 len = ge->cap ? ge->curr - ge->data : 0;
+    if (len + size > ge->cap) {
+        u64 new_cap = ge->cap ? ge->cap * 2 : 4096;
+        while(len + size > new_cap) new_cap *= 2;
+        u8 *new_data = (u8*)realloc(ge->data, new_cap);
+        if (new_data == 0) return 2;
+        ge->data = new_data;
+        ge->curr = new_data + len;
+        ge->cap = new_cap;
+    }
+    if (data) memcpy(ge->curr, data, size);
+    else memset(ge->curr, 0, size);
+    ge->curr += size;
+    return 0;
+}
+
+
+u8 gelf_byte(struct gelf *ge, u8 v) {
+    return gelf_bytes(ge, &v, 1);
+}
+
+
+u8 gelf_short(struct gelf *ge, u16 v) {
+    static u8 b[2];
+    b[0] = v & 0xFF;
+    b[1] = (v >> 8) & 0xFF;
+    return gelf_bytes(ge, &b, 2);
+}
+
+
+u8 gelf_int(struct gelf *ge, u32 v) {
+    static u8 b[4];
+    b[0] = v & 0xFF;
+    b[1] = (v >> 8) & 0xFF;
+    b[2] = (v >> 16) & 0xFF;
+    b[3] = (v >> 24) & 0xFF;
+    return gelf_bytes(ge, &b, 4);
+}
+
+
+u8 gelf_long(struct gelf *ge, u64 v) {
+    static u8 b[8];
+    b[0] = v & 0xFF;
+    b[1] = (v >> 8) & 0xFF;
+    b[2] = (v >> 16) & 0xFF;
+    b[3] = (v >> 24) & 0xFF;
+    b[4] = (v >> 32) & 0xFF;
+    b[5] = (v >> 40) & 0xFF;
+    b[6] = (v >> 48) & 0xFF;
+    b[7] = (v >> 56) & 0xFF;
+    return gelf_bytes(ge, &b, 8);
+}
+
+
+u8 gelf_format(struct gelf *ge, u8 format) {
+    if (ge == 0) return 1;
+    ge->format = format;
+    return 0;
+}
+
+
+u8 gelf_build(struct gelf *ge) {
+    if (ge == 0) return 0;
+    u64 len = ge->cap ? ge->curr - ge->data : 0;
+    u8 *full = (u8*)malloc(len + 64 + (ge->seg_count * 56));
+    if (full == 0) return 0;
+    u8 *fcurr = full;
+    return full;
+}
+
+
+u8 gelf_build_file(struct gelf *ge, const char *path) {
+    if (ge == 0) return 1;
     return 0;
 }
 
