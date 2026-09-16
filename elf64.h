@@ -41,7 +41,6 @@ warning:
 #define u16 unsigned short int
 #define u32 unsigned long int
 #define u64 unsigned long long int
-#endif
 
 
 #undef elf_null
