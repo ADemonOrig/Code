@@ -491,6 +491,11 @@ struct gelf_segment {
 };
 
 
+struct gelf_section {
+    int x;
+};
+
+
 struct gelf_address {
     char *name;
     u64 len;
@@ -505,6 +510,9 @@ struct gelf {
     struct gelf_segment *segs;
     u64 seg_count;
     u64 seg_cap;
+    struct gelf_segment *secs;
+    u64 sec_count;
+    u64 sec_cap;
     struct gelf_address *labels;
     u64 l_count;
     u64 l_cap;
@@ -596,7 +604,7 @@ u32 gelf_bytes(struct gelf *ge, void *data, u64 size) {
 }
 
 
-u32 gelf_segment(struct gelf *ge, u8 flags) {
+u32 gelf_segment(struct gelf *ge) {
     if (ge == 0) return 1;
     return 0;
 }
@@ -608,48 +616,57 @@ u32 gelf_segment_end(struct gelf *ge) {
 }
 
 
-u32 gelf_section()
-
-
-u32 gelf_build(struct gelf *ge, const char *path) {
+u32 gelf_section(struct gelf *ge, const char *name) {
     if (ge == 0) return 1;
-    const char *fname = path == 0 ? "a" : path;
-    FILE *file = fopen(fname, "wb+");
+    return 0;
+}
+
+
+u32 gelf_section_end(struct gelf *ge) {
+    if (ge == 0) return 1;
+    return 0;
+}
+
+
+u32 gelf_build(struct gelf *ge, FILE *file) {
+    if (ge == 0) return 1;
     if (file == 0) return 2;
+    gelf_segment_end(ge);
+    gelf_section_end(ge);
     if (ge->format == elf_null) {
         u64 len = ge->cap ? ge->curr - ge->data : 0;
         fwrite(ge->data, 1, len, file);
         fclose(file);
         return 0;
     }
-    u8 ehdr[64];
-    memset(ehdr, 0, 64);
-    ehdr[0] = 0x7F;
-    ehdr[1] = 'E';
-    ehdr[2] = 'L';
-    ehdr[3] = 'F';
-    ehdr[4] = 2;
-    ehdr[5] = 1;
-    ehdr[6] = 1;
-    ehdr[16] = ge->format;
-    ehdr[18] = 0x3E;
-    ehdr[20] = 1;
+    u8 head[64];
+    memset(head, 0, 64);
+    head[0] = 0x7F;
+    head[1] = 'E';
+    head[2] = 'L';
+    head[3] = 'F';
+    head[4] = 2;
+    head[5] = 1;
+    head[6] = 1;
+    head[16] = ge->format;
+    head[18] = 0x3E;
+    head[20] = 1;
     if (ge->format == elf_executable) {
-        ehdr[24] = (u8)(((u64)ge->entry) & 0xFF);
-        ehdr[25] = (u8)(((u64)ge->entry >> 8) & 0xFF);
-        ehdr[26] = (u8)(((u64)ge->entry >> 16) & 0xFF);
-        ehdr[27] = (u8)(((u64)ge->entry >> 24) & 0xFF);
-        ehdr[28] = (u8)(((u64)ge->entry >> 32) & 0xFF);
-        ehdr[29] = (u8)(((u64)ge->entry >> 40) & 0xFF);
-        ehdr[30] = (u8)(((u64)ge->entry >> 48) & 0xFF);
-        ehdr[31] = (u8)(((u64)ge->entry >> 56) & 0xFF);
+        head[24] = (u8)(((u64)ge->entry) & 0xFF);
+        head[25] = (u8)(((u64)ge->entry >> 8) & 0xFF);
+        head[26] = (u8)(((u64)ge->entry >> 16) & 0xFF);
+        head[27] = (u8)(((u64)ge->entry >> 24) & 0xFF);
+        head[28] = (u8)(((u64)ge->entry >> 32) & 0xFF);
+        head[29] = (u8)(((u64)ge->entry >> 40) & 0xFF);
+        head[30] = (u8)(((u64)ge->entry >> 48) & 0xFF);
+        head[31] = (u8)(((u64)ge->entry >> 56) & 0xFF);
     }
-    ehdr[32] = 64;
-    ehdr[52] = 64;
-    ehdr[54] = 56;
-    ehdr[56] = (u8)((ge->seg_count) & 0xFF);
-    ehdr[57] = (u8)((ge->seg_count >> 8) & 0xFF);
-    if (fwrite(ehdr, 1, 64, file) != 64) {
+    head[32] = 64;
+    head[52] = 64;
+    head[54] = 56;
+    head[56] = (u8)((ge->seg_count) & 0xFF);
+    head[57] = (u8)((ge->seg_count >> 8) & 0xFF);
+    if (fwrite(head, 1, 64, file) != 64) {
         fclose(file);
         return 3;
     }
@@ -725,6 +742,13 @@ u32 gelf_build(struct gelf *ge, const char *path) {
         }
     }
     fclose(file);
+    return 0;
+}
+
+
+u32 gelf_entry(struct gelf *ge, const char *name) {
+    if (ge == 0) return 1;
+    if (name == 0) return 2;
     return 0;
 }
 
