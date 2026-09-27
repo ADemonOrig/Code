@@ -15,7 +15,7 @@ private:
     unsigned long long _pos_size = 0ull;
     unsigned long long _pos_cap = 0ull;
 
-    int _extend_buffer(unsigned long long size = 0ull) {
+    int _extend_buffer_size(unsigned long long size = 0ull) {
         if (_size + size > _cap) {
             unsigned long long new_cap = _cap ? _cap * 2 : 512;
             while (_size + size > new_cap) new_cap *= 2;
@@ -25,6 +25,78 @@ private:
             _cap = new_cap;
         }
         return 0;
+    }
+
+    void _add(unsigned long long count = 0) {
+        if (_extend_buffer_size(count)) return;
+        memset(_data + _size, '+', count);
+        _size += count;
+    }
+
+    void _sub(unsigned long long count = 1) {
+        if (_extend_buffer_size(count)) return;
+        memset(_data + _size, '-', count);
+        _size += count;
+    }
+
+    void _movr(unsigned long long count = 1) {
+        if (_extend_buffer_size(count)) return;
+        memset(_data + _size, '>', count);
+        _size += count;
+        _pos += count;
+    }
+
+    void _movl(unsigned long long count = 1) {
+        if (_extend_buffer_size(count)) return;
+        memset(_data + _size, '<', count);
+        _size += count;
+        _pos -= count;
+    }
+
+    void _put() {
+        if (_extend_buffer_size(1)) return;
+        _data[_size] = '.';
+        _size += 1;
+    }
+
+    void _get() {
+        if (_extend_buffer_size(1)) return;
+        _data[_size] = ',';
+        _size += 1;
+    }
+
+    void _loop() {
+        if (_extend_buffer_size(1)) return;
+        _data[_size] = '[';
+        _size += 1;
+    }
+
+    void _end() {
+        if (_extend_buffer_size(1)) return;
+        _data[_size] = ']';
+        _size += 1;
+    }
+
+    void _clear() {
+        if (_extend_buffer_size(3)) return;
+        _data[_size] = '[';
+        _data[_size + 1] = '-';
+        _data[_size + 2] = ']';
+        _size += 3;
+    }
+
+    void _set(unsigned char value = 0) {
+        if (_extend_buffer_size(value + 3)) return;
+        _data[_size] = '[';
+        _data[_size + 1] = '-';
+        _data[_size + 2] = ']';
+        memset(_data + _size + 3, '+', value);
+        _size += value + 3;
+    }
+
+    void _mov(unsigned long long addr = 0) {
+        if (addr > _pos) _movr(addr - _pos);
+        else if (addr < _pos) _movl(_pos - addr);
     }
 
 public:
@@ -65,6 +137,12 @@ public:
 
         brainfuck::variable clone() {
             return brainfuck::variable(this->pos, this->size);
+        }
+
+        brainfuck::variable& clear() {
+            this->pos = 0ull;
+            this->size = 0ull;
+            return *this;
         }
 
         unsigned long long get_pos() const {
@@ -124,26 +202,6 @@ public:
             this->size -= (long long)var;
             return *this;
         }
-
-        // brainfuck::variable& add_pos(brainfuck::variable var) {
-        //     this->pos += var.pos;
-        //     return *this;
-        // }
-        //
-        // brainfuck::variable& sub_pos(brainfuck::variable var) {
-        //     this->pos -= var.pos;
-        //     return *this;
-        // }
-        //
-        // brainfuck::variable& add_size(brainfuck::variable var) {
-        //     this->size += var.size;
-        //     return *this;
-        // }
-        //
-        // brainfuck::variable& sub_size(brainfuck::variable var) {
-        //     this->size -= var.size;
-        //     return *this;
-        // }
 
         template<typename T = long long>
         brainfuck::variable& offset(T index = T(1)) {
@@ -305,15 +363,15 @@ public:
         if (_pos_cap != 0ull) std::free(_pos_data);
     }
 
-    char *data() {
+    inline char *data() {
         return _data;
     }
 
-    unsigned long long size() {
+    inline unsigned long long size() {
         return _size;
     }
 
-    unsigned long long capacity() {
+    inline unsigned long long capacity() {
         return _cap;
     }
 
@@ -334,36 +392,116 @@ public:
         return this->free();
     }
 
-    brainfuck& write(const char *text = 0) {
-        if (text == 0) return *this;
-        unsigned long long size_text = std::strlen(text);
+    template<typename T = const char*>
+    brainfuck& write(T text = 0) {
+        if ((const char*)text == 0) return *this;
+        unsigned long long size_text = std::strlen((const char*)text);
         if (size_text) return *this;
-        if (_extend_buffer(size_text)) return *this;
-        std::memcpy(_data + _size, text, size_text);
+        if (_extend_buffer_size(size_text)) return *this;
+        std::memcpy(_data + _size, (const char*)text, size_text);
         _size += size_text;
         return *this;
     }
 
-    brainfuck::variable _alloc(unsigned long long size = 1ull) {
-        if (size == 0ull) return brainfuck::null;
+    template<typename T = unsigned long long>
+    brainfuck::variable _alloc(T size = 1ull) {
+        if ((unsigned long long)size == 0ull) return brainfuck::null;
         unsigned long long n = 0ull;
         for (unsigned long long i = 0ull; i < _pos_size; i++) {
             if (_pos_data[i] == 0) {
                 n++;
-                if (n >= size) {
+                if (n >= (unsigned long long)size) {
                     for (unsigned long long j = i - n + 1; j <= i; j++) {
                         _pos_data[j] = 1;
+                        _mov(j);
+                        _clear();
                     }
-                    return brainfuck::variable(i, size);
+                    _mov(0);
+                    return brainfuck::variable(i, (unsigned long long)size);
                 }
             }
             else n = 0ull;
         }
-        return brainfuck::variable();
+        if (_pos_size + (unsigned long long)size > _pos_cap) {
+            unsigned long long new_pos_cap = _pos_cap ? _pos_cap * 2 : 64;
+            while (_pos_size + (unsigned long long)size > new_pos_cap) new_pos_cap *= 2;
+            unsigned char *new_pos_data = (unsigned char*)std::realloc(_pos_data, new_pos_cap);
+            if (new_pos_data == 0) return brainfuck::null;
+            _pos_data = new_pos_data;
+            _pos_cap = new_pos_cap;
+        }
+        unsigned long long tmp = _pos_size;
+        for (unsigned long long i = 0; i < (unsigned long long)size; i++) {
+            _pos_data[_pos_size + i] = 1;
+            _mov(_pos_size + i);
+            _clear();
+        }
+        _mov(0);
+        _pos_size += (unsigned long long)size;
+        return brainfuck::variable(tmp, (unsigned long long)size);
     }
 
-    brainfuck& _free(const brainfuck::variable& var = brainfuck::null) {
-        if (var.isnull()) return *this;
+    brainfuck& _free(brainfuck::variable& var) {
+        if (var.size == 0ull) return *this;
+        if (var.size > _pos_size - var.pos) return *this;
+        memset(_pos_data + var.pos, 0, var.size);
+        var.size = 0;
+        return *this;
+    }
+
+    template<typename T = unsigned long long>
+    brainfuck& _realloc(brainfuck::variable& var, T size = T()) {
+        _free(var);
+        var.copy(_alloc((unsigned long long)size));
+        return *this;
+    }
+
+    template<typename T = unsigned long long>
+    brainfuck& _addalloc(brainfuck::variable& var, T size = T()) {
+        unsigned long long tmp = var.size + (unsigned long long)size;
+        _free(var);
+        var.copy(_alloc(tmp));
+        return *this;
+    }
+
+    template<typename T = unsigned long long>
+    brainfuck& _suballoc(brainfuck::variable& var, T size = T()) {
+        unsigned long long tmp = var.size;
+        _free(var);
+        if ((long long)(tmp - (unsigned long long)size) > 0) var.copy(_alloc(tmp - (unsigned long long)size));
+        else var.clear();
+        return *this;
+    }
+
+    brainfuck& mov(brainfuck::variable var, unsigned char value) {
+        _mov(var.pos);
+        _set(value);
+        _mov(0);
+        return *this;
+    }
+
+    brainfuck& mov(brainfuck::variable var1, brainfuck::variable var2) {
+        brainfuck::variable meta = _alloc(1);
+        _mov(var1.pos);
+        _clear();
+        _mov(var2.pos);
+        _loop();
+        _mov(meta.pos);
+        _add(1);
+        _mov(var2.pos);
+        _sub(1);
+        _end();
+        _mov(meta.pos);
+        _loop();
+        _mov(var1.pos);
+        _add(1);
+        _mov(var2.pos);
+        _add(1);
+        _mov(meta.pos);
+        _sub(1);
+        _end();
+        _mov(0);
+        _free(meta);
         return *this;
     }
 };
