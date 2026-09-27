@@ -473,7 +473,8 @@ public:
         return *this;
     }
 
-    brainfuck& mov(brainfuck::variable var, unsigned char value) {
+    brainfuck& mov(brainfuck::variable var = brainfuck::null, unsigned char value = 0) {
+        if (var.size == 0ull) return *this;
         _mov(var.pos);
         _set(value);
         _mov(0);
@@ -481,6 +482,8 @@ public:
     }
 
     brainfuck& mov(brainfuck::variable var1, brainfuck::variable var2) {
+        if (var1.size == 0ull) return *this;
+        if (var2.size == 0ull) return *this;
         brainfuck::variable meta = _alloc(1);
         _mov(var1.pos);
         _clear();
