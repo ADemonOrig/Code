@@ -16,13 +16,14 @@ private:
     unsigned long long _pos_cap = 0ull;
 
     int _extend_buffer_size(unsigned long long size = 0ull) {
-        if (_size + size > _cap) {
+        if (_size + size >= _cap) {
             unsigned long long new_cap = _cap ? _cap * 2 : 512;
             while (_size + size > new_cap) new_cap *= 2;
             char *new_data = (char*)std::realloc(_data, new_cap);
             if (new_data == 0) return 1;
             _data = new_data;
             _cap = new_cap;
+            memset(new_data + _size, 0, new_cap - _size);
         }
         return 0;
     }
@@ -37,6 +38,7 @@ private:
         if (_extend_buffer_size(count)) return;
         memset(_data + _size, '-', count);
         _size += count;
+
     }
 
     void _movr(unsigned long long count = 1) {
@@ -169,25 +171,89 @@ public:
             return *this;
         }
 
-        brainfuck::variable& set_pos(const brainfuck::variable& var) {
-            this->pos = var.pos;
-            return *this;
-        }
-
-        brainfuck::variable& set_size(const brainfuck::variable& var) {
-            this->size = var.size;
+        brainfuck::variable& neg_pos() {
+            long long tmp = (long long)(-(long long)(this->pos));
+            add_pos(tmp - this->pos);
             return *this;
         }
 
         template<typename T = long long>
         brainfuck::variable& add_pos(T var = T(1)) {
             this->pos += (long long)var;
+            if ((long long)var <= (long long)this->size) this->size -= (long long)var;
+            else this->size = 0;
             return *this;
         }
 
         template<typename T = long long>
         brainfuck::variable& sub_pos(T var = T(1)) {
             this->pos -= (long long)var;
+            if ((long long)var <= (long long)this->size) this->size += (long long)var;
+            else this->size = 0;
+            return *this;
+        }
+
+        template<typename T = long long>
+        brainfuck::variable& mult_pos(T var = T(1)) {
+            long long tmp = this->pos * (long long)var;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        template<typename T = long long>
+        brainfuck::variable& div_pos(T var = T(1)) {
+            if ((long long)var == 0) return *this;
+            long long tmp = this->pos / (long long)var;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        template<typename T = long long>
+        brainfuck::variable& mod_pos(T var = T(1)) {
+            if ((long long)var == 0) return *this;
+            long long tmp = this->pos % (long long)var;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        template<typename T = unsigned long long>
+        brainfuck::variable& or_pos(T var = T(1)) {
+            long long tmp = this->pos | (unsigned long long)var;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        template<typename T = unsigned long long>
+        brainfuck::variable& and_pos(T var = T(1)) {
+            long long tmp = this->pos & (unsigned long long)var;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        template<typename T = unsigned long long>
+        brainfuck::variable& xor_pos(T var = T(1)) {
+            long long tmp = this->pos ^ (unsigned long long)var;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        brainfuck::variable& not_pos() {
+            long long tmp = ~this->pos;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        template<typename T = unsigned long long>
+        brainfuck::variable& shr_pos(T var = T(1)) {
+            long long tmp = this->pos >> (unsigned long long)var;
+            add_pos(tmp - this->pos);
+            return *this;
+        }
+
+        template<typename T = unsigned long long>
+        brainfuck::variable& shl_pos(T var = T(1)) {
+            long long tmp = this->pos << (unsigned long long)var;
+            add_pos(tmp - this->pos);
             return *this;
         }
 
@@ -204,17 +270,9 @@ public:
         }
 
         template<typename T = long long>
-        brainfuck::variable& offset(T index = T(1)) {
+        brainfuck::variable& offset(T var = T(1)) {
             if (this->size == 0ull) return *this;
-            index = (unsigned long long)index % this->size;
-            this->pos += (unsigned long long)index;
-            this->size -= (unsigned long long)index;
-            return *this;
-        }
-
-        brainfuck::variable& offset(const brainfuck::variable& var) {
-            if (this->size == 0ull) return *this;
-            unsigned long long index = var.pos % this->size;
+            long long index = (long long)var % this->size;
             this->pos += index;
             this->size -= index;
             return *this;
@@ -253,50 +311,47 @@ public:
         }
 
         template<typename T = unsigned long long>
-        brainfuck::variable& operator=(T pos) {
-            this->pos = (unsigned long long)pos;
+        brainfuck::variable& operator=(T var) {
+            unsigned long long tmp = this->pos;
+            add_pos(tmp - (long long)var);
             return *this;
         }
 
-        brainfuck::variable& operator=(const brainfuck::variable& var) {
-            this->pos = var.pos;
-            this->size = var.size;
-            return *this;
-        }
-
-        template<typename T = unsigned long long> inline brainfuck::variable operator+(T var) const { return brainfuck::variable(this->pos + (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator-(T var) const { return brainfuck::variable(this->pos - (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator*(T var) const { return brainfuck::variable(this->pos * (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator/(T var) const { return brainfuck::variable(this->pos / (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator%(T var) const { return brainfuck::variable(this->pos % (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator|(T var) const { return brainfuck::variable(this->pos | (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator&(T var) const { return brainfuck::variable(this->pos & (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator^(T var) const { return brainfuck::variable(this->pos ^ (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator>>(T var) const { return brainfuck::variable(this->pos >> (unsigned long long)var, 0ull); }
-        template<typename T = unsigned long long> inline brainfuck::variable operator<<(T var) const { return brainfuck::variable(this->pos << (unsigned long long)var, 0ull); }
+        template<typename T = long long> inline brainfuck::variable operator+(T var) const { return brainfuck::variable(this->pos, this->size).add_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator-(T var) const { return brainfuck::variable(this->pos, this->size).sub_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator*(T var) const { return brainfuck::variable(this->pos, this->size).mult_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator/(T var) const { return brainfuck::variable(this->pos, this->size).div_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator%(T var) const { return brainfuck::variable(this->pos, this->size).mod_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator|(T var) const { return brainfuck::variable(this->pos, this->size).or_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator&(T var) const { return brainfuck::variable(this->pos, this->size).and_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator^(T var) const { return brainfuck::variable(this->pos, this->size).xor_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator>>(T var) const { return brainfuck::variable(this->pos, this->size).shr_pos((long long)var); }
+        template<typename T = long long> inline brainfuck::variable operator<<(T var) const { return brainfuck::variable(this->pos, this->size).shl_pos((long long)var); }
         template<typename T = unsigned long long> inline bool operator==(T var) const { return this->pos == (unsigned long long)var; }
         template<typename T = unsigned long long> inline bool operator!=(T var) const { return this->pos != (unsigned long long)var; }
         template<typename T = unsigned long long> inline bool operator>(T var) const { return this->pos > (unsigned long long)var; }
         template<typename T = unsigned long long> inline bool operator<(T var) const { return this->pos < (unsigned long long)var; }
         template<typename T = unsigned long long> inline bool operator>=(T var) const { return this->pos >= (unsigned long long)var; }
         template<typename T = unsigned long long> inline bool operator<=(T var) const { return this->pos <= (unsigned long long)var; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator+=(T var) { this->pos += (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator-=(T var) { this->pos -= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator*=(T var) { this->pos *= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator/=(T var) { this->pos /= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator%=(T var) { this->pos %= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator|=(T var) { this->pos |= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator&=(T var) { this->pos &= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator^=(T var) { this->pos ^= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator>>=(T var) { this->pos >>= (unsigned long long)var; return *this; }
-        template<typename T = unsigned long long> inline brainfuck::variable& operator<<=(T var) { this->pos <<= (unsigned long long)var; return *this; }
+        template<typename T = unsigned long long> inline bool operator||(T var) const { return this->pos || (unsigned long long)var; }
+        template<typename T = unsigned long long> inline bool operator&&(T var) const { return this->pos && (unsigned long long)var; }
+        template<typename T = long long> inline brainfuck::variable& operator+=(T var) { add_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator-=(T var) { sub_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator*=(T var) { mult_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator/=(T var) { div_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator%=(T var) { mod_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator|=(T var) { or_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator&=(T var) { and_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator^=(T var) { xor_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator>>=(T var) { shr_pos((long long)var); return *this; }
+        template<typename T = long long> inline brainfuck::variable& operator<<=(T var) { shl_pos((long long)var); return *this; }
 
         bool operator!() const {
             return !(this->pos);
         }
 
         brainfuck::variable operator~() const {
-            return brainfuck::variable(~(this->pos), this->size);
+            return brainfuck::variable(this->pos, this->size).not_pos();
         }
 
         brainfuck::variable operator+() const {
@@ -304,28 +359,28 @@ public:
         }
 
         brainfuck::variable operator-() const {
-            return brainfuck::variable(-(this->pos), this->size);
+            return brainfuck::variable(-(this->pos), this->size).neg_pos();
         }
 
         brainfuck::variable& operator++() {
-            this->pos += 1ull;
+            add_pos(1);
             return *this;
         }
 
         brainfuck::variable operator++(int) {
             brainfuck::variable old = brainfuck::variable(this->pos, this->size);
-            this->pos += 1ull;
+            add_pos(1);
             return old;
         }
 
         brainfuck::variable& operator--() {
-            this->pos -= 1ull;
+            sub_pos(1);
             return *this;
         }
 
         brainfuck::variable operator--(int) {
             brainfuck::variable old = brainfuck::variable(this->pos, this->size);
-            this->pos -= 1ull;
+            sub_pos(1);
             return old;
         }
 
@@ -363,8 +418,9 @@ public:
         if (_pos_cap != 0ull) std::free(_pos_data);
     }
 
-    inline char *data() {
-        return _data;
+    inline const char *data() {
+        if (_cap) return _data;
+        return "";
     }
 
     inline unsigned long long size() {
@@ -396,7 +452,7 @@ public:
     brainfuck& write(T text = 0) {
         if ((const char*)text == 0) return *this;
         unsigned long long size_text = std::strlen((const char*)text);
-        if (size_text) return *this;
+        if (size_text != 0) return *this;
         if (_extend_buffer_size(size_text)) return *this;
         std::memcpy(_data + _size, (const char*)text, size_text);
         _size += size_text;
@@ -404,7 +460,7 @@ public:
     }
 
     template<typename T = unsigned long long>
-    brainfuck::variable _alloc(T size = 1ull) {
+    brainfuck::variable _alloc(T size = T(1)) {
         if ((unsigned long long)size == 0ull) return brainfuck::null;
         unsigned long long n = 0ull;
         for (unsigned long long i = 0ull; i < _pos_size; i++) {
@@ -416,7 +472,6 @@ public:
                         _mov(j);
                         _clear();
                     }
-                    _mov(0);
                     return brainfuck::variable(i, (unsigned long long)size);
                 }
             }
@@ -436,13 +491,13 @@ public:
             _mov(_pos_size + i);
             _clear();
         }
-        _mov(0);
         _pos_size += (unsigned long long)size;
         return brainfuck::variable(tmp, (unsigned long long)size);
     }
 
     brainfuck& _free(brainfuck::variable& var) {
         if (var.size == 0ull) return *this;
+        if (var.pos >= _pos_size) return *this;
         if (var.size > _pos_size - var.pos) return *this;
         memset(_pos_data + var.pos, 0, var.size);
         var.size = 0;
@@ -477,7 +532,6 @@ public:
         if (var.size == 0ull) return *this;
         _mov(var.pos);
         _set(value);
-        _mov(0);
         return *this;
     }
 
@@ -503,7 +557,6 @@ public:
         _mov(meta.pos);
         _sub(1);
         _end();
-        _mov(0);
         _free(meta);
         return *this;
     }
