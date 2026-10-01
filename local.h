@@ -2005,9 +2005,7 @@
 #undef true
 #undef false
 #undef _bool
-#undef _bit
 #undef bool
-#undef bit
 
 #define _true 1
 #define _false 0
@@ -2022,56 +2020,7 @@
 #define _bool _u8
 #endif
 #endif
-#define _bit _bool
 #define bool _bool
-#define bit _bit
-
-
-#undef _byte
-#undef _word
-#undef _dword
-#undef _qword
-
-#define _byte _u8
-#define _word _u16
-#define _dword _u32
-#ifdef _u64
-#define _qword _u64
-#endif
-
-
-#undef byte
-#undef word
-#undef dword
-#undef qword
-
-#define byte _byte
-#define word _word
-#define dword _dword
-#ifdef _u64
-#define qword _qword
-#endif
-
-
-#undef _db
-#undef _dw
-#undef _dd
-#undef _dq
-#undef db
-#undef dw
-#undef dd
-#undef dq
-
-#define _db _byte
-#define _dw _word
-#define _dd _dword
-#define db _db
-#define dw _dw
-#define dd _dd
-#ifdef _u64
-#define _dq _qword
-#define dq _dq
-#endif
 
 
 #undef _bytes
@@ -2141,12 +2090,21 @@
 #define _has_mode_execute(x) ((x) & 1)
 
 
+#undef _mode_set_read
+#undef _mode_set_write
+#undef _mode_set_execute
+
+#define _mode_set_read(x) ((x) | 4)
+#define _mode_set_write(x) ((x) | 2)
+#define _mode_set_execute(x) ((x) | 1)
+
+
 #undef _mode_let_read
 #undef _mode_let_write
 #undef _mode_let_execute
 
-#define _mode_let_read(x) ((x) | 4)
-#define _mode_let_write(x) ((x) | 2)
-#define _mode_let_execute(x) ((x) | 1)
+#define _mode_let_read(x, b) ((x) | (!(!(b))))
+#define _mode_let_write(x, b) ((x) | (!(!(b))))
+#define _mode_let_execute(x, b) ((x) | (!(!(b))))
 
 #endif

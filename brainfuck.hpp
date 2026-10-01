@@ -37,6 +37,7 @@ private:
             if (new_data == 0) return 1;
             _data = new_data;
             _cap = new_cap;
+            std::memset(_data + _size, 0, _cap - _size);
         }
         return 0;
     }
@@ -412,57 +413,6 @@ public:
         return *this;
     }
 
-    template<typename T1 = unsigned long long, typename T2 = unsigned long long, typename T3 = unsigned char>
-    brainfuck& add2i(T1 pos1 = T1(-1), T2 pos2 = T2(-1), T3 value = T3(1)) {
-        if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1) return *this;
-        if ((unsigned long long)pos1 == (unsigned long long)pos2) return *this;
-        unsigned long long meta = _alloc(1);
-        if (meta == -1) return *this;
-        _mov(meta); _clear(); _mov((unsigned long long)pos1); _set((unsigned char)value);
-        _mov((unsigned long long)pos2); _loop();
-            _mov((unsigned long long)pos1); _plus();
-            _mov(meta); _plus();
-            _mov(pos2); _minus();
-        _end();
-        _mov(meta); _loop();
-            _mov((unsigned long long)pos2); _plus();
-            _mov(meta); _minus();
-        _end();
-        _free(meta, 1);
-        return *this;
-    }
-
-    template<typename T1 = unsigned long long, typename T2 = unsigned long long, typename T3 = unsigned long long>
-    brainfuck& add2(T1 pos1 = T1(-1), T2 pos2 = T2(-1), T3 pos3 = T3(-1)) {
-        if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1 || (unsigned long long)pos3 == -1) return *this;
-        if ((unsigned long long)pos1 == (unsigned long long)pos2) return *this;
-        if ((unsigned long long)pos1 == (unsigned long long)pos3) return *this;
-        if ((unsigned long long)pos2 == (unsigned long long)pos3) return *this;
-        unsigned long long meta = _alloc(1);
-        if (meta == -1) return *this;
-        _mov(meta); _clear(); _mov((unsigned long long)pos1); _clear();
-        _mov((unsigned long long)pos2); _loop();
-            _mov((unsigned long long)pos1); _plus();
-            _mov(meta); _plus();
-            _mov((unsigned long long)pos2); _minus();
-        _end();
-        _mov(meta); _loop();
-            _mov((unsigned long long)pos2); _plus();
-            _mov(meta); _minus();
-        _end();
-        _mov((unsigned long long)pos3); _loop();
-            _mov((unsigned long long)pos1); _plus();
-            _mov(meta); _plus();
-            _mov((unsigned long long)pos3); _minus();
-        _end();
-        _mov(meta); _loop();
-            _mov((unsigned long long)pos3); _plus();
-            _mov(meta); _minus();
-        _end();
-        _free(meta, 1);
-        return *this;
-    }
-
     template<typename T1 = unsigned long long, typename T2 = unsigned char>
     brainfuck& subi(T1 pos = T1(-1), T2 value = T2(1)) {
         if ((unsigned long long)pos == -1) return *this;
@@ -490,57 +440,6 @@ public:
         return *this;
     }
 
-    template<typename T1 = unsigned long long, typename T2 = unsigned long long, typename T3 = unsigned char>
-    brainfuck& sub2i(T1 pos1 = T1(-1), T2 pos2 = T2(-1), T3 value = T3(1)) {
-        if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1) return *this;
-        if ((unsigned long long)pos1 == (unsigned long long)pos2) return *this;
-        unsigned long long meta = _alloc(1);
-        if (meta == -1) return *this;
-        _mov(meta); _clear(); _mov((unsigned long long)pos1); _clear(); _sub((unsigned char)value);
-        _mov((unsigned long long)pos2); _loop();
-            _mov((unsigned long long)pos1); _plus();
-            _mov(meta); _plus();
-            _mov(pos2); _minus();
-        _end();
-        _mov(meta); _loop();
-            _mov((unsigned long long)pos2); _plus();
-            _mov(meta); _minus();
-        _end();
-        _free(meta, 1);
-        return *this;
-    }
-
-    template<typename T1 = unsigned long long, typename T2 = unsigned long long, typename T3 = unsigned long long>
-    brainfuck& sub2(T1 pos1 = T1(-1), T2 pos2 = T2(-1), T3 pos3 = T3(-1)) {
-        if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1 || (unsigned long long)pos3 == -1) return *this;
-        if ((unsigned long long)pos1 == (unsigned long long)pos2) return *this;
-        if ((unsigned long long)pos1 == (unsigned long long)pos3) return *this;
-        if ((unsigned long long)pos2 == (unsigned long long)pos3) return *this;
-        unsigned long long meta = _alloc(1);
-        if (meta == -1) return *this;
-        _mov(meta); _clear(); _mov((unsigned long long)pos1); _clear();
-        _mov((unsigned long long)pos2); _loop();
-            _mov((unsigned long long)pos1); _plus();
-            _mov(meta); _plus();
-            _mov((unsigned long long)pos2); _minus();
-        _end();
-        _mov(meta); _loop();
-            _mov((unsigned long long)pos2); _plus();
-            _mov(meta); _minus();
-        _end();
-        _mov((unsigned long long)pos3); _loop();
-            _mov((unsigned long long)pos1); _minus();
-            _mov(meta); _plus();
-            _mov((unsigned long long)pos3); _minus();
-        _end();
-        _mov(meta); _loop();
-            _mov((unsigned long long)pos3); _plus();
-            _mov(meta); _minus();
-        _end();
-        _free(meta, 1);
-        return *this;
-    }
-
     template<typename T1 = unsigned long long, typename T2 = unsigned char>
     brainfuck& muli(T1 pos = T1(-1), T2 value = T2(2)) {
         if ((unsigned long long)pos == -1) return *this;
@@ -549,6 +448,24 @@ public:
         _mov(meta); _clear();
         _mov((unsigned long long)pos); _loop();
             _mov(meta); _add((unsigned char)value);
+            _mov((unsigned long long)pos); _minus();
+        _end();
+        _mov(meta); _loop();
+            _mov((unsigned long long)pos); _plus();
+            _mov(meta); _minus();
+        _end();
+        _free(meta, 1);
+        return *this;
+    }
+
+    template<typename T1 = unsigned long long, typename T2 = unsigned char>
+    brainfuck& divi(T1 pos = T1(-1), T2 value = T2(2)) {
+        if ((unsigned long long)pos == -1) return *this;
+        unsigned long long meta = _alloc(1);
+        if (meta == -1) return *this;
+        _mov(meta); _clear();
+        _mov((unsigned long long)pos); _loop();
+            _mov(meta); _sub((unsigned char)value);
             _mov((unsigned long long)pos); _minus();
         _end();
         _mov(meta); _loop();
