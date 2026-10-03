@@ -373,10 +373,17 @@ private:
 
 public:
     brainfuck& _stack() {
+        if (_extend_cadr()) return *this;
+        _cadr_data[_cadr_size] = _cadr_data_size;
+        _cadr_size++;
         return *this;
     }
 
     brainfuck& _pop() {
+        if (_cadr_size) {
+            _cadr_size--;
+            unsigned long long index = _cadr_data[_cadr_size];
+        }
         return *this;
     }
 
