@@ -17,11 +17,11 @@ private:
 
 public:
     brainfuck(const char *text = 0) {
-        write(text);
+        writestr(text);
     }
 
     brainfuck(const void *buffer, unsigned long long size) {
-        writebuf(buffer, size);
+        write(buffer, size);
     }
 
     ~brainfuck() {
@@ -73,15 +73,15 @@ public:
         return *this;
     }
 
-    const char *data() {
+    const char *data() const {
         return _data;
     }
 
-    unsigned long long size() {
+    unsigned long long size() const {
         return _size;
     }
 
-    brainfuck& write(const char *text = 0) {
+    brainfuck& writestr(const char *text = 0) {
         if (text == 0) return *this;
         unsigned long long size = std::strlen(text);
         if (size) {
@@ -92,13 +92,25 @@ public:
         return *this;
     }
 
-    brainfuck& writebuf(const void *buffer = 0, unsigned long long size = 0) {
+    brainfuck& write(const void *buffer = 0, unsigned long long size = 0) {
         if (buffer == 0) return *this;
         if (size) {
             if (_extend_size(size)) return *this;
             std::memcpy(_data + _size, buffer, size);
             _size += size;
         }
+        return *this;
+    }
+
+    brainfuck& read(void *buffer = 0, unsigned long long size = 0) const {
+        if (buffer == 0) return *this;
+        if (size && _size) std::memcpy(buffer, _data, size);
+        return *this;
+    }
+
+    brainfuck& readall(void *buffer = 0) const {
+        if (buffer == 0) return *this;
+        if (_size) std::memcpy(buffer, _data, _size);
         return *this;
     }
 
@@ -137,13 +149,13 @@ public:
         return *this;
     }
 
-    brainfuck& fwrite(FILE *file = 0) {
+    brainfuck& fwrite(FILE *file = 0) const {
         if (file == 0) return *this;
         if (_size) std::fwrite(_data, 1, _size, file);
         return *this;
     }
 
-    brainfuck& fwrite(const char *path = 0) {
+    brainfuck& fwrite(const char *path = 0) const {
         if (path == 0) return *this;
         FILE *file = std::fopen(path, "wb");
         if (file == 0) return *this;
@@ -152,13 +164,13 @@ public:
         return *this;
     }
 
-    brainfuck& fappend(FILE *file = 0) {
+    brainfuck& fappend(FILE *file = 0) const {
         if (file == 0) return *this;
         if (_size) std::fwrite(_data, 1, _size, file);
         return *this;
     }
 
-    brainfuck& fappend(const char *path = 0) {
+    brainfuck& fappend(const char *path = 0) const {
         if (path == 0) return *this;
         FILE *file = std::fopen(path, "ab");
         if (file == 0) return *this;
@@ -286,22 +298,20 @@ private:
     }
 
     unsigned long long _map(unsigned long long pos = 0) {
-        unsigned long long meta1 = _alloc(1);
-        if (meta1 == -1) return -1;
-        unsigned long long meta2 = _alloc(1);
-        if (meta2 == -1) return -1;
-        _mov(meta1); _clear(); _mov(meta2); _clear();
+        unsigned long long meta = _alloc(2);
+        if (meta == -1) return -1;
+        _mov(meta); _clear(); _mov(meta + 1); _clear();
         _mov(pos); _loop();
-            _mov(meta1); _plus();
-            _mov(meta2); _plus();
+            _mov(meta); _plus();
+            _mov(meta + 1); _plus();
             _mov(pos); _minus();
         _end();
-        _mov(meta2); _loop();
+        _mov(meta + 1); _loop();
             _mov(pos); _plus();
-            _mov(meta2); _minus();
+            _mov(meta + 1); _minus();
         _end();
-        _free(meta2, 1);
-        return meta1;
+        _free(meta + 1, 1);
+        return meta;
     }
 
 public:
@@ -371,6 +381,12 @@ public:
         return *this;
     }
 
+    template<typename T = unsigned long long>
+    unsigned long long clone(T pos = T(-1)) {
+        if ((unsigned long long)pos == -1) return -1;
+        return _map((unsigned long long)pos);
+    }
+
     template<typename T1 = unsigned long long, typename T2 = unsigned char>
     brainfuck& addconst(T1 pos = T1(-1), T2 value = T2(0)) {
         if ((unsigned long long)pos == -1) return *this;
@@ -385,7 +401,7 @@ public:
         unsigned long long meta = _map((unsigned long long)pos2);
         if (meta == -1) return *this;
         _mov(meta); _loop();
-            _mov((unsigned long long)pos1): _plus();
+            _mov((unsigned long long)pos1); _plus();
             _mov(meta); _minus();
         _end();
         _free(meta, 1);
@@ -406,7 +422,7 @@ public:
         unsigned long long meta = _map((unsigned long long)pos2);
         if (meta == -1) return *this;
         _mov(meta); _loop();
-            _mov((unsigned long long)pos1): _minus();
+            _mov((unsigned long long)pos1); _minus();
             _mov(meta); _minus();
         _end();
         _free(meta, 1);
@@ -436,16 +452,17 @@ public:
         if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1) return *this;
         unsigned long long meta1 = _map((unsigned long long)pos2);
         if (meta1 == -1) return *this;
-        unsigned long long meta2 = _alloc(1);
-        if (meta2 == -1) return *this;
-        unsigned long long meta3 = _alloc(1);
-        if (meta3 == -1) return *this;
-        _mov(meta3); _clear();
+        unsigned long long meta2 = _alloc(2);
+        if (meta2 == -1) {
+            _free(meta1, 1);
+            return *this;
+        }
+        _mov(meta2 + 1); _clear();
         _mov(meta1); _loop();
             _mov(meta2); _clear();
             _mov((unsigned long long)pos1); _loop();
                 _mov(meta2); _plus();
-                _mov(meta3); _plus();
+                _mov(meta2 + 1); _plus();
                 _mov((unsigned long long)pos1); _minus();
             _end();
             _mov(meta2); _loop();
@@ -454,68 +471,119 @@ public:
             _end();
         _end();
         _mov((unsigned long long)pos1); _clear();
-        _mov(meta3); _loop();
+        _mov(meta2 + 1); _loop();
             _mov((unsigned long long)pos1); _plus();
-            _mov(meta3); _minus();
+            _mov(meta2 + 1); _minus();
         _end();
         _free(meta1, 1);
-        _free(meta2, 1);
-        _free(meta3, 1);
+        _free(meta2, 2);
         return *this;
     }
 
     template<typename T1 = unsigned long long, typename T2 = unsigned char>
-    brainfuck& divconst(T1 pos = T1(-1), T2 value = T2(0)) {
-        if ((unsigned char)value == 0) {
-            _mov((unsigned long long)pos); _clear();
-            return *this;
-        }
+    brainfuck& logboolconst(T1 pos = T1(-1), T2 value = T2(0)) {
         if ((unsigned long long)pos == -1) return *this;
-        unsigned long long meta = _alloc(1);
+        _mov((unsigned long long)pos);
+        _set((unsigned char)value ? 1 : 0);
+        return *this;
+    }
+
+    template<typename T1 = unsigned long long, typename T2 = unsigned long long>
+    brainfuck& logbool(T1 pos1 = T1(-1), T2 pos2 = T2(-1)) {
+        if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1) return *this;
+        unsigned long long meta = _map((unsigned long long)pos2);
         if (meta == -1) return *this;
-        _mov(meta); _clear();
-        _mov((unsigned long long)pos); _loop();
-            _mov(meta); _plus();
-            _mov((unsigned long long)pos); _sub((unsigned char)value);
-        _end();
+        _mov((unsigned long long)pos1); _clear();
         _mov(meta); _loop();
-            _mov((unsigned long long)pos); _plus();
-            _mov(meta); _minus();
+            _mov((unsigned long long)pos1); _plus();
+            _mov(meta); _clear();
         _end();
         _free(meta, 1);
         return *this;
     }
 
+    template<typename T1 = unsigned long long, typename T2 = unsigned char>
+    brainfuck& lognotconst(T1 pos = T1(-1), T2 value = T2(0)) {
+        if ((unsigned long long)pos == -1) return *this;
+        _mov((unsigned long long)pos);
+        _set((unsigned char)value ? 0 : 1);
+        return *this;
+    }
+
     template<typename T1 = unsigned long long, typename T2 = unsigned long long>
-    brainfuck& div(T1 pos1 = T1(-1), T2 pos2 = T2(-1)) {
+    brainfuck& lognot(T1 pos1 = T1(-1), T2 pos2 = T2(-1)) {
         if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1) return *this;
-        unsigned long long meta1 = _map((unsigned long long)pos2);
-        if (meta1 == -1) return *this;
-        unsigned long long meta2 = _alloc(1);
-        if (meta2 == -1) return *this;
-        unsigned long long meta3 = _alloc(1);
-        if (meta3 == -1) return *this;
-        _mov(meta3); _clear();
-        _mov(meta1); _loop();
-            _mov(meta2); _clear();
-            _mov((unsigned long long)pos1); _loop();
-                _mov(meta2); _plus();
-                _mov(meta3); _plus();
-                _mov((unsigned long long)pos1); _minus();
-            _end();
-            _mov(meta2); _loop();
-                _mov((unsigned long long)pos1); _plus();
-                _mov(meta2); _minus();
-            _end();
+        unsigned long long meta = _map((unsigned long long)pos2);
+        if (meta == -1) return *this;
+        _mov((unsigned long long)pos1); _set(1);
+        _mov(meta); _loop();
+            _mov((unsigned long long)pos1); _minus();
+            _mov(meta); _clear();
         _end();
+        _free(meta, 1);
+        return *this;
+    }
+
+    template<typename T1 = unsigned long long, typename T2 = unsigned char>
+    brainfuck& logorconst(T1 pos = T1(-1), T2 value = T2(0)) {
+        if ((unsigned long long)pos == -1) return *this;
+        if ((unsigned char)value) { _mov((unsigned long long)pos); _set(1); }
+        else logbool((unsigned long long)pos, (unsigned long long)pos);
+        return *this;
+    }
+
+    template<typename T1 = unsigned long long, typename T2 = unsigned long long>
+    brainfuck& logor(T1 pos1 = T1(-1), T2 pos2 = T2(-1)) {
+        if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1) return *this;
+        unsigned long long meta1 = _map((unsigned long long)pos1);
+        if (meta1 == -1) return *this;
+        unsigned long long meta2 = _map((unsigned long long)pos2);
+        if (meta2 == -1) {
+            _free(meta1, 1);
+            return *this;
+        }
         _mov((unsigned long long)pos1); _clear();
-        _mov(meta3); _loop();
+        _mov(meta1); _loop();
             _mov((unsigned long long)pos1); _plus();
-            _mov(meta3); _minus();
+            _mov(meta1); _clear();
+        _end();
+        _mov(meta1); _loop();
+            _mov((unsigned long long)pos1); _set(1);
+            _mov(meta1); _clear();
         _end();
         _free(meta1, 1);
         _free(meta2, 1);
-        _free(meta3, 1);
+        return *this;
+    }
+
+    template<typename T1 = unsigned long long, typename T2 = unsigned char>
+    brainfuck& logandconst(T1 pos = T1(-1), T2 value = T2(0)) {
+        if ((unsigned long long)pos == -1) return *this;
+        if (!(unsigned char)value) return *this;
+        else logbool((unsigned long long)pos, (unsigned long long)pos);
+        return *this;
+    }
+
+    template<typename T1 = unsigned long long, typename T2 = unsigned long long>
+    brainfuck& logand(T1 pos1 = T1(-1), T2 pos2 = T2(-1)) {
+        if ((unsigned long long)pos1 == -1 || (unsigned long long)pos2 == -1) return *this;
+        unsigned long long meta1 = _map((unsigned long long)pos1);
+        if (meta1 == -1) return *this;
+        unsigned long long meta2 = _map((unsigned long long)pos2);
+        if (meta2 == -1) {
+            _free(meta1, 1);
+            return *this;
+        }
+        _mov((unsigned long long)pos1); _clear();
+        _mov(meta1); _loop();
+            _mov(meta2); _loop();
+                _mov((unsigned long long)pos1); _plus();
+                _mov(meta2); _clear();
+            _end();
+            _mov(meta1); _clear();
+        _end();
+        _free(meta1, 1);
+        _free(meta2, 1);
         return *this;
     }
 };
