@@ -60,16 +60,12 @@ static void iol1_detail_apply_cooked(void) {
 static int iol1_detail_read_one(int show) {
     unsigned char c = 0;
     ssize_t n;
-
     if (!iol1_detail_active_flag) iol1_detail_apply_raw();
-
     n = read(STDIN_FILENO, &c, 1);
-
     if (show && n == 1) {
         fputc(c, stdout);
         fflush(stdout);
     }
-
     return (n == 1) ? (int)c : 0;
 }
 
@@ -95,13 +91,10 @@ static int iol1_kbhit(void) {
     fd_set fds;
     struct timeval tv;
     int result;
-
     FD_ZERO(&fds);
     FD_SET(STDIN_FILENO, &fds);
-
     tv.tv_sec  = 0;
     tv.tv_usec = 0;
-
     result = select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
     return (result > 0 && FD_ISSET(STDIN_FILENO, &fds)) ? 1 : 0;
 }
