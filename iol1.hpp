@@ -37,7 +37,7 @@ namespace iol1 {
         return _kbhit();
     }
 
-#elif defined(unix) || defined(unix) || (defined(APPLE) && defined(MACH__))
+#elif defined(unix) || defined(__unix) || defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
     #include <termios.h>
     #include <unistd.h>
     #include <fcntl.h>
@@ -69,7 +69,7 @@ namespace iol1 {
             termios raw = original_term();
             raw.c_lflag &= ~ICANON;
             if (echo_flag()) raw.c_lflag |= ECHO;
-            else raw.c_lflag &= ~ECHO;
+            else             raw.c_lflag &= ~ECHO;
             raw.c_cc[VMIN]  = 1;
             raw.c_cc[VTIME] = 0;
             tcsetattr(STDIN_FILENO, TCSANOW, &raw);
@@ -78,10 +78,21 @@ namespace iol1 {
         inline void apply_cooked() {
             tcsetattr(STDIN_FILENO, TCSANOW, &original_term());
         }
+
+        inline int read_one(bool show) {
+            if (!active_flag()) apply_raw();
+            unsigned char c = 0;
+            ssize_t n = read(STDIN_FILENO, &c, 1);
+            if (show && n == 1) {
+                std::fputc(c, stdout);
+                std::fflush(stdout);
+            }
+            return (n == 1) ? static_cast<int>(c) : 0;
+        }
     }
 
-    inline void start(bool on = false) {
-        detail::active_flag() = on;
+    inline void start() {
+        detail::active_flag() = true;
         detail::apply_raw();
     }
 
@@ -92,37 +103,19 @@ namespace iol1 {
 
     inline void echo(bool on = true) {
         detail::echo_flag() = on;
-        if (detail::active_flag()) detail::apply_raw();
+        if (!detail::active_flag()) detail::apply_raw();
     }
 
     inline int getch() {
-        if (!detail::active_flag()) detail::apply_raw();
-        unsigned char c = 0;
-        ssize_t n = read(STDIN_FILENO, &c, 1);
-        if (detail::echo_flag() && n == 1) std::fputc(c, stdout);
-        return (n == 1) ? static_cast<int>(c) : 0;
+        return detail::read_one(detail::echo_flag());
     }
 
     inline int getchne() {
-        bool cpy = detail::echo_flag();
-        detail::echo_flag() = false;
-        if (!detail::active_flag()) detail::apply_raw();
-        unsigned char c = 0;
-        ssize_t n = read(STDIN_FILENO, &c, 1);
-        if (detail::echo_flag() && n == 1) std::fputc(c, stdout);
-        detail::echo_flag() = cpy;
-        return (n == 1) ? static_cast<int>(c) : 0;
+        return detail::read_one(false);
     }
 
     inline int getche() {
-        bool cpy = detail::echo_flag();
-        detail::echo_flag() = true;
-        if (!detail::active_flag()) detail::apply_raw();
-        unsigned char c = 0;
-        ssize_t n = read(STDIN_FILENO, &c, 1);
-        if (detail::echo_flag() && n == 1) std::fputc(c, stdout);
-        detail::echo_flag() = cpy;
-        return (n == 1) ? static_cast<int>(c) : 0;
+        return detail::read_one(true);
     }
 
     inline int kbhit() {
