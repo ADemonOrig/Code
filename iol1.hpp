@@ -25,6 +25,14 @@ namespace iol1 {
         return _getch();
     }
 
+    inline int getchne() {
+        return _getch();
+    }
+
+    inline int getche() {
+        return _getche();
+    }
+
     inline int kbhit() {
         return _kbhit();
     }
@@ -72,8 +80,8 @@ namespace iol1 {
         }
     }
 
-    inline void start() {
-        detail::active_flag() = true;
+    inline void start(bool on = false) {
+        detail::active_flag() = on;
         detail::apply_raw();
     }
 
@@ -91,10 +99,29 @@ namespace iol1 {
         if (!detail::active_flag()) detail::apply_raw();
         unsigned char c = 0;
         ssize_t n = read(STDIN_FILENO, &c, 1);
-        if (detail::echo_flag() && n == 1) {
-            std::fputc(c, stdout);
-            std::fflush(stdout);
-        }
+        if (detail::echo_flag() && n == 1) std::fputc(c, stdout);
+        return (n == 1) ? static_cast<int>(c) : 0;
+    }
+
+    inline int getchne() {
+        bool cpy = detail::echo_flag();
+        detail::echo_flag() = false;
+        if (!detail::active_flag()) detail::apply_raw();
+        unsigned char c = 0;
+        ssize_t n = read(STDIN_FILENO, &c, 1);
+        if (detail::echo_flag() && n == 1) std::fputc(c, stdout);
+        detail::echo_flag() = cpy;
+        return (n == 1) ? static_cast<int>(c) : 0;
+    }
+
+    inline int getche() {
+        bool cpy = detail::echo_flag();
+        detail::echo_flag() = true;
+        if (!detail::active_flag()) detail::apply_raw();
+        unsigned char c = 0;
+        ssize_t n = read(STDIN_FILENO, &c, 1);
+        if (detail::echo_flag() && n == 1) std::fputc(c, stdout);
+        detail::echo_flag() = cpy;
         return (n == 1) ? static_cast<int>(c) : 0;
     }
 
