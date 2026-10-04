@@ -1,5 +1,5 @@
-#ifndef IO_L1_HPP
-#define IO_L1_HPP 1
+#ifndef __IO_L1_HPP__
+#define __IO_L1_HPP__ 1
 
 namespace iol1 {
 
