@@ -2019,8 +2019,8 @@
 #else
 #define _bool _u8
 #endif
-#endif
 #define bool _bool
+#endif
 
 
 #undef _bytes
