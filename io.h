@@ -22,7 +22,7 @@ static int io_getchne(void) { return _getch();  }
 static int io_getche(void)  { return _getche(); }
 static int io_kbhit(void)   { return _kbhit();  }
 
-#elif defined(unix)  defined(__unix)  defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
+#elif defined(unix) || defined(__unix) || defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
