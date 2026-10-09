@@ -991,43 +991,6 @@
 #endif
 
 
-#undef i8
-#undef u8
-#undef i16
-#undef u16
-#undef i32
-#undef u32
-#undef i64
-#undef u64
-
-#define i8  _i8
-#define u8  _u8
-#define i16 _i16
-#define u16 _u16
-#define i32 _i32
-#define u32 _u32
-#ifdef _u64
-#define i64 _i64
-#define u64 _u64
-#endif
-
-
-#undef _imax
-#undef _umax
-#undef imax
-#undef umax
-
-#ifdef _u64
-#define _imax _i64
-#define _umax _u64
-#else
-#define _imax _i32
-#define _umax _u32
-#endif
-#define imax  _imax
-#define umax  _umax
-
-
 #undef _f16
 #undef _f32
 #undef _f64
@@ -1052,38 +1015,6 @@
 #elif defined(__FLOAT128__)
 #define _f128 __float128
 #endif
-
-
-#undef f16
-#undef f32
-#undef f64
-#undef f80
-#undef f128
-
-#ifdef _f16
-#define f16  _f16
-#endif
-#define f32  _f32
-#define f64  _f64
-#ifdef _f80
-#define f80  _f80
-#endif
-#ifdef _f128
-#define f128 _f128
-#endif
-
-
-#undef _fmax
-#undef fmax
-
-#ifdef _f128
-#define _fmax _f128
-#elif defined(_f80)
-#define _fmax _f80
-#else
-#define _fmax _f64
-#endif
-#define fmax _fmax
 
 
 #undef _i8_max
@@ -1989,10 +1920,6 @@
 #define _pick(x, t, f) ((!(!(x))) ? (t) : (f))
 
 
-#undef _concat
-#define _concat(x1, x2) x1##x2
-
-
 #undef _null
 #undef null
 
@@ -2034,7 +1961,7 @@
 #undef _custring
 #undef _custr
 
-#define _bytes _byte*
+#define _bytes unsigned char*
 #define _char char
 #define _string char*
 #define _str _string
@@ -2106,5 +2033,78 @@
 #define _mode_let_read(x, b) ((x) | (!(!(b))))
 #define _mode_let_write(x, b) ((x) | (!(!(b))))
 #define _mode_let_execute(x, b) ((x) | (!(!(b))))
+
+
+#undef i8
+#undef u8
+#undef i16
+#undef u16
+#undef i32
+#undef u32
+#undef i64
+#undef u64
+
+#define i8  _i8
+#define u8  _u8
+#define i16 _i16
+#define u16 _u16
+#define i32 _i32
+#define u32 _u32
+#ifdef _i64
+#define i64 _i64
+#define u64 _u64
+#endif
+
+
+#undef _imax
+#undef _umax
+#undef imax
+#undef umax
+
+#ifdef _u64
+#define _imax _i64
+#define _umax _u64
+#else
+#define _imax _i32
+#define _umax _u32
+#endif
+#define imax  _imax
+#define umax  _umax
+
+
+#undef f16
+#undef f32
+#undef f64
+#undef f80
+#undef f128
+
+#ifdef _f16
+#define f16  _f16
+#endif
+#define f32  _f32
+#define f64  _f64
+#ifdef _f80
+#define f80  _f80
+#endif
+#ifdef _f128
+#define f128 _f128
+#endif
+
+
+#undef _fmax
+#undef fmax
+
+#ifdef _f128
+#define _fmax _f128
+#elif defined(_f80)
+#define _fmax _f80
+#else
+#define _fmax _f64
+#endif
+#define fmax _fmax
+
+
+#undef _concat
+#define _concat(x1, x2) x1##x2
 
 #endif
