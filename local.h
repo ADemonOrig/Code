@@ -828,134 +828,6 @@
 #endif
 
 
-#undef _pi
-#undef _e
-#undef _log2e
-#undef _log10e
-#undef _ln2
-#undef _ln10
-#undef _pi_2
-#undef _pi_4
-#undef _1_pi
-#undef _2_pi
-#undef _2_sqrtpi
-#undef _sqrt2
-#undef _sqrt1_2
-#undef _euler
-#undef _gamma
-#undef _phi
-#undef _tau
-#undef _deg2rad
-#undef _rad2deg
-#undef _lnpi
-#undef _log2pi
-#undef _log10pi
-#undef _sqrtpi
-#undef _cbrt2
-#undef _cbrt3
-#undef _inv_pi
-#undef _inv_2pi
-#undef _sqrt3
-#undef _sqrt5
-#undef _ln3
-#undef _ln4
-#undef _ln5
-#undef _log10_2
-#undef _log10_3
-#undef _log10_4
-#undef _log10_5
-#undef _sqrt6
-#undef _sqrt7
-#undef _sqrt8
-#undef _sqrt10
-#undef _cbrt4
-#undef _cbrt5
-#undef _inv_sqrt2
-#undef _inv_sqrt3
-#undef _ln6
-#undef _ln7
-#undef _ln8
-#undef _ln9
-#undef _log10_6
-#undef _log10_7
-#undef _log10_8
-#undef _log10_9
-#undef _1_ln2
-#undef _1_ln10
-#undef _pi_2_sqrt2
-#undef _sqrt2_over_2
-#undef _sqrt3_over_2
-#undef _ln2pi
-#undef _ln_sqrt2pi
-#undef _golden
-#undef _catalan
-#undef _apery
-#undef _omega
-
-#define _pi            3.141592653589793
-#define _e             2.718281828459045
-#define _log2e         1.442695040888963
-#define _log10e        0.434294481903252
-#define _ln2           0.693147180559945
-#define _ln10          2.302585092994046
-#define _pi_2          1.570796326794897
-#define _pi_4          0.785398163397448
-#define _1_pi          0.318309886183791
-#define _2_pi          0.636619772367581
-#define _2_sqrtpi      1.128379167095513
-#define _sqrt2         1.414213562373095
-#define _sqrt1_2       0.707106781186548
-#define _euler         0.577215664901533
-#define _phi           1.618033988749895
-#define _tau           6.283185307179586
-#define _deg2rad       0.017453292519943
-#define _rad2deg      57.295779513082321
-#define _lnpi          1.144729885849400
-#define _log2pi        1.651496129472319
-#define _log10pi       0.497149872694134
-#define _sqrtpi        1.772453850905516
-#define _cbrt2         1.259921049894873
-#define _cbrt3         1.442249570307408
-#define _inv_pi        0.318309886183791
-#define _inv_2pi       0.159154943091895
-#define _sqrt3         1.732050807568877
-#define _sqrt5         2.236067977499790
-#define _ln3           1.098612288668110
-#define _ln4           1.386294361119891
-#define _ln5           1.609437912434100
-#define _log10_2       0.301029995663981
-#define _log10_3       0.477121254719662
-#define _log10_4       0.602059991327962
-#define _log10_5       0.698970004336019
-#define _sqrt6         2.449489742783178
-#define _sqrt7         2.645751311064591
-#define _sqrt8         2.828427124746190
-#define _sqrt10        3.162277660168379
-#define _cbrt4         1.587401051568199
-#define _cbrt5         1.709975946676697
-#define _inv_sqrt2     0.707106781186548
-#define _inv_sqrt3     0.577350269189626
-#define _ln6           1.791759469228055
-#define _ln7           1.945910149055313
-#define _ln8           2.079441541679836
-#define _ln9           2.197224577336220
-#define _log10_6       0.778151250383644
-#define _log10_7       0.845098040014257
-#define _log10_8       0.903089986991944
-#define _log10_9       0.954242509439325
-#define _1_ln2         1.442695040888963
-#define _1_ln10        0.434294481903252
-#define _pi_2_sqrt2    2.221441469079183
-#define _sqrt2_over_2  0.707106781186548
-#define _sqrt3_over_2  0.866025403784439
-#define _ln2pi         1.837877066409345
-#define _ln_sqrt2pi    0.918938533204673
-#define _golden        1.618033988749895
-#define _catalan       0.915965594177219
-#define _apery         1.202056903159594
-#define _omega         0.567143290409784
-
-
 #undef _i8
 #undef _u8
 #undef _i16
@@ -1014,27 +886,6 @@
 #define _f128 long double
 #elif defined(__FLOAT128__)
 #define _f128 __float128
-#endif
-
-
-#undef _i8_max
-#undef _u8_max
-#undef _i16_max
-#undef _u16_max
-#undef _i32_max
-#undef _u32_max
-#undef _i64_max
-#undef _u64_max
-
-#define _i8_max   127
-#define _u8_max   255
-#define _i16_max  32767
-#define _u16_max  65535
-#define _i32_max  2147483647
-#define _u32_max  4294967295
-#ifdef _u64
-#define _i64_max  9223372036854775807ULL
-#define _u64_max  18446744073709551615ULL
 #endif
 
 
@@ -1703,6 +1554,27 @@
 #define _hmac_opad    0x5c
 
 
+#undef _i8_max
+#undef _u8_max
+#undef _i16_max
+#undef _u16_max
+#undef _i32_max
+#undef _u32_max
+#undef _i64_max
+#undef _u64_max
+
+#define _i8_max   127
+#define _u8_max   255
+#define _i16_max  32767
+#define _u16_max  65535
+#define _i32_max  2147483647
+#define _u32_max  4294967295U
+#ifdef _u64
+#define _i64_max  9223372036854775807ULL
+#define _u64_max  18446744073709551615ULL
+#endif
+
+
 #undef _lcg32_a
 #undef _lcg32_c
 #undef _lcg64_a
@@ -1721,6 +1593,174 @@
 #define _lcg64_c 1442695040888963407ULL
 #define _pcg64_mult 6364136223846793005ULL
 #define _pcg64_inc 1442695040888963407ULL
+#endif
+
+
+#undef _pi
+#undef _e
+#undef _log2e
+#undef _log10e
+#undef _ln2
+#undef _ln10
+#undef _pi_2
+#undef _pi_4
+#undef _1_pi
+#undef _2_pi
+#undef _2_sqrtpi
+#undef _sqrt2
+#undef _sqrt1_2
+#undef _euler
+#undef _gamma
+#undef _phi
+#undef _tau
+#undef _deg2rad
+#undef _rad2deg
+#undef _lnpi
+#undef _log2pi
+#undef _log10pi
+#undef _sqrtpi
+#undef _cbrt2
+#undef _cbrt3
+#undef _inv_pi
+#undef _inv_2pi
+#undef _sqrt3
+#undef _sqrt5
+#undef _ln3
+#undef _ln4
+#undef _ln5
+#undef _log10_2
+#undef _log10_3
+#undef _log10_4
+#undef _log10_5
+#undef _sqrt6
+#undef _sqrt7
+#undef _sqrt8
+#undef _sqrt10
+#undef _cbrt4
+#undef _cbrt5
+#undef _inv_sqrt2
+#undef _inv_sqrt3
+#undef _ln6
+#undef _ln7
+#undef _ln8
+#undef _ln9
+#undef _log10_6
+#undef _log10_7
+#undef _log10_8
+#undef _log10_9
+#undef _1_ln2
+#undef _1_ln10
+#undef _pi_2_sqrt2
+#undef _sqrt2_over_2
+#undef _sqrt3_over_2
+#undef _ln2pi
+#undef _ln_sqrt2pi
+#undef _golden
+#undef _catalan
+#undef _apery
+#undef _omega
+
+#define _pi            3.141592653589793
+#define _e             2.718281828459045
+#define _log2e         1.442695040888963
+#define _log10e        0.434294481903252
+#define _ln2           0.693147180559945
+#define _ln10          2.302585092994046
+#define _pi_2          1.570796326794897
+#define _pi_4          0.785398163397448
+#define _1_pi          0.318309886183791
+#define _2_pi          0.636619772367581
+#define _2_sqrtpi      1.128379167095513
+#define _sqrt2         1.414213562373095
+#define _sqrt1_2       0.707106781186548
+#define _euler         0.577215664901533
+#define _phi           1.618033988749895
+#define _tau           6.283185307179586
+#define _deg2rad       0.017453292519943
+#define _rad2deg      57.295779513082321
+#define _lnpi          1.144729885849400
+#define _log2pi        1.651496129472319
+#define _log10pi       0.497149872694134
+#define _sqrtpi        1.772453850905516
+#define _cbrt2         1.259921049894873
+#define _cbrt3         1.442249570307408
+#define _inv_pi        0.318309886183791
+#define _inv_2pi       0.159154943091895
+#define _sqrt3         1.732050807568877
+#define _sqrt5         2.236067977499790
+#define _ln3           1.098612288668110
+#define _ln4           1.386294361119891
+#define _ln5           1.609437912434100
+#define _log10_2       0.301029995663981
+#define _log10_3       0.477121254719662
+#define _log10_4       0.602059991327962
+#define _log10_5       0.698970004336019
+#define _sqrt6         2.449489742783178
+#define _sqrt7         2.645751311064591
+#define _sqrt8         2.828427124746190
+#define _sqrt10        3.162277660168379
+#define _cbrt4         1.587401051568199
+#define _cbrt5         1.709975946676697
+#define _inv_sqrt2     0.707106781186548
+#define _inv_sqrt3     0.577350269189626
+#define _ln6           1.791759469228055
+#define _ln7           1.945910149055313
+#define _ln8           2.079441541679836
+#define _ln9           2.197224577336220
+#define _log10_6       0.778151250383644
+#define _log10_7       0.845098040014257
+#define _log10_8       0.903089986991944
+#define _log10_9       0.954242509439325
+#define _1_ln2         1.442695040888963
+#define _1_ln10        0.434294481903252
+#define _pi_2_sqrt2    2.221441469079183
+#define _sqrt2_over_2  0.707106781186548
+#define _sqrt3_over_2  0.866025403784439
+#define _ln2pi         1.837877066409345
+#define _ln_sqrt2pi    0.918938533204673
+#define _golden        1.618033988749895
+#define _catalan       0.915965594177219
+#define _apery         1.202056903159594
+#define _omega         0.567143290409784
+
+
+#undef _true
+#undef _false
+#undef _bool
+
+#define _true 1
+#define _false 0
+#ifdef _cpp
+#define _bool bool
+#else
+#ifdef _c99
+#define _bool _Bool
+#else
+#define _bool _u8
+#endif
+#endif
+
+
+#undef _imax
+#undef _umax
+
+#ifdef _u64
+#define _imax _i64
+#define _umax _u64
+#else
+#define _imax _i32
+#define _umax _u32
+#endif
+
+
+#undef _fmax
+
+#ifdef _f128
+#define _fmax _f128
+#elif defined(_f80)
+#define _fmax _f80
+#else
+#define _fmax _f64
 #endif
 
 
@@ -1745,22 +1785,6 @@
 #endif
 
 
-#undef _imax
-#undef _umax
-#undef imax
-#undef umax
-
-#ifdef _u64
-#define _imax _i64
-#define _umax _u64
-#else
-#define _imax _i32
-#define _umax _u32
-#endif
-#define imax  _imax
-#define umax  _umax
-
-
 #undef f16
 #undef f32
 #undef f64
@@ -1780,46 +1804,31 @@
 #endif
 
 
-#undef _fmax
-#undef fmax
+#undef imax
+#undef umax
 
-#ifdef _f128
-#define _fmax _f128
-#elif defined(_f80)
-#define _fmax _f80
-#else
-#define _fmax _f64
-#endif
+#define imax _imax
+#define umax _umax
+
+
+#undef fmax
 #define fmax _fmax
 
 
-#undef _true
-#undef _false
-#undef true
 #undef false
-#undef _bool
+#undef true
 #undef bool
 
-#define _true 1
-#define _false 0
-#ifdef _cpp
-#define _bool bool
-#else
-#define true 1
-#define false 0
-#ifdef _c99
-#define _bool _Bool
-#else
-#define _bool _u8
-#endif
+#define false _false
+#define true _true
 #define bool _bool
-#endif
 
 
 #undef _null
-#undef null
-
 #define _null 0
+
+
+#undef null
 #define null _null
 
 
