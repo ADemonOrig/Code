@@ -1824,6 +1824,29 @@
 #define bool _bool
 
 
+#undef _isize
+#undef _usize
+#undef _size
+
+#ifdef _u64
+#define _isize _i64
+#define _usize _u64
+#else
+#define _isize _i32
+#define _usize _u32
+#endif
+#define _size _usize
+
+
+#undef isize
+#undef usize
+#undef sizet
+
+#define isize _isize
+#define usize _usize
+#define sizet _size
+
+
 #undef _null
 #define _null 0
 
