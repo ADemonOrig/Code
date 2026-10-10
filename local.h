@@ -1,5 +1,5 @@
-#ifndef _local_h_
-#define _local_h_
+#ifndef __LOCAL_H__
+#define __LOCAL_H__ 1
 
 
 #undef _c
