@@ -4,9 +4,9 @@
 namespace io {
 
 #if defined(_WIN32) || defined(_WIN64)
-    #include <conio.h>
-
     namespace detail {
+        #include <conio.h>
+
         inline bool& echo_flag() {
             static bool f = false;
             return f;
@@ -21,20 +21,20 @@ namespace io {
     }
 
     inline int getch() {
-        if (detail::echo_flag()) return _getche();
-        return _getch();
+        if (detail::echo_flag()) return detail::_getche();
+        return detail::_getch();
     }
 
     inline int getchne() {
-        return _getch();
+        return detail::_getch();
     }
 
     inline int getche() {
-        return _getche();
+        return detail::_getche();
     }
 
     inline int kbhit() {
-        return _kbhit();
+        return detail::_kbhit();
     }
 
 #elif defined(unix) || defined(__unix) || defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
