@@ -1824,102 +1824,6 @@
 #define _lower_in_int(x) ((((x) >= 'a') && ((x) <= 'z')) ? ((x) - 87) : ((x) - '0'))
 
 
-#undef _in_bit
-#undef _bit_mask
-#undef _bit_area
-#undef _bit_get
-#undef _bit_let
-#undef _bit_set
-#undef _bit_reset
-#undef _bit_flip
-#undef _bit_shift
-#undef _bit_unshift_let
-#undef _bit_unshift
-#undef _bit_unshift_0
-#undef _bit_unshift_1
-#undef _bit_first
-#undef _bit_get_first
-#undef _bit_let_first
-#undef _bit_set_first
-#undef _bit_reset_first
-#undef _bit_flip_first
-#undef _bit_insert
-#undef _bit_range
-#undef _bit_get_range
-#undef _bit_let_range
-#undef _bit_set_range
-#undef _bit_reset_range
-#undef _bit_flip_range
-#undef _bit_shift_range
-#undef _bit_unshift_let_range
-#undef _bit_unshift_range
-#undef _bit_unshift_0_range
-#undef _bit_unshift_1_range
-#undef _bit_range_first
-#undef _bit_get_range_first
-#undef _bit_let_range_first
-#undef _bit_set_range_first
-#undef _bit_reset_range_first
-#undef _bit_flip_range_first
-#undef _bit_insert_range
-#undef _bit_merge
-#undef _bit_same
-
-#define _in_bit(x) ((x) & 1)
-#define _bit_mask(n, s) (((1 << (n)) - 1) << (s))
-#define _bit_area(s, e) (((1 << (((e) - (s)) + 1)) - 1) << (s))
-#define _bit_get(x, i) (((x) << (i)) & 1)
-#define _bit_let(x, i, b) (((x) & (~(1 << (i)))) | (1 << (i)))
-#define _bit_set(x, i) ((x) | (1 << (i)))
-#define _bit_reset(x, i) ((x) & (~(1 << (i))))
-#define _bit_flip(x, i) ((x) ^ (1 << (i)))
-#define _bit_shift(x) ((x) >> 1)
-#define _bit_unshift_let(x, b) (((x) << 1) | (!(!(b)))))
-#define _bit_unshift(x, b) (((x) << 1) | (!(!(b)))))
-#define _bit_unshift_0(x) ((x) << 1)
-#define _bit_unshift_1(x) (((x) << 1) | 1)
-#define _bit_first(x) ((x) & 1)
-#define _bit_get_first(x) ((x) & 1)
-#define _bit_let_first(x, b) (((x) & (~(1))) | (!(!(b)))))
-#define _bit_set_first(x) ((x) | 1)
-#define _bit_reset_first(x) ((x) & (~(1)))
-#define _bit_flip_first(x) ((x) ^ 1)
-#define _bit_insert(x, i, b) (((((x) & (~((1 << (i)) - 1))) << 1) | ((x) & ((1 << (i)) - 1))) | ((!(!(b))) << (i)))
-#define _bit_range(x, s, e) (((x) >> (s)) & ((1 << (((e) - (s)) + 1)) - 1))
-#define _bit_get_range(x, s, e) (((x) >> (s)) & ((1 << (((e) - (s)) + 1)) - 1))
-#define _bit_let_range(x, s, e, b) ((!(!(b)))) ? ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s))) : ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s)))))
-#define _bit_set_range(x, s, e) ((x) | (((1 << (((e) - (s)) + 1)) - 1) << (s)))
-#define _bit_reset_range(x, s, e) ((x) & (~(((1 << (((e) - (s)) + 1)) - 1) << (s))))
-#define _bit_flip_range(x, s, e) ((x) ^ (((1 << (((e) - (s)) + 1)) - 1) << (s)))
-#define _bit_shift_range(x, n) ((x) >> (n))
-#define _bit_unshift_let_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
-#define _bit_unshift_range(x, n, b) ((!(!(b)))) ? (((x) << (n)) | ((1 << (n)) - 1)) : ((x) << (n)))
-#define _bit_unshift_0_range(x, n) ((x) << (n))
-#define _bit_unshift_1_range(x, n) (((x) << (n)) | ((1 << (n)) - 1))
-#define _bit_range_first(x, n) ((x) & ((1 << (n)) - 1))
-#define _bit_get_range_first(x, n) ((x) & ((1 << (n)) - 1))
-#define _bit_let_range_first(x, n, b) ((!(!(b)))) ? ((x) | ((1 << (n)) - 1)) : ((x) & (~((1 << (n)) - 1))))
-#define _bit_set_range_first(x, n) ((x) | ((1 << (n)) - 1))
-#define _bit_reset_range_first(x, n) ((x) & (~((1 << (n)) - 1)))
-#define _bit_flip_range_first(x, n) ((x) ^ ((1 << (n)) - 1))
-#define _bit_insert_range(x, s, e, b) (((((x) & (~((1 << (s)) - 1))) << (((e) - (s)) + 1)) | ((x) & ((1 << (s)) - 1))) | ((!(!(b))) ? (((1 << (((e) - (s)) + 1)) - 1) << (s)) : 0))
-#define _bit_merge(x, y) ((x) | (y))
-#define _bit_same(x, y) (~((x) ^ (y)))
-
-
-#undef _boolean
-#undef _in_boolean
-#undef _in_bool
-
-#define _boolean(x) (!(!(x)))
-#define _in_boolean(x) (!(!(x)))
-#define _in_bool(x) (!(!(x)))
-
-
-#undef _pick
-#define _pick(x, t, f) ((!(!(x))) ? (t) : (f))
-
-
 #undef _null
 #undef null
 
@@ -1936,11 +1840,11 @@
 
 #define _true 1
 #define _false 0
-#define true 1
-#define false 0
 #ifdef _cpp
 #define _bool bool
 #else
+#define true 1
+#define false 0
 #ifdef _c99
 #define _bool _Bool
 #else
@@ -1948,91 +1852,6 @@
 #endif
 #define bool _bool
 #endif
-
-
-#undef _bytes
-#undef _char
-#undef _string
-#undef _str
-#undef _ustring
-#undef _ustr
-#undef _cstring
-#undef _cstr
-#undef _custring
-#undef _custr
-
-#define _bytes unsigned char*
-#define _char char
-#define _string char*
-#define _str _string
-#define _ustring unsigned _string
-#define _ustr _ustring
-#define _cstring const _string
-#define _cstr _cstring
-#define _custring const _ustring
-#define _custr _custring
-
-
-#undef _mode_null
-#undef _mode_r
-#undef _mode_rw
-#undef _mode_rx
-#undef _mode_rwx
-#undef _mode_w
-#undef _mode_wx
-#undef _mode_x
-#undef _mode____
-#undef _mode_r__
-#undef _mode_rw_
-#undef _mode_r_x
-#undef _mode_rwx
-#undef _mode__w_
-#undef _mode__wx
-#undef _mode___x
-
-#define _mode_null 0
-#define _mode_r 4
-#define _mode_rw 6
-#define _mode_rx 5
-#define _mode_rwx 7
-#define _mode_w 2
-#define _mode_wx 3
-#define _mode_x 1
-#define _mode____ 0
-#define _mode_r__ 4
-#define _mode_rw_ 6
-#define _mode_r_x 5
-#define _mode_rwx 7
-#define _mode__w_ 2
-#define _mode__wx 3
-#define _mode___x 1
-
-
-#undef _has_mode_read
-#undef _has_mode_write
-#undef _has_mode_exec
-
-#define _has_mode_read(x) (((x) >> 2) & 1)
-#define _has_mode_write(x) (((x) >> 1) & 1)
-#define _has_mode_execute(x) ((x) & 1)
-
-
-#undef _mode_set_read
-#undef _mode_set_write
-#undef _mode_set_execute
-
-#define _mode_set_read(x) ((x) | 4)
-#define _mode_set_write(x) ((x) | 2)
-#define _mode_set_execute(x) ((x) | 1)
-
-
-#undef _mode_let_read
-#undef _mode_let_write
-#undef _mode_let_execute
-
-#define _mode_let_read(x, b) ((x) | (!(!(b))))
-#define _mode_let_write(x, b) ((x) | (!(!(b))))
-#define _mode_let_execute(x, b) ((x) | (!(!(b))))
 
 
 #undef i8
@@ -2102,6 +1921,10 @@
 #define _fmax _f64
 #endif
 #define fmax _fmax
+
+
+#undef _pick
+#define _pick(x, t, f) ((!(!(x))) ? (t) : (f))
 
 
 #undef _concat
